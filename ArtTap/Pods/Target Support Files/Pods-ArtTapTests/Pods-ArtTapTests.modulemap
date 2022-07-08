@@ -1,0 +1,6 @@
+framework module Pods_ArtTapTests {
+  umbrella header "Pods-ArtTapTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,866 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2FCA5E01A16D0B4ACF7497E2 /* Pods_ArtTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B269BC26BAAA8844CEFA381 /* Pods_ArtTap.framework */; };
+		7F384BC4287643C4003F9894 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BC3287643C4003F9894 /* HomeViewController.m */; };
+		7F384BC72876451C003F9894 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BC62876451C003F9894 /* ProfileViewController.m */; };
+		7F384BCA287645D7003F9894 /* NotifViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BC9287645D7003F9894 /* NotifViewController.m */; };
+		7F384BCF28764888003F9894 /* HomePhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BCE28764888003F9894 /* HomePhotoCell.m */; };
+		7F384BD228764D93003F9894 /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BD128764D93003F9894 /* CreateViewController.m */; };
+		7F384BD528764F35003F9894 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BD428764F35003F9894 /* User.m */; };
+		7F384BD828764F41003F9894 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BD728764F41003F9894 /* Post.m */; };
+		7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BDB2876AA78003F9894 /* HomeFeedLayout.m */; };
+		7F384BDF28778120003F9894 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BDE28778120003F9894 /* DetailViewController.m */; };
+		7F384BE228778B5A003F9894 /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE128778B5A003F9894 /* ProfileCell.m */; };
+		7F384BE52878949F003F9894 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE42878949F003F9894 /* EditViewController.m */; };
+		7F384BE8287894A8003F9894 /* InsightsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE7287894A8003F9894 /* InsightsViewController.m */; };
+		7FA726C028763D3500119325 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA726BF28763D3500119325 /* LoginViewController.m */; };
+		7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C028763AE7002FF556 /* AppDelegate.m */; };
+		7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C328763AE7002FF556 /* SceneDelegate.m */; };
+		7FDA60C728763AE7002FF556 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C628763AE7002FF556 /* ViewController.m */; };
+		7FDA60CA28763AE7002FF556 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FDA60C828763AE7002FF556 /* Main.storyboard */; };
+		7FDA60CC28763AE8002FF556 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FDA60CB28763AE8002FF556 /* Assets.xcassets */; };
+		7FDA60CF28763AE8002FF556 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FDA60CD28763AE8002FF556 /* LaunchScreen.storyboard */; };
+		7FDA60D228763AE8002FF556 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60D128763AE8002FF556 /* main.m */; };
+		7FDA60DC28763AE8002FF556 /* ArtTapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60DB28763AE8002FF556 /* ArtTapTests.m */; };
+		7FDA60E628763AE8002FF556 /* ArtTapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60E528763AE8002FF556 /* ArtTapUITests.m */; };
+		7FDA60E828763AE8002FF556 /* ArtTapUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60E728763AE8002FF556 /* ArtTapUITestsLaunchTests.m */; };
+		B8FBC1C0B1AB2B34256C412A /* Pods_ArtTapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */; };
+		C70A6EF0CEDB391957E2E131 /* Pods_ArtTap_ArtTapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7FDA60D828763AE8002FF556 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7FDA60B428763AE7002FF556 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FDA60BB28763AE7002FF556;
+			remoteInfo = ArtTap;
+		};
+		7FDA60E228763AE8002FF556 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7FDA60B428763AE7002FF556 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FDA60BB28763AE7002FF556;
+			remoteInfo = ArtTap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0B269BC26BAAA8844CEFA381 /* Pods_ArtTap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		278C68BA29AECF4A7EC5A873 /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap-ArtTapUITests.debug.xcconfig"; path = "Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3E2204E75A06A8F12C315A2E /* Pods-ArtTap-ArtTapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap-ArtTapUITests.release.xcconfig"; path = "Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests.release.xcconfig"; sourceTree = "<group>"; };
+		569ED851EE11A4DF4F7C6211 /* Pods-ArtTap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap.debug.xcconfig"; path = "Target Support Files/Pods-ArtTap/Pods-ArtTap.debug.xcconfig"; sourceTree = "<group>"; };
+		7F384BC2287643C4003F9894 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		7F384BC3287643C4003F9894 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		7F384BC52876451C003F9894 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		7F384BC62876451C003F9894 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		7F384BC8287645D7003F9894 /* NotifViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifViewController.h; sourceTree = "<group>"; };
+		7F384BC9287645D7003F9894 /* NotifViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifViewController.m; sourceTree = "<group>"; };
+		7F384BCD28764888003F9894 /* HomePhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePhotoCell.h; sourceTree = "<group>"; };
+		7F384BCE28764888003F9894 /* HomePhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePhotoCell.m; sourceTree = "<group>"; };
+		7F384BD028764D93003F9894 /* CreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
+		7F384BD128764D93003F9894 /* CreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
+		7F384BD328764F35003F9894 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		7F384BD428764F35003F9894 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		7F384BD628764F41003F9894 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		7F384BD728764F41003F9894 /* Post.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		7F384BDA2876AA78003F9894 /* HomeFeedLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeFeedLayout.h; sourceTree = "<group>"; };
+		7F384BDB2876AA78003F9894 /* HomeFeedLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeFeedLayout.m; sourceTree = "<group>"; };
+		7F384BDD28778120003F9894 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		7F384BDE28778120003F9894 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		7F384BE028778B5A003F9894 /* ProfileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
+		7F384BE128778B5A003F9894 /* ProfileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
+		7F384BE32878949F003F9894 /* EditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		7F384BE42878949F003F9894 /* EditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
+		7F384BE6287894A8003F9894 /* InsightsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsightsViewController.h; sourceTree = "<group>"; };
+		7F384BE7287894A8003F9894 /* InsightsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsightsViewController.m; sourceTree = "<group>"; };
+		7FA726BE28763D3500119325 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		7FA726BF28763D3500119325 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		7FDA60BC28763AE7002FF556 /* ArtTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FDA60BF28763AE7002FF556 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7FDA60C028763AE7002FF556 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7FDA60C228763AE7002FF556 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		7FDA60C328763AE7002FF556 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		7FDA60C528763AE7002FF556 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		7FDA60C628763AE7002FF556 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		7FDA60C928763AE7002FF556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7FDA60CB28763AE8002FF556 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7FDA60CE28763AE8002FF556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7FDA60D028763AE8002FF556 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7FDA60D128763AE8002FF556 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7FDA60D728763AE8002FF556 /* ArtTapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArtTapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FDA60DB28763AE8002FF556 /* ArtTapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtTapTests.m; sourceTree = "<group>"; };
+		7FDA60E128763AE8002FF556 /* ArtTapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArtTapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FDA60E528763AE8002FF556 /* ArtTapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtTapUITests.m; sourceTree = "<group>"; };
+		7FDA60E728763AE8002FF556 /* ArtTapUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtTapUITestsLaunchTests.m; sourceTree = "<group>"; };
+		842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTap_ArtTapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABB952D7214269D69AC0C691 /* Pods-ArtTapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTapTests.release.xcconfig"; path = "Target Support Files/Pods-ArtTapTests/Pods-ArtTapTests.release.xcconfig"; sourceTree = "<group>"; };
+		B9FC722B36A27AB4A91C97F8 /* Pods-ArtTap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap.release.xcconfig"; path = "Target Support Files/Pods-ArtTap/Pods-ArtTap.release.xcconfig"; sourceTree = "<group>"; };
+		FBCC3B94A5DA09DB6733445C /* Pods-ArtTapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTapTests.debug.xcconfig"; path = "Target Support Files/Pods-ArtTapTests/Pods-ArtTapTests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7FDA60B928763AE7002FF556 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FCA5E01A16D0B4ACF7497E2 /* Pods_ArtTap.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FDA60D428763AE8002FF556 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8FBC1C0B1AB2B34256C412A /* Pods_ArtTapTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FDA60DE28763AE8002FF556 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C70A6EF0CEDB391957E2E131 /* Pods_ArtTap_ArtTapUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0132132931F5FCD11552BA2B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0B269BC26BAAA8844CEFA381 /* Pods_ArtTap.framework */,
+				842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */,
+				8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F384BCB28764845003F9894 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				7F384BD328764F35003F9894 /* User.h */,
+				7F384BD428764F35003F9894 /* User.m */,
+				7F384BD628764F41003F9894 /* Post.h */,
+				7F384BD728764F41003F9894 /* Post.m */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		7F384BCC28764849003F9894 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7F384BCD28764888003F9894 /* HomePhotoCell.h */,
+				7F384BCE28764888003F9894 /* HomePhotoCell.m */,
+				7F384BE028778B5A003F9894 /* ProfileCell.h */,
+				7F384BE128778B5A003F9894 /* ProfileCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7F384BD92876AA65003F9894 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				7F384BDA2876AA78003F9894 /* HomeFeedLayout.h */,
+				7F384BDB2876AA78003F9894 /* HomeFeedLayout.m */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
+		7FA726BD28763D2700119325 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7FA726BE28763D3500119325 /* LoginViewController.h */,
+				7FA726BF28763D3500119325 /* LoginViewController.m */,
+				7F384BDD28778120003F9894 /* DetailViewController.h */,
+				7F384BDE28778120003F9894 /* DetailViewController.m */,
+				7F384BC2287643C4003F9894 /* HomeViewController.h */,
+				7F384BC3287643C4003F9894 /* HomeViewController.m */,
+				7F384BC52876451C003F9894 /* ProfileViewController.h */,
+				7F384BC62876451C003F9894 /* ProfileViewController.m */,
+				7F384BC8287645D7003F9894 /* NotifViewController.h */,
+				7F384BC9287645D7003F9894 /* NotifViewController.m */,
+				7F384BD028764D93003F9894 /* CreateViewController.h */,
+				7F384BD128764D93003F9894 /* CreateViewController.m */,
+				7F384BE32878949F003F9894 /* EditViewController.h */,
+				7F384BE42878949F003F9894 /* EditViewController.m */,
+				7F384BE6287894A8003F9894 /* InsightsViewController.h */,
+				7F384BE7287894A8003F9894 /* InsightsViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		7FDA60B328763AE7002FF556 = {
+			isa = PBXGroup;
+			children = (
+				7FDA60BE28763AE7002FF556 /* ArtTap */,
+				7FDA60DA28763AE8002FF556 /* ArtTapTests */,
+				7FDA60E428763AE8002FF556 /* ArtTapUITests */,
+				7FDA60BD28763AE7002FF556 /* Products */,
+				E1EC5C970EA29CBE70616D71 /* Pods */,
+				0132132931F5FCD11552BA2B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7FDA60BD28763AE7002FF556 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7FDA60BC28763AE7002FF556 /* ArtTap.app */,
+				7FDA60D728763AE8002FF556 /* ArtTapTests.xctest */,
+				7FDA60E128763AE8002FF556 /* ArtTapUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7FDA60BE28763AE7002FF556 /* ArtTap */ = {
+			isa = PBXGroup;
+			children = (
+				7F384BD92876AA65003F9894 /* Layouts */,
+				7F384BCC28764849003F9894 /* Cells */,
+				7F384BCB28764845003F9894 /* Objects */,
+				7FA726BD28763D2700119325 /* ViewControllers */,
+				7FDA60BF28763AE7002FF556 /* AppDelegate.h */,
+				7FDA60C028763AE7002FF556 /* AppDelegate.m */,
+				7FDA60C228763AE7002FF556 /* SceneDelegate.h */,
+				7FDA60C328763AE7002FF556 /* SceneDelegate.m */,
+				7FDA60C528763AE7002FF556 /* ViewController.h */,
+				7FDA60C628763AE7002FF556 /* ViewController.m */,
+				7FDA60C828763AE7002FF556 /* Main.storyboard */,
+				7FDA60CB28763AE8002FF556 /* Assets.xcassets */,
+				7FDA60CD28763AE8002FF556 /* LaunchScreen.storyboard */,
+				7FDA60D028763AE8002FF556 /* Info.plist */,
+				7FDA60D128763AE8002FF556 /* main.m */,
+			);
+			path = ArtTap;
+			sourceTree = "<group>";
+		};
+		7FDA60DA28763AE8002FF556 /* ArtTapTests */ = {
+			isa = PBXGroup;
+			children = (
+				7FDA60DB28763AE8002FF556 /* ArtTapTests.m */,
+			);
+			path = ArtTapTests;
+			sourceTree = "<group>";
+		};
+		7FDA60E428763AE8002FF556 /* ArtTapUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7FDA60E528763AE8002FF556 /* ArtTapUITests.m */,
+				7FDA60E728763AE8002FF556 /* ArtTapUITestsLaunchTests.m */,
+			);
+			path = ArtTapUITests;
+			sourceTree = "<group>";
+		};
+		E1EC5C970EA29CBE70616D71 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				569ED851EE11A4DF4F7C6211 /* Pods-ArtTap.debug.xcconfig */,
+				B9FC722B36A27AB4A91C97F8 /* Pods-ArtTap.release.xcconfig */,
+				278C68BA29AECF4A7EC5A873 /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */,
+				3E2204E75A06A8F12C315A2E /* Pods-ArtTap-ArtTapUITests.release.xcconfig */,
+				FBCC3B94A5DA09DB6733445C /* Pods-ArtTapTests.debug.xcconfig */,
+				ABB952D7214269D69AC0C691 /* Pods-ArtTapTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7FDA60BB28763AE7002FF556 /* ArtTap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FDA60EB28763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTap" */;
+			buildPhases = (
+				97375588389821F5135CCBA8 /* [CP] Check Pods Manifest.lock */,
+				7FDA60B828763AE7002FF556 /* Sources */,
+				7FDA60B928763AE7002FF556 /* Frameworks */,
+				7FDA60BA28763AE7002FF556 /* Resources */,
+				53E578D65B657937DB2F64CD /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ArtTap;
+			productName = ArtTap;
+			productReference = 7FDA60BC28763AE7002FF556 /* ArtTap.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7FDA60D628763AE8002FF556 /* ArtTapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FDA60EE28763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTapTests" */;
+			buildPhases = (
+				9CF636CEBF893FC8E8F7D97B /* [CP] Check Pods Manifest.lock */,
+				7FDA60D328763AE8002FF556 /* Sources */,
+				7FDA60D428763AE8002FF556 /* Frameworks */,
+				7FDA60D528763AE8002FF556 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7FDA60D928763AE8002FF556 /* PBXTargetDependency */,
+			);
+			name = ArtTapTests;
+			productName = ArtTapTests;
+			productReference = 7FDA60D728763AE8002FF556 /* ArtTapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7FDA60E028763AE8002FF556 /* ArtTapUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FDA60F128763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTapUITests" */;
+			buildPhases = (
+				F4087FA90668235C1EF36DBC /* [CP] Check Pods Manifest.lock */,
+				7FDA60DD28763AE8002FF556 /* Sources */,
+				7FDA60DE28763AE8002FF556 /* Frameworks */,
+				7FDA60DF28763AE8002FF556 /* Resources */,
+				4CB246A6DD467E086AC8EF5A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7FDA60E328763AE8002FF556 /* PBXTargetDependency */,
+			);
+			name = ArtTapUITests;
+			productName = ArtTapUITests;
+			productReference = 7FDA60E128763AE8002FF556 /* ArtTapUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7FDA60B428763AE7002FF556 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					7FDA60BB28763AE7002FF556 = {
+						CreatedOnToolsVersion = 13.4;
+					};
+					7FDA60D628763AE8002FF556 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 7FDA60BB28763AE7002FF556;
+					};
+					7FDA60E028763AE8002FF556 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 7FDA60BB28763AE7002FF556;
+					};
+				};
+			};
+			buildConfigurationList = 7FDA60B728763AE7002FF556 /* Build configuration list for PBXProject "ArtTap" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7FDA60B328763AE7002FF556;
+			productRefGroup = 7FDA60BD28763AE7002FF556 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7FDA60BB28763AE7002FF556 /* ArtTap */,
+				7FDA60D628763AE8002FF556 /* ArtTapTests */,
+				7FDA60E028763AE8002FF556 /* ArtTapUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7FDA60BA28763AE7002FF556 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FDA60CF28763AE8002FF556 /* LaunchScreen.storyboard in Resources */,
+				7FDA60CC28763AE8002FF556 /* Assets.xcassets in Resources */,
+				7FDA60CA28763AE7002FF556 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FDA60D528763AE8002FF556 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FDA60DF28763AE8002FF556 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4CB246A6DD467E086AC8EF5A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		53E578D65B657937DB2F64CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97375588389821F5135CCBA8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ArtTap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9CF636CEBF893FC8E8F7D97B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ArtTapTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4087FA90668235C1EF36DBC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ArtTap-ArtTapUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7FDA60B828763AE7002FF556 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F384BCF28764888003F9894 /* HomePhotoCell.m in Sources */,
+				7FDA60C728763AE7002FF556 /* ViewController.m in Sources */,
+				7F384BE8287894A8003F9894 /* InsightsViewController.m in Sources */,
+				7F384BD228764D93003F9894 /* CreateViewController.m in Sources */,
+				7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */,
+				7F384BE52878949F003F9894 /* EditViewController.m in Sources */,
+				7F384BE228778B5A003F9894 /* ProfileCell.m in Sources */,
+				7FDA60D228763AE8002FF556 /* main.m in Sources */,
+				7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */,
+				7F384BD528764F35003F9894 /* User.m in Sources */,
+				7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */,
+				7F384BD828764F41003F9894 /* Post.m in Sources */,
+				7F384BC72876451C003F9894 /* ProfileViewController.m in Sources */,
+				7FA726C028763D3500119325 /* LoginViewController.m in Sources */,
+				7F384BC4287643C4003F9894 /* HomeViewController.m in Sources */,
+				7F384BCA287645D7003F9894 /* NotifViewController.m in Sources */,
+				7F384BDF28778120003F9894 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FDA60D328763AE8002FF556 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FDA60DC28763AE8002FF556 /* ArtTapTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FDA60DD28763AE8002FF556 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FDA60E828763AE8002FF556 /* ArtTapUITestsLaunchTests.m in Sources */,
+				7FDA60E628763AE8002FF556 /* ArtTapUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7FDA60D928763AE8002FF556 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7FDA60BB28763AE7002FF556 /* ArtTap */;
+			targetProxy = 7FDA60D828763AE8002FF556 /* PBXContainerItemProxy */;
+		};
+		7FDA60E328763AE8002FF556 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7FDA60BB28763AE7002FF556 /* ArtTap */;
+			targetProxy = 7FDA60E228763AE8002FF556 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7FDA60C828763AE7002FF556 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7FDA60C928763AE7002FF556 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7FDA60CD28763AE8002FF556 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7FDA60CE28763AE8002FF556 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7FDA60E928763AE8002FF556 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7FDA60EA28763AE8002FF556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7FDA60EC28763AE8002FF556 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 569ED851EE11A4DF4F7C6211 /* Pods-ArtTap.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25G94M7RTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ArtTap/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nbwu.ArtTap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7FDA60ED28763AE8002FF556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9FC722B36A27AB4A91C97F8 /* Pods-ArtTap.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25G94M7RTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ArtTap/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nbwu.ArtTap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7FDA60EF28763AE8002FF556 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBCC3B94A5DA09DB6733445C /* Pods-ArtTapTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25G94M7RTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nbwu.ArtTapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ArtTap.app/ArtTap";
+			};
+			name = Debug;
+		};
+		7FDA60F028763AE8002FF556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABB952D7214269D69AC0C691 /* Pods-ArtTapTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25G94M7RTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nbwu.ArtTapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ArtTap.app/ArtTap";
+			};
+			name = Release;
+		};
+		7FDA60F228763AE8002FF556 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 278C68BA29AECF4A7EC5A873 /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25G94M7RTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nbwu.ArtTapUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ArtTap;
+			};
+			name = Debug;
+		};
+		7FDA60F328763AE8002FF556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E2204E75A06A8F12C315A2E /* Pods-ArtTap-ArtTapUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25G94M7RTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nbwu.ArtTapUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ArtTap;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7FDA60B728763AE7002FF556 /* Build configuration list for PBXProject "ArtTap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FDA60E928763AE8002FF556 /* Debug */,
+				7FDA60EA28763AE8002FF556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FDA60EB28763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FDA60EC28763AE8002FF556 /* Debug */,
+				7FDA60ED28763AE8002FF556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FDA60EE28763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FDA60EF28763AE8002FF556 /* Debug */,
+				7FDA60F028763AE8002FF556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FDA60F128763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTapUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FDA60F228763AE8002FF556 /* Debug */,
+				7FDA60F328763AE8002FF556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7FDA60B428763AE7002FF556 /* Project object */;
+}
