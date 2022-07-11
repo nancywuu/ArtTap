@@ -234,6 +234,7 @@
         cell.image.clipsToBounds = YES;
         [cell.image loadInBackground];
     }
+    cell.date.text = comment.createdAt.shortTimeAgoSinceNow;
     
     return cell;
 }

@@ -8,6 +8,7 @@
 #import "LoginViewController.h"
 //#import "HomeViewController.h"
 #import "Parse/Parse.h"
+#import "User.h"
 
 @interface LoginViewController ()
 @property (nonatomic, strong) UIAlertController *alert;
@@ -41,10 +42,11 @@
 
 - (void)registerUser {
     // initialize a user object
-    PFUser *newUser = [PFUser user];
+    User *newUser = [User user];
     
     // set user properties
     newUser.username = self.usernameField.text;
+    newUser.name = self.usernameField.text;
     //newUser.email = self.emailField.text;
     newUser.password = self.passwordField.text;
     

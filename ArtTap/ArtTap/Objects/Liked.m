@@ -24,10 +24,4 @@
     [newLike saveInBackgroundWithBlock: completion];
 }
 
-+ (void) unfavorite: ( NSString * _Nullable )postID withCompletion: (PFBooleanResultBlock  _Nullable)completion {
-    
-    
-    
-}
-
 @end

@@ -9,6 +9,7 @@
 #import "CHTCollectionViewWaterfallLayout.h"
 #import "Post.h"
 #import "User.h"
+#import "Follower.h"
 @import Parse;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,8 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *bio;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (nonatomic, strong) User *currentUser;
 @property BOOL isFromTimeline;
+@property BOOL isFollowing;
+
+@property (weak, nonatomic) IBOutlet UIButton *followingButton;
+@property (weak, nonatomic) IBOutlet UIButton *followersButton;
 
 @end
 

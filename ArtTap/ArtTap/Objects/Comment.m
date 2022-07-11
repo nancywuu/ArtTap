@@ -11,6 +11,7 @@
 @dynamic postID;
 @dynamic text;
 @dynamic author;
+@dynamic createdAt;
 
 + (nonnull NSString *)parseClassName {
     return @"Comment";
@@ -24,7 +25,6 @@
     newComment.author = user;
     
     [newComment saveInBackgroundWithBlock:completion];
-    
 }
 
 

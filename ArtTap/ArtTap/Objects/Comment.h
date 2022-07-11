@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Comment : PFObject<PFSubclassing>
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) User *author;
 
 + (void) postComment: ( NSString * _Nullable )post withUser: ( User * _Nullable )user withText: ( NSString * _Nullable )text withCompletion: (PFBooleanResultBlock  _Nullable)completion;

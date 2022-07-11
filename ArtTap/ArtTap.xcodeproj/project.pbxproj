@@ -23,6 +23,9 @@
 		7F384BEE2878FA1F003F9894 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BED2878FA1F003F9894 /* Comment.m */; };
 		7F384BF1287C8FE2003F9894 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BF0287C8FE2003F9894 /* CommentCell.m */; };
 		7F384BF4287C9619003F9894 /* Liked.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BF3287C9619003F9894 /* Liked.m */; };
+		7F384BF7287CA6AD003F9894 /* Follower.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BF6287CA6AD003F9894 /* Follower.m */; };
+		7F384BFA287CCDAA003F9894 /* FollowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BF9287CCDAA003F9894 /* FollowListViewController.m */; };
+		7F384BFD287CD60C003F9894 /* FollowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BFC287CD60C003F9894 /* FollowTableViewCell.m */; };
 		7FA726C028763D3500119325 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA726BF28763D3500119325 /* LoginViewController.m */; };
 		7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C028763AE7002FF556 /* AppDelegate.m */; };
 		7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C328763AE7002FF556 /* SceneDelegate.m */; };
@@ -90,6 +93,12 @@
 		7F384BF0287C8FE2003F9894 /* CommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7F384BF2287C9619003F9894 /* Liked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Liked.h; sourceTree = "<group>"; };
 		7F384BF3287C9619003F9894 /* Liked.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Liked.m; sourceTree = "<group>"; };
+		7F384BF5287CA6AD003F9894 /* Follower.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Follower.h; sourceTree = "<group>"; };
+		7F384BF6287CA6AD003F9894 /* Follower.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Follower.m; sourceTree = "<group>"; };
+		7F384BF8287CCDAA003F9894 /* FollowListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowListViewController.h; sourceTree = "<group>"; };
+		7F384BF9287CCDAA003F9894 /* FollowListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowListViewController.m; sourceTree = "<group>"; };
+		7F384BFB287CD60C003F9894 /* FollowTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowTableViewCell.h; sourceTree = "<group>"; };
+		7F384BFC287CD60C003F9894 /* FollowTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowTableViewCell.m; sourceTree = "<group>"; };
 		7FA726BE28763D3500119325 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7FA726BF28763D3500119325 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7FDA60BC28763AE7002FF556 /* ArtTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +174,8 @@
 				7F384BD728764F41003F9894 /* Post.m */,
 				7F384BF2287C9619003F9894 /* Liked.h */,
 				7F384BF3287C9619003F9894 /* Liked.m */,
+				7F384BF5287CA6AD003F9894 /* Follower.h */,
+				7F384BF6287CA6AD003F9894 /* Follower.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -178,6 +189,8 @@
 				7F384BEA2878E572003F9894 /* ProfileTableViewCell.m */,
 				7F384BEF287C8FE2003F9894 /* CommentCell.h */,
 				7F384BF0287C8FE2003F9894 /* CommentCell.m */,
+				7F384BFB287CD60C003F9894 /* FollowTableViewCell.h */,
+				7F384BFC287CD60C003F9894 /* FollowTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -206,6 +219,8 @@
 				7F384BC9287645D7003F9894 /* NotifViewController.m */,
 				7F384BD028764D93003F9894 /* CreateViewController.h */,
 				7F384BD128764D93003F9894 /* CreateViewController.m */,
+				7F384BF8287CCDAA003F9894 /* FollowListViewController.h */,
+				7F384BF9287CCDAA003F9894 /* FollowListViewController.m */,
 				7F384BE32878949F003F9894 /* EditViewController.h */,
 				7F384BE42878949F003F9894 /* EditViewController.m */,
 				7F384BE6287894A8003F9894 /* InsightsViewController.h */,
@@ -533,7 +548,9 @@
 				7F384BD228764D93003F9894 /* CreateViewController.m in Sources */,
 				7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */,
 				7F384BE52878949F003F9894 /* EditViewController.m in Sources */,
+				7F384BFA287CCDAA003F9894 /* FollowListViewController.m in Sources */,
 				7FDA60D228763AE8002FF556 /* main.m in Sources */,
+				7F384BF7287CA6AD003F9894 /* Follower.m in Sources */,
 				7F384BEE2878FA1F003F9894 /* Comment.m in Sources */,
 				7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */,
 				7F384BD528764F35003F9894 /* User.m in Sources */,
@@ -541,6 +558,7 @@
 				7F384BD828764F41003F9894 /* Post.m in Sources */,
 				7F384BC72876451C003F9894 /* ProfileViewController.m in Sources */,
 				7FA726C028763D3500119325 /* LoginViewController.m in Sources */,
+				7F384BFD287CD60C003F9894 /* FollowTableViewCell.m in Sources */,
 				7F384BF4287C9619003F9894 /* Liked.m in Sources */,
 				7F384BC4287643C4003F9894 /* HomeViewController.m in Sources */,
 				7F384BEB2878E572003F9894 /* ProfileTableViewCell.m in Sources */,

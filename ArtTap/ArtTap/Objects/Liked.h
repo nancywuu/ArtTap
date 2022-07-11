@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void) favorite: ( NSString * _Nullable )postID withUser: ( NSString * _Nullable )userID withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
-+ (void) unfavorite: ( NSString * _Nullable )postID withCompletion: (PFBooleanResultBlock  _Nullable)completion;
-
 @end
 
 NS_ASSUME_NONNULL_END
