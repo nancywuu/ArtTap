@@ -19,8 +19,8 @@
     self.usernameField.delegate = self;
     self.nameField.delegate = self;
     self.bioField.delegate = self;
-    //self.profileImage.image = self.currentImage;
-    // Do any additional setup after loading the view.
+    self.profileImage.image = self.currentProfileImage;
+    self.backgroundImage.image = self.currentBackgroundImage;
 }
 - (IBAction)didClickDone:(id)sender {
     if([self.usernameField.text isEqualToString:@""] && [self.nameField.text isEqualToString:@""] &&

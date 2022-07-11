@@ -17,9 +17,12 @@
 		7F384BD828764F41003F9894 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BD728764F41003F9894 /* Post.m */; };
 		7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BDB2876AA78003F9894 /* HomeFeedLayout.m */; };
 		7F384BDF28778120003F9894 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BDE28778120003F9894 /* DetailViewController.m */; };
-		7F384BE228778B5A003F9894 /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE128778B5A003F9894 /* ProfileCell.m */; };
 		7F384BE52878949F003F9894 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE42878949F003F9894 /* EditViewController.m */; };
 		7F384BE8287894A8003F9894 /* InsightsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE7287894A8003F9894 /* InsightsViewController.m */; };
+		7F384BEB2878E572003F9894 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BEA2878E572003F9894 /* ProfileTableViewCell.m */; };
+		7F384BEE2878FA1F003F9894 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BED2878FA1F003F9894 /* Comment.m */; };
+		7F384BF1287C8FE2003F9894 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BF0287C8FE2003F9894 /* CommentCell.m */; };
+		7F384BF4287C9619003F9894 /* Liked.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BF3287C9619003F9894 /* Liked.m */; };
 		7FA726C028763D3500119325 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA726BF28763D3500119325 /* LoginViewController.m */; };
 		7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C028763AE7002FF556 /* AppDelegate.m */; };
 		7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C328763AE7002FF556 /* SceneDelegate.m */; };
@@ -75,12 +78,18 @@
 		7F384BDB2876AA78003F9894 /* HomeFeedLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeFeedLayout.m; sourceTree = "<group>"; };
 		7F384BDD28778120003F9894 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		7F384BDE28778120003F9894 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		7F384BE028778B5A003F9894 /* ProfileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
-		7F384BE128778B5A003F9894 /* ProfileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
 		7F384BE32878949F003F9894 /* EditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		7F384BE42878949F003F9894 /* EditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		7F384BE6287894A8003F9894 /* InsightsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsightsViewController.h; sourceTree = "<group>"; };
 		7F384BE7287894A8003F9894 /* InsightsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsightsViewController.m; sourceTree = "<group>"; };
+		7F384BE92878E572003F9894 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
+		7F384BEA2878E572003F9894 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
+		7F384BEC2878FA1F003F9894 /* Comment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		7F384BED2878FA1F003F9894 /* Comment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		7F384BEF287C8FE2003F9894 /* CommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		7F384BF0287C8FE2003F9894 /* CommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		7F384BF2287C9619003F9894 /* Liked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Liked.h; sourceTree = "<group>"; };
+		7F384BF3287C9619003F9894 /* Liked.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Liked.m; sourceTree = "<group>"; };
 		7FA726BE28763D3500119325 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7FA726BF28763D3500119325 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7FDA60BC28763AE7002FF556 /* ArtTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,8 +159,12 @@
 			children = (
 				7F384BD328764F35003F9894 /* User.h */,
 				7F384BD428764F35003F9894 /* User.m */,
+				7F384BEC2878FA1F003F9894 /* Comment.h */,
+				7F384BED2878FA1F003F9894 /* Comment.m */,
 				7F384BD628764F41003F9894 /* Post.h */,
 				7F384BD728764F41003F9894 /* Post.m */,
+				7F384BF2287C9619003F9894 /* Liked.h */,
+				7F384BF3287C9619003F9894 /* Liked.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -161,8 +174,10 @@
 			children = (
 				7F384BCD28764888003F9894 /* HomePhotoCell.h */,
 				7F384BCE28764888003F9894 /* HomePhotoCell.m */,
-				7F384BE028778B5A003F9894 /* ProfileCell.h */,
-				7F384BE128778B5A003F9894 /* ProfileCell.m */,
+				7F384BE92878E572003F9894 /* ProfileTableViewCell.h */,
+				7F384BEA2878E572003F9894 /* ProfileTableViewCell.m */,
+				7F384BEF287C8FE2003F9894 /* CommentCell.h */,
+				7F384BF0287C8FE2003F9894 /* CommentCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -514,18 +529,21 @@
 				7F384BCF28764888003F9894 /* HomePhotoCell.m in Sources */,
 				7FDA60C728763AE7002FF556 /* ViewController.m in Sources */,
 				7F384BE8287894A8003F9894 /* InsightsViewController.m in Sources */,
+				7F384BF1287C8FE2003F9894 /* CommentCell.m in Sources */,
 				7F384BD228764D93003F9894 /* CreateViewController.m in Sources */,
 				7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */,
 				7F384BE52878949F003F9894 /* EditViewController.m in Sources */,
-				7F384BE228778B5A003F9894 /* ProfileCell.m in Sources */,
 				7FDA60D228763AE8002FF556 /* main.m in Sources */,
+				7F384BEE2878FA1F003F9894 /* Comment.m in Sources */,
 				7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */,
 				7F384BD528764F35003F9894 /* User.m in Sources */,
 				7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */,
 				7F384BD828764F41003F9894 /* Post.m in Sources */,
 				7F384BC72876451C003F9894 /* ProfileViewController.m in Sources */,
 				7FA726C028763D3500119325 /* LoginViewController.m in Sources */,
+				7F384BF4287C9619003F9894 /* Liked.m in Sources */,
 				7F384BC4287643C4003F9894 /* HomeViewController.m in Sources */,
+				7F384BEB2878E572003F9894 /* ProfileTableViewCell.m in Sources */,
 				7F384BCA287645D7003F9894 /* NotifViewController.m in Sources */,
 				7F384BDF28778120003F9894 /* DetailViewController.m in Sources */,
 			);

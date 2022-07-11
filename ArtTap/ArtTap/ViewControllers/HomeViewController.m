@@ -8,6 +8,7 @@
 #import "HomeViewController.h"
 #import "ProfileViewController.h"
 #import "CHTCollectionViewWaterfallLayout.h"
+#import "MBProgressHUD/MBProgressHUD.h"
 #import "DetailViewController.h"
 #import "CreateViewController.h"
 #import "UIImageView+AFNetworking.h"
@@ -30,6 +31,7 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self makeQuery];
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(makeQuery) forControlEvents:UIControlEventValueChanged];
     [self.collectionView insertSubview:self.refreshControl atIndex:0];
@@ -48,25 +50,13 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     PFFileObject *temp = self.postArray[indexPath.row][@"image"];
-    NSLog(@"%@", temp.url);
-    
-    [temp getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-        if(error == nil) {
-//            self.tempImage = [UIImage imageWithData:data];
-            self.tempImage = [UIImage imageWithData:data];
-//            width = image.size.width;
-//            height = image.size.height;
-            NSLog(@"%lf", self.tempImage.size.width);
-            NSLog(@"%lf", self.tempImage.size.height);
-            NSLog(@"Image loaded");
-            return CGSizeMake(self.tempImage.size.width, self.tempImage.size.height);
-        } else {
-            NSLog(@"Error loading image");
-        }
-    }];
-    NSLog(@"%lf", self.tempImage.size.width);
-    NSLog(@"%lf", self.tempImage.size.height);
-    return CGSizeMake(400, 600);
+    //NSLog(@"%@", temp.url);
+    NSData *data = [temp getData];
+    self.tempImage = [UIImage imageWithData:data];
+
+    //NSLog(@"%lf", self.tempImage.size.width);
+    //NSLog(@"%lf", self.tempImage.size.height);
+    return CGSizeMake(772, 960);
 }
 
 - (void) didPost {

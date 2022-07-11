@@ -6,10 +6,11 @@
 //
 
 #import "ProfileViewController.h"
+#import "EditViewController.h"
 #import "DetailViewController.h"
-#import "ProfileCell.h"
+#import "ProfileTableViewCell.h"
 
-@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
+@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, EditViewDelegate>
 @property (nonatomic, strong) NSArray *postArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -28,18 +29,18 @@
     } else {
         NSLog(@"from timeline");
     }
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     NSLog(@"%@", self.currentUser.username);
 
     [self fetchProfile];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchProfile) forControlEvents:UIControlEventValueChanged];
-    [self.collectionView insertSubview:self.refreshControl atIndex:0];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void) fetchProfile {
-    self.username.text = self.currentUser.username;
+    self.username.text = [@"@" stringByAppendingString:self.currentUser.username];
     self.name.text = self.currentUser.name;
     self.bio.text = self.currentUser.bio;
 
@@ -66,7 +67,7 @@
         if (posts != nil) {
             self.postArray = posts;
             NSLog(@"refresh makequery triggered");
-            [self.collectionView reloadData];
+            [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -74,26 +75,13 @@
     [self.refreshControl endRefreshing];
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    PFFileObject *temp = self.postArray[indexPath.row][@"image"];
-    NSLog(@"%@", temp.url);
-
-    //NSURL *url = [NSURL URLWithString:temp.url];
-
-//    [self.tempImage setImageWithURL:url];
-//    NSLog(@"%lf", self.tempImage.image.size.width);
-//    NSLog(@"%lf", self.tempImage.image.size.height);
-    return CGSizeMake(400, 700);
-}
-
-
 - (void) didEdit {
     [self fetchProfile];
 }
 
-- (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //NSLog(@"ahhh collect cell");
-    ProfileCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"profileCell" forIndexPath:indexPath];
+    ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell" forIndexPath:indexPath];
     cell.post = self.postArray[indexPath.row];
     cell.image.file = self.postArray[indexPath.row][@"image"];
     
@@ -102,7 +90,11 @@
     return cell;
 }
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.postArray.count;
 }
 
@@ -121,11 +113,16 @@
 //        composeVC.delegate = self;
 //    }
     if([segue.identifier isEqualToString:@"detailFromProfileSegue"]){
-        ProfileCell *cell = sender;
-        NSIndexPath *path = [self.collectionView indexPathForCell:cell];
+        ProfileTableViewCell *cell = sender;
+        NSIndexPath *path = [self.tableView indexPathForCell:cell];
         Post *dataToPass = self.postArray[path.row];
         DetailViewController *detailVC = [segue destinationViewController];
         detailVC.obj = dataToPass;
+    } else if ([segue.identifier isEqualToString:@"editSegue"]){
+        EditViewController *editVC = [segue destinationViewController];
+        editVC.delegate = self;
+        editVC.currentProfileImage = self.profileImg.image;
+        editVC.currentBackgroundImage = self.backgroundImg.image;
     }
 }
 
