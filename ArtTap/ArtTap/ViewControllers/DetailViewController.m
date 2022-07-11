@@ -21,6 +21,9 @@
 @end
 
 @implementation DetailViewController
+- (IBAction)segChanged:(id)sender {
+    [self fetchComments];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -135,8 +138,17 @@
 }
 
 - (IBAction)didComment:(id)sender {
+    BOOL temp = YES;
+    NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
+    if([title isEqualToString:@"Comments"]){
+        temp = NO;
+    } else {
+        temp = YES;
+    }
+    
+    
     if(![self.commentField.text isEqualToString:@""]){
-        [Comment postComment:self.obj.objectId withUser:User.currentUser withText:self.commentField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Comment postComment:self.obj.objectId withUser:User.currentUser withText:self.commentField.text withBool:temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error posting: %@", error.localizedDescription);
              }
@@ -206,9 +218,23 @@
     [query includeKey:@"postID"];
     [query includeKey:@"createdAt"];
     [query includeKey:@"author"];
+    [query includeKey:@"critBool"];
     [query orderByDescending:(@"createdAt")];
     [query whereKey:@"postID" equalTo: self.obj.objectId];
     query.limit = 20;
+    
+    // check if original user allowed for crits
+    if(!self.obj.critBool){
+        [self.segCon removeSegmentAtIndex:1 animated:NO];
+    } else {
+        // crits allowed? check which is selected by segmented control
+        NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
+        if([title isEqualToString:@"Comments"]){
+            [query whereKey:@"critBool" equalTo: [NSNumber numberWithBool:NO]];
+        } else {
+            [query whereKey:@"critBool" equalTo: [NSNumber numberWithBool:YES]];
+        }
+    }
 
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *comments, NSError *error) {

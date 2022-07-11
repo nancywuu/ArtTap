@@ -520,6 +520,9 @@
                                                 <segment title="Comments"/>
                                                 <segment title="Critiques"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="segChanged:" destination="SOV-sc-HhP" eventType="valueChanged" id="g6H-9j-gL9"/>
+                                            </connections>
                                         </segmentedControl>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -603,6 +606,7 @@
                         <outlet property="name" destination="G0j-U9-dh3" id="h7z-H7-MDz"/>
                         <outlet property="postImage" destination="OLQ-rY-1v8" id="uWN-fs-fhT"/>
                         <outlet property="profileImage" destination="B11-wK-jni" id="omH-qk-3le"/>
+                        <outlet property="segCon" destination="gv4-5N-bF6" id="8aq-c6-zLo"/>
                         <outlet property="tableView" destination="Rpy-XP-lMw" id="EPe-gH-DhP"/>
                         <outlet property="username" destination="FCS-V4-TBm" id="RbQ-ZS-Iue"/>
                         <segue destination="mUd-VA-n3Q" kind="show" identifier="profileSegue" id="bym-h3-3ic"/>
@@ -669,7 +673,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo.artframe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRS-o6-7bh">
-                                <rect key="frame" x="20" y="83" width="193" height="240"/>
+                                <rect key="frame" x="20" y="83" width="193" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="systemGray3Color"/>
                             </imageView>
@@ -710,6 +714,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="captionField" destination="brj-B7-gjq" id="Rug-zb-e6A"/>
+                        <outlet property="critSwitch" destination="Iuw-ob-z9M" id="a9S-5u-5N9"/>
                         <outlet property="displayImage" destination="PRS-o6-7bh" id="nyZ-8D-Uyq"/>
                     </connections>
                 </viewController>

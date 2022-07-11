@@ -13,10 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didPost;
 @end
 
-@interface CreateViewController : UIViewController
+@interface CreateViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, weak) id<CreateViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextView *captionField;
 @property (weak, nonatomic) IBOutlet UIImageView *displayImage;
+@property (weak, nonatomic) IBOutlet UISwitch *critSwitch;
 
 @property (nonatomic, strong) UICollectionViewLayoutAttributes *cache;
 //@property (nonatomic, strong) CGFloat *columnHeight;

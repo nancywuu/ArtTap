@@ -17,10 +17,12 @@
 #import "Post.h"
 #import "DateTools.h"
 
-@interface HomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateViewControllerDelegate, CHTCollectionViewDelegateWaterfallLayout>
+@interface HomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateViewControllerDelegate, CHTCollectionViewDelegateWaterfallLayout, UIScrollViewDelegate>
 @property (nonatomic, strong) NSArray *postArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) UIImage *tempImage;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
+@property (nonatomic) int postCount;
 
 @end
 
@@ -28,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.postCount = 8;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self makeQuery];
@@ -71,7 +74,7 @@
     [query includeKey:@"likeCount"];
     [query includeKey:@"commentCount"];
     [query orderByDescending:(@"createdAt")];
-    //query.limit = self.postCount;
+    query.limit = self.postCount;
 
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
@@ -109,6 +112,28 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.postArray.count;
+}
+
+// INFINITE SCROLLING
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if(!self.isMoreDataLoading){
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.collectionView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.collectionView.bounds.size.height;
+        
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.collectionView.isDragging) {
+            self.isMoreDataLoading = true;
+            [self makeQuery];
+        }
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row + 1 == [self.postArray count]){
+        self.postCount += 8;
+        [self makeQuery];
+    }
 }
 
 

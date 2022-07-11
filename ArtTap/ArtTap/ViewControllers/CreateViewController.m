@@ -20,7 +20,7 @@
     self.caption = self.captionField.text;
     if(self.displayImage != nil){
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [Post postUserImage:self.chosenImage withCaption:self.caption withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Post postUserImage:self.chosenImage withCaption:self.caption withBool:self.critSwitch.isOn withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error posting: %@", error.localizedDescription);
              }
