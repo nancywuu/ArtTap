@@ -19,11 +19,14 @@
 @property (nonatomic, strong) PFFileObject *image;
 @property (nonatomic, strong) NSNumber *likeCount;
 @property (nonatomic, strong) NSNumber *commentCount;
+@property (nonatomic, strong) NSNumber *numViews;
 @property BOOL critBool;
 
 + (void) postUserImage: ( UIImage * _Nullable )image withCaption: ( NSString * _Nullable )caption withBool: (BOOL)critBool withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 + (void) favorite: (Post * _Nullable)post withValue: ( NSNumber * _Nullable )value withCompletion: (PFBooleanResultBlock _Nullable)completion;
+
++ (void) viewed: (Post * _Nullable)post withCompletion: (PFBooleanResultBlock _Nullable)completion;
 
 + (void) comment: (Post * _Nullable)post withValue: ( NSNumber * _Nullable )value withCompletion: (PFBooleanResultBlock _Nullable)completion;
 

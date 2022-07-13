@@ -11,6 +11,7 @@
 #import "Liked.h"
 #import "CommentCell.h"
 #import "ProfileViewController.h"
+#import "AnalyticsViewController.h"
 #import "DateTools.h"
 
 @interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
@@ -29,9 +30,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view
     
+    // update post views
+    [Post viewed:self.obj withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+         if(error){
+              NSLog(@"Error updating post views: %@", error.localizedDescription);
+         } else {
+             NSLog(@"Successfully updated post views: %@", self.obj.numViews);
+         }
+    }];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    //self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = 80;
     
     UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
     [self.profileImage addGestureRecognizer:profileTapGestureRecognizer];
@@ -49,6 +60,8 @@
     //[self.delegate homeTableCell:self didTap:self.post.author];
     [self performSegueWithIdentifier:@"profileSegue" sender:self.obj.author];
 }
+
+
 
 - (void) visUnlike {
     self.liked = NO;
@@ -286,6 +299,9 @@
         ProfileViewController *profileViewController = [segue destinationViewController];
         profileViewController.isFromTimeline = YES;
         profileViewController.currentUser = temp;
+    } else if (([segue.identifier isEqualToString:@"analytics"])){
+        AnalyticsViewController *analyticsVC = [segue destinationViewController];
+        analyticsVC.post = self.obj;
     }
 }
 

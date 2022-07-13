@@ -16,6 +16,7 @@
 @dynamic bio;
 @dynamic backgroundPic;
 
+
 + (void) updateUser: ( UIImage * _Nullable )image withBackground: (UIImage * _Nullable )bgImage withName: ( NSString * _Nullable )name withUsername: ( NSString * _Nullable )username withBio: (NSString * _Nullable)bio withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     
     User *user = User.currentUser;

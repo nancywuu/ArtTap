@@ -33,7 +33,8 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    NSLog(@"%@", self.currentUser.username);
+    //self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = 300;
 
     [self fetchProfile];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -73,7 +74,6 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.postArray = posts;
-            NSLog(@"refresh makequery triggered");
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -138,7 +138,7 @@
     if(self.isFollowing){
         // unfollow
         self.isFollowing = NO;
-        self.followButton.backgroundColor = [UIColor systemBlueColor];
+        //self.followButton.backgroundColor = [UIColor systemBlueColor];
         [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
         
         PFQuery *query = [PFQuery queryWithClassName:@"Follower"];
@@ -167,7 +167,7 @@
     } else {
         // follow
         self.isFollowing = YES;
-        self.followButton.backgroundColor = [UIColor blackColor];
+        //self.followButton.backgroundColor = [UIColor blackColor];
         [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         
         [Follower follow:self.currentUser withFollower:User.currentUser withCompletion:^(BOOL succeeded, NSError * _Nullable error) {

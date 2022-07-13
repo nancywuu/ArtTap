@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.postCount = 8;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -39,6 +40,7 @@
     [self.refreshControl addTarget:self action:@selector(makeQuery) forControlEvents:UIControlEventValueChanged];
     [self.collectionView insertSubview:self.refreshControl atIndex:0];
 }
+
 
 - (IBAction)didLogout:(id)sender {
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
