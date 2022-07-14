@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Post.h"
+@import Charts;
 
 NS_ASSUME_NONNULL_BEGIN
 

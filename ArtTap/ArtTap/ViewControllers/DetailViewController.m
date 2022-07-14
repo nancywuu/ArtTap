@@ -11,9 +11,9 @@
 #import "Liked.h"
 #import "CommentCell.h"
 #import "ProfileViewController.h"
-#import "AnalyticsViewController.h"
 #import "DateTools.h"
 #import "Notifications.h"
+#import "ArtTap-Swift.h"
 
 @interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
@@ -353,6 +353,19 @@
     return self.commentArray.count;
 }
 
+// methods for arranging dates for post analysis
+
++ (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate
+{
+    if ([date compare:beginDate] == NSOrderedAscending)
+        return NO;
+
+    if ([date compare:endDate] == NSOrderedDescending)
+        return NO;
+
+    return YES;
+}
+
 
 #pragma mark - Navigation
 
@@ -366,8 +379,33 @@
         profileViewController.isFromTimeline = YES;
         profileViewController.currentUser = temp;
     } else if (([segue.identifier isEqualToString:@"analytics"])){
-        AnalyticsViewController *analyticsVC = [segue destinationViewController];
-        analyticsVC.post = self.obj;
+        
+        GraphViewController *graphVC = [segue destinationViewController];
+        graphVC.post = self.obj;
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+        [query includeKey:@"postID"];
+        [query includeKey:@"userID"];
+        [query includeKey:@"isEngage"];
+        [query includeKey:@"createdAt"];
+        [query whereKey:@"postID" equalTo: self.obj.objectId];
+        [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:YES]];
+
+        [query findObjectsInBackgroundWithBlock:^(NSArray *res, NSError *error) {
+            if (res != nil) {
+                //graphVC.engageArray = res;
+                for(int i = 0; i < res.count; i++){
+                    Liked *temp = res[i];
+                    NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+                    NSLog(@"%lu", hours);
+                    //graphVC.dataArray[hours] = [NSNumber numberWithInteger:[graphVC.dataArray[hours] integerValue] + 1];
+                }
+                graphVC.engageCount.text = [NSString stringWithFormat: @"%lu%s", res.count, " users engaged" ];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
+        
     }
 }
 

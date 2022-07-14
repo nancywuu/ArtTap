@@ -7,8 +7,13 @@
 
 #import "AnalyticsViewController.h"
 
-@interface AnalyticsViewController ()
+@interface AnalyticsViewController () <ChartViewDelegate>
 @property (nonatomic, strong) NSArray *engageArray;
+@property (nonatomic, strong) IBOutlet LineChartView *chartView;
+@property (nonatomic, strong) IBOutlet UISlider *sliderX;
+@property (nonatomic, strong) IBOutlet UISlider *sliderY;
+@property (nonatomic, strong) IBOutlet UITextField *sliderTextX;
+@property (nonatomic, strong) IBOutlet UITextField *sliderTextY;
 
 @end
 
@@ -20,7 +25,11 @@
     
     self.views.text = [NSString stringWithFormat: @"%@%s", self.post.numViews, " views" ];
     self.likes.text = [NSString stringWithFormat: @"%@%s", self.post.likeCount, " likes" ];
+    [self fetchData];
     
+}
+
+- (void)fetchData {
     PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
     [query includeKey:@"postID"];
     [query includeKey:@"userID"];
@@ -36,10 +45,6 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-}
-
-- (void)fetchData {
-    
 }
 
 /*

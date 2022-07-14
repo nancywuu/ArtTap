@@ -53,7 +53,7 @@
     PFFileObject *temp = self.postArray[indexPath.row][@"image"];
     NSData *data = [temp getData];
     self.tempImage = [UIImage imageWithData:data];
-    return CGSizeMake(772, 960);
+    return CGSizeMake(self.tempImage.size.width, self.tempImage.size.height);
 }
 
 - (void) didPost {

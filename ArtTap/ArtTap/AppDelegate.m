@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
+@import ParseSwift;
 
 @interface AppDelegate ()
 

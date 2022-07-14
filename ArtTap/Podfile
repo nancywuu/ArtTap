@@ -7,11 +7,14 @@ target 'ArtTap' do
 
   # Pods for ArtTap
   pod 'Parse'
+  pod 'ParseSwift'
   pod 'Parse/UI'
   pod 'DateTools'
   pod 'MBProgressHUD'
   pod 'AFNetworking'
   pod 'CHTCollectionViewWaterfallLayout/ObjC'
+  pod 'Charts'
+  pod 'TinyConstraints'
 
   target 'ArtTapTests' do
     inherit! :search_paths
