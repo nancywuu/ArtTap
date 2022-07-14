@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 #import "FollowListViewController.h"
 #import "ProfileTableViewCell.h"
+#import "Notifications.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, EditViewDelegate>
 @property (nonatomic, strong) NSArray *postArray;
@@ -177,6 +178,15 @@
                  NSLog(@"Successfully followed user: %@", self.currentUser.objectId);
                 [self loadFollowers];
             }
+        }];
+        
+        [Notifications notif:nil withAuthor:self.currentUser withType:@(3) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error){
+                  NSLog(@"Error posting: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully send like notif");
+             }
         }];
     }
     [self loadFollowers];

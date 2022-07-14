@@ -13,6 +13,7 @@
 #import "ProfileViewController.h"
 #import "AnalyticsViewController.h"
 #import "DateTools.h"
+#import "Notifications.h"
 
 @interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
@@ -30,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view
     
+    [self checkEngage];
     // update post views
     [Post viewed:self.obj withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
          if(error){
@@ -41,7 +43,6 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    //self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.rowHeight = 80;
     
     UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
@@ -55,13 +56,32 @@
 }
 
 - (void) didTapUserProfile:(UITapGestureRecognizer *)sender{
-    //TODO: Call method delegate
-    NSLog(@"TAPPED user profile");
-    //[self.delegate homeTableCell:self didTap:self.post.author];
     [self performSegueWithIdentifier:@"profileSegue" sender:self.obj.author];
 }
 
+- (void) checkEngage {
+    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+    [query includeKey:@"postID"];
+    [query includeKey:@"userID"];
+    [query orderByDescending:(@"createdAt")];
+    [query whereKey:@"postID" equalTo: self.obj.objectId];
+    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
+    [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:YES]];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable engage, NSError * _Nullable error) {
+        if (engage == nil) {
+            [Liked favorite:self.obj.objectId withUser:User.currentUser.objectId withDef:YES withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error){
+                    NSLog(@"Error boolean liking: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"Successfully updated boolean like count: %@", self.obj.likeCount);
+                }
+            }];
+        }
+    }];
 
+    
+}
 
 - (void) visUnlike {
     self.liked = NO;
@@ -94,7 +114,6 @@
     
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable like, NSError * _Nullable error) {
         if (like != nil) {
-            NSLog(@"found a like obj, trying to delete");
             [like deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"succeeded in deleting like boolean obj");
@@ -103,7 +122,6 @@
                 }
             }];
         } else {
-            NSLog(@"none found or error");
             NSLog(@"%@", error.localizedDescription);
         }
     }];
@@ -130,7 +148,7 @@
          }
     }];
     
-    [Liked favorite:self.obj.objectId withUser:User.currentUser.objectId withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Liked favorite:self.obj.objectId withUser:User.currentUser.objectId withDef:NO withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error){
               NSLog(@"Error boolean liking: %@", error.localizedDescription);
         } else {
@@ -147,16 +165,26 @@
         
     } else {
         [self visLike];
+        [Notifications notif:self.obj withAuthor:self.obj.author withType:@(2) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error){
+                  NSLog(@"Error posting: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully send like notif");
+             }
+        }];
     }
 }
 
 - (IBAction)didComment:(id)sender {
     BOOL temp = YES;
+    NSNumber *typeTemp = @(0);
     NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
     if([title isEqualToString:@"Comments"]){
         temp = NO;
     } else {
         temp = YES;
+        typeTemp = @(1);
     }
     
     
@@ -171,7 +199,6 @@
                  
                  int temp = [self.obj.commentCount intValue];
                  self.obj.commentCount = [NSNumber numberWithInt:temp + 1];
-                 self.commentField.text = @"";
                  [Post comment:self.obj withValue:self.obj.commentCount withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                      if(error){
                            NSLog(@"Error posting: %@", error.localizedDescription);
@@ -180,21 +207,36 @@
                           NSLog(@"Successfully updated comment count: %@", self.obj.commentCount);
                       }
                  }];
+                 
+                 [Notifications notif:self.obj withAuthor:self.obj.author withType:typeTemp withText:self.commentField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                     if(error){
+                           NSLog(@"Error posting: %@", error.localizedDescription);
+                      }
+                      else{
+                          NSLog(@"Successfully updated comment count: %@", self.obj.commentCount);
+                      }
+                 }];
+                 self.commentField.text = @"";
+                 
+                 
              }
         }];
     }
 }
 
 - (void)setDetails {
-    self.username.text = self.obj.author.username;
+    
+//    self.username.text = self.obj.author.username;
+//
+//    User *temp = self.obj.author;
+//    self.username.text = [@"@" stringByAppendingString:temp.username];
+//
+//    self.name.text = self.obj.author.name;
 
-    PFUser *temp = self.obj[@"author"];
-    self.username.text = [@"@" stringByAppendingString:temp[@"username"]];
-
-    self.name.text = self.obj.author.name;
+    
     self.date.text = self.obj.createdAt.shortTimeAgoSinceNow;
     self.postImage.file = self.obj.image;
-    self.profileImage.file = self.obj.author.profilePic;
+    //self.profileImage.file = self.obj.author.profilePic;
     self.caption.text = self.obj.caption;
     
     // account for plural
@@ -210,14 +252,13 @@
     [query orderByDescending:(@"createdAt")];
     [query whereKey:@"postID" equalTo: self.obj.objectId];
     [query whereKey:@"userID" equalTo: User.currentUser.objectId];
+    [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:NO]];
     
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable like, NSError * _Nullable error) {
         if (like != nil) {
-            NSLog(@"found a like obj in setup");
             self.liked = YES;
             [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         } else {
-            NSLog(@"did not find a like obj in setup");
             self.liked = NO;
             [self.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
         }
@@ -254,8 +295,6 @@
         if (comments != nil) {
             self.commentArray = comments;
             [self.tableView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
         }
     }];
     [self.refreshControl endRefreshing];
@@ -263,7 +302,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
-    NSLog(@"comment found");
     Comment *comment = self.commentArray[indexPath.row];
     cell.username.text = comment.author.username;
     cell.caption.text = comment.text;

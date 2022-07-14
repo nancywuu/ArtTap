@@ -8,6 +8,7 @@
 #import "AnalyticsViewController.h"
 
 @interface AnalyticsViewController ()
+@property (nonatomic, strong) NSArray *engageArray;
 
 @end
 
@@ -19,6 +20,22 @@
     
     self.views.text = [NSString stringWithFormat: @"%@%s", self.post.numViews, " views" ];
     self.likes.text = [NSString stringWithFormat: @"%@%s", self.post.likeCount, " likes" ];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+    [query includeKey:@"postID"];
+    [query includeKey:@"userID"];
+    [query includeKey:@"isEngage"];
+    [query whereKey:@"postID" equalTo: self.post.objectId];
+    [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:YES]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *res, NSError *error) {
+        if (res != nil) {
+            self.engageArray = res;
+            self.engaged.text = [NSString stringWithFormat: @"%lu%s", self.engageArray.count, " users engaged" ];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)fetchData {

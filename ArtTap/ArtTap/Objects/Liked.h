@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Liked : PFObject<PFSubclassing>
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSString *userID;
+@property BOOL isEngage;
 
-+ (void) favorite: ( NSString * _Nullable )postID withUser: ( NSString * _Nullable )userID withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) favorite: ( NSString * _Nullable )postID withUser: ( NSString * _Nullable )userID withDef: (BOOL)engage withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 @end
 

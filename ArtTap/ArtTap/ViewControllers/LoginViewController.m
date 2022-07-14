@@ -33,7 +33,6 @@
 - (IBAction)didSignUp:(id)sender {
     if([self.usernameField.text isEqual:@""] || [self.passwordField.text isEqual:@""]){
         [self presentViewController:self.alert animated:YES completion:^{
-            // optional code for what happens after the alert controller has finished presenting
         }];
     } else {
         [self registerUser];
@@ -44,13 +43,10 @@
     // initialize a user object
     User *newUser = [User user];
     
-    // set user properties
     newUser.username = self.usernameField.text;
     newUser.name = self.usernameField.text;
-    //newUser.email = self.emailField.text;
     newUser.password = self.passwordField.text;
-    
-    // call sign up function on the object
+
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);

@@ -31,6 +31,8 @@
 		7F384C06287E0F2F003F9894 /* AnalyticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C05287E0F2F003F9894 /* AnalyticsViewController.m */; };
 		7F384C09287E19D7003F9894 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C08287E19D6003F9894 /* SearchViewController.m */; };
 		7F384C0C287E1CBC003F9894 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C0B287E1CBC003F9894 /* SearchCell.m */; };
+		7F384C0F287F3090003F9894 /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C0E287F3090003F9894 /* Notifications.m */; };
+		7F384C12287F3CED003F9894 /* NotifCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C11287F3CED003F9894 /* NotifCell.m */; };
 		7FA726C028763D3500119325 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA726BF28763D3500119325 /* LoginViewController.m */; };
 		7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C028763AE7002FF556 /* AppDelegate.m */; };
 		7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C328763AE7002FF556 /* SceneDelegate.m */; };
@@ -114,6 +116,10 @@
 		7F384C08287E19D6003F9894 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		7F384C0A287E1CBC003F9894 /* SearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		7F384C0B287E1CBC003F9894 /* SearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
+		7F384C0D287F3090003F9894 /* Notifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
+		7F384C0E287F3090003F9894 /* Notifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
+		7F384C10287F3CED003F9894 /* NotifCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifCell.h; sourceTree = "<group>"; };
+		7F384C11287F3CED003F9894 /* NotifCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifCell.m; sourceTree = "<group>"; };
 		7FA726BE28763D3500119325 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7FA726BF28763D3500119325 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7FDA60BC28763AE7002FF556 /* ArtTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +197,8 @@
 				7F384BF3287C9619003F9894 /* Liked.m */,
 				7F384BF5287CA6AD003F9894 /* Follower.h */,
 				7F384BF6287CA6AD003F9894 /* Follower.m */,
+				7F384C0D287F3090003F9894 /* Notifications.h */,
+				7F384C0E287F3090003F9894 /* Notifications.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -210,6 +218,8 @@
 				7F384C02287E0703003F9894 /* TrendTableCell.m */,
 				7F384C0A287E1CBC003F9894 /* SearchCell.h */,
 				7F384C0B287E1CBC003F9894 /* SearchCell.m */,
+				7F384C10287F3CED003F9894 /* NotifCell.h */,
+				7F384C11287F3CED003F9894 /* NotifCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -582,9 +592,11 @@
 				7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */,
 				7F384BD528764F35003F9894 /* User.m in Sources */,
 				7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */,
+				7F384C0F287F3090003F9894 /* Notifications.m in Sources */,
 				7F384BD828764F41003F9894 /* Post.m in Sources */,
 				7F384C0C287E1CBC003F9894 /* SearchCell.m in Sources */,
 				7F384BC72876451C003F9894 /* ProfileViewController.m in Sources */,
+				7F384C12287F3CED003F9894 /* NotifCell.m in Sources */,
 				7FA726C028763D3500119325 /* LoginViewController.m in Sources */,
 				7F384BFD287CD60C003F9894 /* FollowTableViewCell.m in Sources */,
 				7F384BF4287C9619003F9894 /* Liked.m in Sources */,

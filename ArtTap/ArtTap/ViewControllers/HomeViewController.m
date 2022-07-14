@@ -44,23 +44,15 @@
 
 - (IBAction)didLogout:(id)sender {
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        // PFUser.current() will now be nil
-//        [self dismissViewControllerAnimated:true completion:nil];
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.view.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        NSLog(@"tapped logout");
     }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     PFFileObject *temp = self.postArray[indexPath.row][@"image"];
-    //NSLog(@"%@", temp.url);
     NSData *data = [temp getData];
     self.tempImage = [UIImage imageWithData:data];
-
-    //NSLog(@"%lf", self.tempImage.size.width);
-    //NSLog(@"%lf", self.tempImage.size.height);
     return CGSizeMake(772, 960);
 }
 
@@ -91,17 +83,7 @@
     [self.refreshControl endRefreshing];
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    int totalwidth = self.collectionView.bounds.size.width;
-//    int numberOfCellsPerRow = 3;
-//    //int oddEven = indexPath.row / numberOfCellsPerRow % 2;
-//    int dimensions = (CGFloat)(totalwidth / numberOfCellsPerRow) - 10;
-//    return CGSizeMake(dimensions, dimensions);
-//}
-
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    //NSLog(@"ahhh collect cell");
     HomePhotoCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"homeCell" forIndexPath:indexPath];
     cell.image.file = self.postArray[indexPath.row][@"image"];
     cell.clipsToBounds = true;
@@ -116,14 +98,11 @@
     return self.postArray.count;
 }
 
-// INFINITE SCROLLING
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(!self.isMoreDataLoading){
-        // Calculate the position of one screen length before the bottom of the results
         int scrollViewContentHeight = self.collectionView.contentSize.height;
         int scrollOffsetThreshold = scrollViewContentHeight - self.collectionView.bounds.size.height;
         
-        // When the user has scrolled past the threshold, start requesting
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.collectionView.isDragging) {
             self.isMoreDataLoading = true;
             [self makeQuery];

@@ -10,16 +10,18 @@
 
 @dynamic postID;
 @dynamic userID;
+@dynamic isEngage;
 
 + (nonnull NSString *)parseClassName {
     return @"Liked";
 }
 
-+ (void) favorite: ( NSString * _Nullable )postID withUser: ( NSString * _Nullable )userID withCompletion: (PFBooleanResultBlock  _Nullable)completion {
++ (void) favorite: ( NSString * _Nullable )postID withUser: ( NSString * _Nullable )userID withDef: (BOOL)engage withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     
     Liked *newLike = [Liked new];
     newLike.postID = postID;
     newLike.userID = userID;
+    newLike.isEngage = engage;
     
     [newLike saveInBackgroundWithBlock: completion];
 }
