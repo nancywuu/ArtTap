@@ -18,8 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDate *createdAt;
 @property BOOL critBool;
 @property (nonatomic, strong) User *author;
+@property (nonatomic, strong) NSNumber *likeCount;
 
 + (void) postComment: ( NSString * _Nullable )post withUser: ( User * _Nullable )user withText: ( NSString * _Nullable )text withBool: (BOOL)critBool withCompletion: (PFBooleanResultBlock  _Nullable)completion;
+
++ (void) favorite: (Comment * _Nullable)comment withValue: ( NSNumber * _Nullable )value withCompletion: (PFBooleanResultBlock _Nullable)completion;
 
 @end
 

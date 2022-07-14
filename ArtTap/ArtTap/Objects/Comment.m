@@ -13,6 +13,7 @@
 @dynamic author;
 @dynamic createdAt;
 @dynamic critBool;
+@dynamic likeCount;
 
 + (nonnull NSString *)parseClassName {
     return @"Comment";
@@ -25,8 +26,15 @@
     newComment.text = text;
     newComment.author = user;
     newComment.critBool = critBool;
+    newComment.likeCount = @(0);
     
     [newComment saveInBackgroundWithBlock:completion];
+}
+
++ (void) favorite: (Comment * _Nullable)comment withValue: ( NSNumber * _Nullable )value withCompletion: (PFBooleanResultBlock _Nullable)completion{
+    Comment *temp = comment;
+    temp.likeCount = value;
+    [temp saveInBackgroundWithBlock: completion];
 }
 
 

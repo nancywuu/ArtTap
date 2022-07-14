@@ -15,7 +15,7 @@
 #import "DateTools.h"
 #import "Notifications.h"
 
-@interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, strong) NSArray *commentArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
@@ -217,15 +217,17 @@
                       }
                  }];
                  self.commentField.text = @"";
-                 
-                 
              }
         }];
     }
 }
 
+- (void)didLikeComment{
+    //[self fetchComments];
+}
+
 - (void)setDetails {
-    
+    // FIX: temporarily commented out due to unsolved bug
 //    self.username.text = self.obj.author.username;
 //
 //    User *temp = self.obj.author;
@@ -271,9 +273,10 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
     [query includeKey:@"postID"];
     [query includeKey:@"createdAt"];
+    [query includeKey:@"likeCount"];
     [query includeKey:@"author"];
     [query includeKey:@"critBool"];
-    [query orderByDescending:(@"createdAt")];
+    [query orderByDescending:(@"likeCount")];
     [query whereKey:@"postID" equalTo: self.obj.objectId];
     query.limit = 20;
     
@@ -300,11 +303,33 @@
     [self.refreshControl endRefreshing];
 }
 
+- (void)checkCommentLikes: (CommentCell *)cell {
+    PFQuery *query = [PFQuery queryWithClassName:@"CommentLikes"];
+    [query includeKey:@"userID"];
+    [query includeKey:@"commentID"];
+    [query whereKey:@"commentID" equalTo: cell.comment.objectId];
+    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable like, NSError * _Nullable error) {
+        if (like != nil) {
+            cell.liked = YES;
+            [cell.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        } else {
+            cell.liked = NO;
+            [cell.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        }
+    }];
+    
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
     Comment *comment = self.commentArray[indexPath.row];
     cell.username.text = comment.author.username;
     cell.caption.text = comment.text;
+    cell.comment = comment;
+    cell.likeCount.text = [comment.likeCount stringValue];
     if(comment.author.profilePic != nil){
         cell.image.file = comment.author.profilePic;
         cell.image.layer.cornerRadius = cell.image.frame.size.width/2;
@@ -312,6 +337,9 @@
         [cell.image loadInBackground];
     }
     cell.date.text = comment.createdAt.shortTimeAgoSinceNow;
+    cell.delegate = self;
+    [self checkCommentLikes:cell];
+    
     
     return cell;
 }

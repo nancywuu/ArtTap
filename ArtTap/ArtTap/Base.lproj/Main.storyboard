@@ -716,6 +716,9 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=""/>
+                                                    <connections>
+                                                        <action selector="hitLike:" destination="xTJ-yK-w0Y" eventType="touchUpInside" id="7U5-XJ-MvZ"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="likeCount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yju-4j-ERv">
                                                     <rect key="frame" x="17" y="39" width="46" height="12"/>
@@ -730,6 +733,8 @@
                                             <outlet property="caption" destination="8Se-ZS-4Hm" id="Dwy-qe-2p7"/>
                                             <outlet property="date" destination="kAP-KT-tqo" id="kZ9-CM-rDw"/>
                                             <outlet property="image" destination="DMU-aF-JLm" id="F24-vb-xyR"/>
+                                            <outlet property="likeButton" destination="WgI-FO-d3B" id="KBd-ra-Q9p"/>
+                                            <outlet property="likeCount" destination="yju-4j-ERv" id="mBc-9i-DLg"/>
                                             <outlet property="username" destination="8uT-UQ-QBx" id="9N7-jx-ur4"/>
                                             <segue destination="mUd-VA-n3Q" kind="show" identifier="commentProfileSegue" id="Cmn-nw-l2k"/>
                                         </connections>
@@ -1202,8 +1207,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="5aD-3X-4oQ"/>
-        <segue reference="VkK-8D-d2t"/>
-        <segue reference="oxt-xD-FpW"/>
+        <segue reference="oD1-tJ-JRa"/>
+        <segue reference="Cmn-nw-l2k"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>

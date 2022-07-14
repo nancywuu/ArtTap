@@ -33,6 +33,7 @@
 		7F384C0C287E1CBC003F9894 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C0B287E1CBC003F9894 /* SearchCell.m */; };
 		7F384C0F287F3090003F9894 /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C0E287F3090003F9894 /* Notifications.m */; };
 		7F384C12287F3CED003F9894 /* NotifCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C11287F3CED003F9894 /* NotifCell.m */; };
+		7F384C15287F9654003F9894 /* CommentLikes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C14287F9654003F9894 /* CommentLikes.m */; };
 		7FA726C028763D3500119325 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA726BF28763D3500119325 /* LoginViewController.m */; };
 		7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C028763AE7002FF556 /* AppDelegate.m */; };
 		7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C328763AE7002FF556 /* SceneDelegate.m */; };
@@ -120,6 +121,8 @@
 		7F384C0E287F3090003F9894 /* Notifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
 		7F384C10287F3CED003F9894 /* NotifCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifCell.h; sourceTree = "<group>"; };
 		7F384C11287F3CED003F9894 /* NotifCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifCell.m; sourceTree = "<group>"; };
+		7F384C13287F9654003F9894 /* CommentLikes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentLikes.h; sourceTree = "<group>"; };
+		7F384C14287F9654003F9894 /* CommentLikes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentLikes.m; sourceTree = "<group>"; };
 		7FA726BE28763D3500119325 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7FA726BF28763D3500119325 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7FDA60BC28763AE7002FF556 /* ArtTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +194,8 @@
 				7F384BD428764F35003F9894 /* User.m */,
 				7F384BEC2878FA1F003F9894 /* Comment.h */,
 				7F384BED2878FA1F003F9894 /* Comment.m */,
+				7F384C13287F9654003F9894 /* CommentLikes.h */,
+				7F384C14287F9654003F9894 /* CommentLikes.m */,
 				7F384BD628764F41003F9894 /* Post.h */,
 				7F384BD728764F41003F9894 /* Post.m */,
 				7F384BF2287C9619003F9894 /* Liked.h */,
@@ -598,6 +603,7 @@
 				7F384BC72876451C003F9894 /* ProfileViewController.m in Sources */,
 				7F384C12287F3CED003F9894 /* NotifCell.m in Sources */,
 				7FA726C028763D3500119325 /* LoginViewController.m in Sources */,
+				7F384C15287F9654003F9894 /* CommentLikes.m in Sources */,
 				7F384BFD287CD60C003F9894 /* FollowTableViewCell.m in Sources */,
 				7F384BF4287C9619003F9894 /* Liked.m in Sources */,
 				7F384BC4287643C4003F9894 /* HomeViewController.m in Sources */,
