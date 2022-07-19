@@ -16,6 +16,7 @@
 #import "Parse/Parse.h"
 #import "Post.h"
 #import "DateTools.h"
+#import "ArtTap-Swift.h"
 
 @interface HomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateViewControllerDelegate, CHTCollectionViewDelegateWaterfallLayout, UIScrollViewDelegate>
 @property (nonatomic, strong) NSArray *postArray;
@@ -139,6 +140,49 @@
         ProfileViewController *profileViewController = [segue destinationViewController];
         profileViewController.isFromTimeline = YES;
         profileViewController.currentUser = temp;
+    } else if (([segue.identifier isEqualToString:@"suggSeg"])){
+        SuggestedTableView *sugCon = [segue destinationViewController];
+        
+        // query for all posts not made by user to look for similarity
+        PFQuery *sampleQuery = [PFQuery queryWithClassName:@"Post"];
+        [sampleQuery includeKey:@"author"];
+        [sampleQuery includeKey:@"createdAt"];
+        [sampleQuery orderByDescending:(@"createdAt")];
+        PFUser *temp = User.currentUser;
+        [sampleQuery whereKey:@"author" notEqualTo:temp];
+        sampleQuery.limit = 5;
+
+        NSArray *res = [sampleQuery findObjects];
+        
+        NSMutableArray *arr = [NSMutableArray new];
+        
+        for(int i = 0; i < res.count; i++){
+            Post *temp = res[i];
+            NSURL *url = [NSURL URLWithString:temp.image.url];
+            arr[i] = url;
+        }
+        
+        sugCon.sampleArray = arr;
+        
+        // query for user's own posts to compare to
+        PFQuery *origQuery = [PFQuery queryWithClassName:@"Post"];
+        [origQuery includeKey:@"author"];
+        [origQuery includeKey:@"createdAt"];
+        [origQuery orderByDescending:(@"createdAt")];
+        [origQuery whereKey:@"author" equalTo: temp];
+        origQuery.limit = 5;
+
+        NSArray *tempRes = [origQuery findObjects];
+        
+        NSMutableArray *tempArr = [NSMutableArray new];
+        
+        for(int i = 0; i < tempRes.count; i++){
+            Post *temp = tempRes[i];
+            NSURL *url = [NSURL URLWithString:temp.image.url];
+            tempArr[i] = url;
+        }
+        
+        sugCon.urlArray = tempArr;
     }
 }
 

@@ -14,25 +14,21 @@ import TinyConstraints
     @IBOutlet weak var engageCount: UILabel!
     @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var lineChartView: LineChartView!
-    
+
     var post : Post?
     var dataArray = [NSNumber]()
     
-    let yValues: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 10.0),
-        ChartDataEntry(x: 1.0, y: 16.0),
-        ChartDataEntry(x: 2.0, y: 12.0),
-        ChartDataEntry(x: 3.0, y: 20.0),
-        ChartDataEntry(x: 4.0, y: 9.0),
-        ChartDataEntry(x: 5.0, y: 13.0),
-        ChartDataEntry(x: 6.0, y: 14.0),
-        ChartDataEntry(x: 7.0, y: 18.0)
-    ]
+    
+    
+    var yValues: [ChartDataEntry] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.likeCount.text = (post?.likeCount.stringValue ?? "<no_name>") + " likes";
         self.viewCount.text = (post?.numViews.stringValue ?? "<no_name>") + " views";
+        
+        print("printing data array")
+        print(dataArray)
         
 //        view.addSubview(lineChartView)
 //        lineChartView.centerInSuperview()
@@ -50,16 +46,21 @@ import TinyConstraints
         
         lineChartView.xAxis.labelPosition = .bottom
         lineChartView.xAxis.labelFont = .boldSystemFont(ofSize: 12)
-        lineChartView.xAxis.setLabelCount(6, force: false)
+        lineChartView.xAxis.setLabelCount(180, force: false)
         lineChartView.xAxis.labelTextColor = .white
         lineChartView.xAxis.axisLineColor = .white
         lineChartView.legend.textColor = .white
+
         
-        let days = ["Jul 7", "Jul 8", "Jul 9", "Jul 10", "Jul 11", "Jul 12", "Jul 13", "Jul 14"]
+        let days = ["July 10"]
+        lineChartView.xAxis.drawGridLinesEnabled = false;
+        lineChartView.xAxis.granularity = 1;
+        lineChartView.xAxis.drawLabelsEnabled = true;
+        lineChartView.xAxis.drawAxisLineEnabled = false;
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:days)
-        lineChartView.xAxis.granularity = 1
+       // lineChartView.xAxis.granularity = 10
         
-        lineChartView.animate(xAxisDuration: 0.7)
+        lineChartView.animate(xAxisDuration: 1.5)
         
         setData();
     }
@@ -69,6 +70,13 @@ import TinyConstraints
     }
     
     func setData() {
+        var counter : Int = 0
+        for i in 0..<dataArray.count {
+            yValues.append(ChartDataEntry(x: Double(i), y: dataArray[i].doubleValue))
+            counter += dataArray[i].intValue
+        }
+        self.engageCount.text = String(counter) + " users engaged";
+        
         let set1 = LineChartDataSet(entries: yValues, label: "User Engagement")
         let data = LineChartData(dataSet: set1)
         set1.drawCirclesEnabled = false

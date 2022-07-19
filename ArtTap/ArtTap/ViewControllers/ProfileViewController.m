@@ -35,7 +35,7 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     //self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.rowHeight = 300;
+    self.tableView.rowHeight = 500;
 
     [self fetchProfile];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -137,9 +137,7 @@
 
 - (IBAction)didFollow:(id)sender {
     if(self.isFollowing){
-        // unfollow
         self.isFollowing = NO;
-        //self.followButton.backgroundColor = [UIColor systemBlueColor];
         [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
         
         PFQuery *query = [PFQuery queryWithClassName:@"Follower"];
@@ -150,7 +148,6 @@
         
         [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable follow, NSError * _Nullable error) {
             if (follow != nil) {
-                NSLog(@"found a follow obj in setup");
                 [follow deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     if (succeeded) {
                         NSLog(@"succeeded in deleting like boolean obj");
@@ -160,7 +157,6 @@
                     }
                 }];
             } else {
-                NSLog(@"none found or error");
                 NSLog(@"%@", error.localizedDescription);
             }
         }];
@@ -168,14 +164,12 @@
     } else {
         // follow
         self.isFollowing = YES;
-        //self.followButton.backgroundColor = [UIColor blackColor];
         [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         
         [Follower follow:self.currentUser withFollower:User.currentUser withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error following: %@", error.localizedDescription);
             } else {
-                 NSLog(@"Successfully followed user: %@", self.currentUser.objectId);
                 [self loadFollowers];
             }
         }];
@@ -183,9 +177,6 @@
         [Notifications notif:nil withAuthor:self.currentUser withType:@(3) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error posting: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully send like notif");
              }
         }];
     }
@@ -197,7 +188,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //NSLog(@"ahhh collect cell");
     ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell" forIndexPath:indexPath];
     cell.post = self.postArray[indexPath.row];
     cell.image.file = self.postArray[indexPath.row][@"image"];
@@ -220,15 +210,6 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-//    if([segue.identifier isEqualToString:@"editSegue"]){
-//         *detailVC = [segue destinationViewController];
-//    } else if ([segue.identifier isEqualToString:@"insightsSegue"]) {
-//        UINavigationController *nav = [segue destinationViewController];
-//        ComposeViewController *composeVC = (ComposeViewController *)nav.topViewController;
-//        composeVC.delegate = self;
-//    }
     if([segue.identifier isEqualToString:@"detailFromProfileSegue"]){
         ProfileTableViewCell *cell = sender;
         NSIndexPath *path = [self.tableView indexPathForCell:cell];

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TrendingViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segCon;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *timeCon;
 
 
 @end

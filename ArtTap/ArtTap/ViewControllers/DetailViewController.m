@@ -18,6 +18,7 @@
 @interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, strong) NSArray *commentArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
@@ -379,10 +380,9 @@
         profileViewController.isFromTimeline = YES;
         profileViewController.currentUser = temp;
     } else if (([segue.identifier isEqualToString:@"analytics"])){
-        
         GraphViewController *graphVC = [segue destinationViewController];
         graphVC.post = self.obj;
-        
+    
         PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
         [query includeKey:@"postID"];
         [query includeKey:@"userID"];
@@ -391,20 +391,24 @@
         [query whereKey:@"postID" equalTo: self.obj.objectId];
         [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:YES]];
 
-        [query findObjectsInBackgroundWithBlock:^(NSArray *res, NSError *error) {
-            if (res != nil) {
-                //graphVC.engageArray = res;
-                for(int i = 0; i < res.count; i++){
-                    Liked *temp = res[i];
-                    NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
-                    NSLog(@"%lu", hours);
-                    //graphVC.dataArray[hours] = [NSNumber numberWithInteger:[graphVC.dataArray[hours] integerValue] + 1];
-                }
-                graphVC.engageCount.text = [NSString stringWithFormat: @"%lu%s", res.count, " users engaged" ];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
+        NSArray *tempRes = [query findObjects];
+        
+        NSMutableArray *tempArr = [NSMutableArray new];
+        for (int i = 0; i < 175; ++i)
+            [tempArr addObject:[NSNumber numberWithInt:0]];
+        
+        for(int i = 0; i < tempRes.count; i++){
+            Liked *temp = tempRes[i];
+            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+            NSLog(@"temp hours");
+            NSLog(@"%lu", hours);
+
+            if(hours < 175){
+                tempArr[hours] = [NSNumber numberWithInteger:[tempArr[hours] integerValue] + 1];
             }
-        }];
+        }
+        
+        graphVC.dataArray = tempArr;
         
     }
 }

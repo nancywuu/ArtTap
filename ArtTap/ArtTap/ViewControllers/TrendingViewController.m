@@ -21,13 +21,15 @@
 - (IBAction)didChangeSeg:(id)sender {
     [self fetchPosts];
 }
+- (IBAction)didChangeTime:(id)sender {
+    [self fetchPosts];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    //self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.rowHeight = 150;
     
     [self fetchPosts];
@@ -50,6 +52,42 @@
     } else {
         [query orderByDescending:(@"likeCount")];
     }
+    
+    // modify time constraints
+    
+    NSString *time = [self.timeCon titleForSegmentAtIndex:self.timeCon.selectedSegmentIndex];
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:now];
+
+    if([time isEqualToString:@"Today"]){
+        [components setHour:0];
+        [components setMinute:0];
+        [components setSecond:1];
+        NSDate *morningStart = [calendar dateFromComponents:components];
+
+        [components setHour:23];
+        [components setMinute:59];
+        [components setSecond:59];
+        NSDate *tonightEnd = [calendar dateFromComponents:components];
+
+        [query whereKey:@"createdAt" greaterThan:morningStart];
+        [query whereKey:@"createdAt" lessThan:tonightEnd];
+    } else if([time isEqualToString:@"This Week"]){
+
+        [components setHour:0];
+        [components setMinute:0];
+        [components setSecond:1];
+        NSDate *weekStart = [now dateByAddingTimeInterval: -518400.0];
+
+        [components setHour:23];
+        [components setMinute:59];
+        [components setSecond:59];
+        NSDate *tonightEnd = [calendar dateFromComponents:components];
+        [query whereKey:@"createdAt" greaterThan:weekStart];
+        [query whereKey:@"createdAt" lessThan:tonightEnd];
+    }
+    
 
     query.limit = 10;
 
@@ -67,7 +105,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TrendTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trendCell" forIndexPath:indexPath];
-    NSLog(@"comment found");
     Post *post = self.postArray[indexPath.row];
     cell.name.text = post.author.name;
     
@@ -80,7 +117,6 @@
     cell.previewImage.file = post.image;
     [cell.previewImage loadInBackground];
     
-    // get value depending on like or view selection
     NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
     if([title isEqualToString:@"Views"]){
         cell.value.text = [NSString stringWithFormat:@"%@%s", post.numViews, " views"];
