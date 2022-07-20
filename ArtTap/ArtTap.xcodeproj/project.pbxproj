@@ -10,6 +10,7 @@
 		2FCA5E01A16D0B4ACF7497E2 /* Pods_ArtTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B269BC26BAAA8844CEFA381 /* Pods_ArtTap.framework */; };
 		7F0C1AD828861AAD00A86EE7 /* SuggestedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C1AD728861AAD00A86EE7 /* SuggestedCell.swift */; };
 		7F0C1ADA2886234F00A86EE7 /* SuggestedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C1AD92886234F00A86EE7 /* SuggestedTableView.swift */; };
+		7F0C1ADE288765BC00A86EE7 /* Suggested.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C1ADD288765BC00A86EE7 /* Suggested.swift */; };
 		7F384BC4287643C4003F9894 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BC3287643C4003F9894 /* HomeViewController.m */; };
 		7F384BC72876451C003F9894 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BC62876451C003F9894 /* ProfileViewController.m */; };
 		7F384BCA287645D7003F9894 /* NotifViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BC9287645D7003F9894 /* NotifViewController.m */; };
@@ -76,6 +77,7 @@
 		569ED851EE11A4DF4F7C6211 /* Pods-ArtTap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap.debug.xcconfig"; path = "Target Support Files/Pods-ArtTap/Pods-ArtTap.debug.xcconfig"; sourceTree = "<group>"; };
 		7F0C1AD728861AAD00A86EE7 /* SuggestedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedCell.swift; sourceTree = "<group>"; };
 		7F0C1AD92886234F00A86EE7 /* SuggestedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedTableView.swift; sourceTree = "<group>"; };
+		7F0C1ADD288765BC00A86EE7 /* Suggested.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Suggested.swift; path = ArtTap/Objects/Suggested.swift; sourceTree = SOURCE_ROOT; };
 		7F384BC2287643C4003F9894 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		7F384BC3287643C4003F9894 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		7F384BC52876451C003F9894 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				7F384BFF287E0512003F9894 /* TrendingViewController.m */,
 				7F384C07287E19D6003F9894 /* SearchViewController.h */,
 				7F384C08287E19D6003F9894 /* SearchViewController.m */,
+				7F0C1ADD288765BC00A86EE7 /* Suggested.swift */,
 				7F384C182880B143003F9894 /* GraphViewController.swift */,
 				7F0C1AD92886234F00A86EE7 /* SuggestedTableView.swift */,
 				7F384C172880B143003F9894 /* ArtTap-Bridging-Header.h */,
@@ -609,6 +612,7 @@
 				7F384BF7287CA6AD003F9894 /* Follower.m in Sources */,
 				7F384BEE2878FA1F003F9894 /* Comment.m in Sources */,
 				7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */,
+				7F0C1ADE288765BC00A86EE7 /* Suggested.swift in Sources */,
 				7F384BD528764F35003F9894 /* User.m in Sources */,
 				7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */,
 				7F384C0F287F3090003F9894 /* Notifications.m in Sources */,

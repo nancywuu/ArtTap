@@ -75,7 +75,7 @@
 - (IBAction)didTapAlbum:(id)sender {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
-    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.allowsEditing = NO;
     imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 
     [self presentViewController:imagePickerVC animated:YES completion:nil];
@@ -86,13 +86,10 @@
     self.captionField.text = @"Add a caption...";
     self.captionField.textColor = [UIColor lightGrayColor];
     self.captionField.delegate = self;
-    // Do any additional setup after loading the view.
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    //NSLog(@"hit begin editing");
     if([textView.text isEqualToString: @"Add a caption..."]) {
-        //NSLog(@"if passed");
         textView.text = @"";
         textView.textColor = [UIColor blackColor];
     }
@@ -106,8 +103,8 @@
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
     
     if(editedImage != nil){
-        CGFloat width = self.displayImage.bounds.size.width * 4;
-        CGFloat height = self.displayImage.bounds.size.height * 4;
+        CGFloat width = 500;
+        CGFloat height = 500 * originalImage.size.height/originalImage.size.width;
         CGSize newSize = CGSizeMake(width, height);
         UIImage *editedImage2 = [self resizeImage:editedImage withSize:newSize];
     
@@ -115,8 +112,13 @@
         [self.displayImage setImage:editedImage2];
     } else {
         
-        self.chosenImage = originalImage;
-        [self.displayImage setImage:originalImage];
+        CGFloat width = 500;
+        CGFloat height = 500 * originalImage.size.height/originalImage.size.width;
+        CGSize newSize = CGSizeMake(width, height);
+        UIImage *originalImage2 = [self resizeImage:originalImage withSize:newSize];
+        
+        self.chosenImage = originalImage2;
+        [self.displayImage setImage:originalImage2];
     }
 
     // Do something with the images (based on your use case)

@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIImage *tempImage;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
 @property (nonatomic) int postCount;
+@property (weak, nonatomic) IBOutlet CHTCollectionViewWaterfallLayout *layout;
 
 @end
 
@@ -35,6 +36,10 @@
     self.postCount = 8;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.layout.minimumInteritemSpacing = 0;
+    self.layout.minimumColumnSpacing = 0;
+    
+    [self loadSuggested];
     [self makeQuery];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -62,6 +67,45 @@
     [self makeQuery];
 }
 
+- (void) loadSuggested {
+    Suggested *creator = [[Suggested alloc] init];
+    
+    // query for all posts not made by user to look for similarity
+    PFQuery *sampleQuery = [PFQuery queryWithClassName:@"Post"];
+    [sampleQuery includeKey:@"author"];
+    [sampleQuery includeKey:@"createdAt"];
+    [sampleQuery orderByDescending:(@"createdAt")];
+    PFUser *temp = User.currentUser;
+    [sampleQuery whereKey:@"author" notEqualTo:temp];
+    sampleQuery.limit = 5;
+
+    creator.sampleArray = [sampleQuery findObjects];
+    
+    // query for user's own posts to compare to
+    PFQuery *origQuery = [PFQuery queryWithClassName:@"Post"];
+    [origQuery includeKey:@"author"];
+    [origQuery includeKey:@"createdAt"];
+    [origQuery orderByDescending:(@"createdAt")];
+    [origQuery whereKey:@"author" equalTo: temp];
+    origQuery.limit = 5;
+
+    NSArray *tempRes = [origQuery findObjects];
+    
+    NSMutableArray *tempArr = [NSMutableArray new];
+    
+    for(int i = 0; i < tempRes.count; i++){
+        Post *temp = tempRes[i];
+        NSURL *url = [NSURL URLWithString:temp.image.url];
+        tempArr[i] = url;
+    }
+    
+    creator.urlArray = tempArr;
+    [creator processImages];
+    
+    self.postArray = creator.resArray;
+    [self.collectionView reloadData];
+}
+
 - (void) makeQuery {
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query includeKey:@"author"];
@@ -75,7 +119,6 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.postArray = posts;
-            NSLog(@"refresh makequery triggered");
             [self.collectionView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -88,7 +131,7 @@
     HomePhotoCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"homeCell" forIndexPath:indexPath];
     cell.image.file = self.postArray[indexPath.row][@"image"];
     cell.clipsToBounds = true;
-    cell.layer.cornerRadius = 15;
+    cell.layer.cornerRadius = 40;
     
     cell.post = self.postArray[indexPath.row];
     [cell.image loadInBackground];
@@ -150,7 +193,7 @@
         [sampleQuery orderByDescending:(@"createdAt")];
         PFUser *temp = User.currentUser;
         [sampleQuery whereKey:@"author" notEqualTo:temp];
-        sampleQuery.limit = 5;
+        sampleQuery.limit = 20;
 
         NSArray *res = [sampleQuery findObjects];
         
