@@ -24,8 +24,6 @@ import Vision
                 origArray.append(origFPO)
             }
         }
-        
-        // setup ranked array for adding to
 
         // Generate featureprints for copies and compute distances from original featureprint.
         for idx in sampleArray.indices {

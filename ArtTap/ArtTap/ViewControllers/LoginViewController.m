@@ -6,7 +6,6 @@
 //
 
 #import "LoginViewController.h"
-//#import "HomeViewController.h"
 #import "Parse/Parse.h"
 #import "User.h"
 
@@ -37,6 +36,8 @@
     } else {
         [self registerUser];
     }
+}
+- (IBAction)googleLogin:(id)sender {
 }
 
 - (void)registerUser {

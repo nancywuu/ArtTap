@@ -15,6 +15,7 @@ target 'ArtTap' do
   pod 'CHTCollectionViewWaterfallLayout/ObjC'
   pod 'Charts'
   pod 'TinyConstraints'
+  pod 'GoogleSignIn'
 
   target 'ArtTapTests' do
     inherit! :search_paths

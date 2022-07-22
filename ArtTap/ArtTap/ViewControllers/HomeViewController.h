@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segCon;
 
 @end
 

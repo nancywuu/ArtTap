@@ -229,17 +229,18 @@
 
 - (void)setDetails {
     // FIX: temporarily commented out due to unsolved bug
-//    self.username.text = self.obj.author.username;
-//
-//    User *temp = self.obj.author;
-//    self.username.text = [@"@" stringByAppendingString:temp.username];
-//
-//    self.name.text = self.obj.author.name;
+    self.username.text = self.obj.author.username;
+
+    User *temp = self.obj.author;
+    self.username.text = [@"@" stringByAppendingString:temp.username];
+
+    self.name.text = self.obj.author.name;
 
     
     self.date.text = self.obj.createdAt.shortTimeAgoSinceNow;
     self.postImage.file = self.obj.image;
-    //self.profileImage.file = self.obj.author.profilePic;
+    self.profileImage.file = self.obj.author.profilePic;
+    [self.profileImage loadInBackground];
     self.caption.text = self.obj.caption;
     
     // account for plural
