@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view
-    
+    [self refreshUser];
     [self checkEngage];
     // update post views
     [Post viewed:self.obj withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -126,6 +126,24 @@
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (void) refreshUser {
+    // refresh necessary due to loss of data in segue
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query includeKey:@"author"];
+    [query includeKey:@"createdAt"];
+    [query includeKey:@"likeCount"];
+    [query includeKey:@"commentCount"];
+    [query orderByDescending:(@"createdAt")];
+    [query whereKey:@"objectId" equalTo:self.obj.objectId];
+    
+    query.limit = 1;
+    
+    NSArray *res = [query findObjects];
+
+    // fetch data asynchronously
+    self.obj = res[0];
 }
 
 - (void) visLike {

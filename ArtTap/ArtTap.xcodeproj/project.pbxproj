@@ -49,6 +49,7 @@
 		7FDA60DC28763AE8002FF556 /* ArtTapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60DB28763AE8002FF556 /* ArtTapTests.m */; };
 		7FDA60E628763AE8002FF556 /* ArtTapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60E528763AE8002FF556 /* ArtTapUITests.m */; };
 		7FDA60E828763AE8002FF556 /* ArtTapUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60E728763AE8002FF556 /* ArtTapUITestsLaunchTests.m */; };
+		7FDBC963288F1BDE00EE450D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC962288F1BDE00EE450D /* GoogleService-Info.plist */; };
 		B8FBC1C0B1AB2B34256C412A /* Pods_ArtTapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */; };
 		C70A6EF0CEDB391957E2E131 /* Pods_ArtTap_ArtTapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */; };
 /* End PBXBuildFile section */
@@ -151,6 +152,7 @@
 		7FDA60E128763AE8002FF556 /* ArtTapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArtTapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FDA60E528763AE8002FF556 /* ArtTapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtTapUITests.m; sourceTree = "<group>"; };
 		7FDA60E728763AE8002FF556 /* ArtTapUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtTapUITestsLaunchTests.m; sourceTree = "<group>"; };
+		7FDBC962288F1BDE00EE450D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTap_ArtTapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB952D7214269D69AC0C691 /* Pods-ArtTapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTapTests.release.xcconfig"; path = "Target Support Files/Pods-ArtTapTests/Pods-ArtTapTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				7FDA60C828763AE7002FF556 /* Main.storyboard */,
 				7FDA60CB28763AE8002FF556 /* Assets.xcassets */,
 				7FDA60CD28763AE8002FF556 /* LaunchScreen.storyboard */,
+				7FDBC962288F1BDE00EE450D /* GoogleService-Info.plist */,
 				7FDA60D028763AE8002FF556 /* Info.plist */,
 				7FDA60D128763AE8002FF556 /* main.m */,
 			);
@@ -450,6 +453,8 @@
 				Base,
 			);
 			mainGroup = 7FDA60B328763AE7002FF556;
+			packageReferences = (
+			);
 			productRefGroup = 7FDA60BD28763AE7002FF556 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -468,6 +473,7 @@
 			files = (
 				7FDA60CF28763AE8002FF556 /* LaunchScreen.storyboard in Resources */,
 				7FDA60CC28763AE8002FF556 /* Assets.xcassets in Resources */,
+				7FDBC963288F1BDE00EE450D /* GoogleService-Info.plist in Resources */,
 				7FDA60CA28763AE7002FF556 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,6 +814,8 @@
 				DEVELOPMENT_TEAM = 25G94M7RTJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArtTap/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera access to take pictures";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need library access to upload images";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -840,6 +848,8 @@
 				DEVELOPMENT_TEAM = 25G94M7RTJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArtTap/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera access to take pictures";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need library access to upload images";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

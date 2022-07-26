@@ -15,7 +15,12 @@ target 'ArtTap' do
   pod 'CHTCollectionViewWaterfallLayout/ObjC'
   pod 'Charts'
   pod 'TinyConstraints'
+  pod 'FirebaseCore'
+  pod 'FirebaseAuth'
   pod 'GoogleSignIn'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
 
   target 'ArtTapTests' do
     inherit! :search_paths

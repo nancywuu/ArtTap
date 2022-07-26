@@ -21,6 +21,8 @@
 @interface HomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateViewControllerDelegate, CHTCollectionViewDelegateWaterfallLayout, UIScrollViewDelegate>
 @property (nonatomic, strong) NSMutableArray *postArray;
 @property (nonatomic, strong) NSMutableArray *suggestedArray;
+@property (nonatomic, strong) NSMutableArray *homeArray;
+@property (nonatomic, strong) NSMutableArray *followFeedArray;
 @property (nonatomic, strong) NSArray *followingArray;
 
 @property (assign, nonatomic) BOOL isMoreDataLoading;
@@ -42,9 +44,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.incre = 10;
-    self.postCount = 10;
-    self.suggestedCount = 10;
+    self.incre = 8;
+    self.postCount = 8;
+    self.suggestedCount = 8;
     
     self.isForYou = NO;
     self.isGlobal = YES;
@@ -80,6 +82,9 @@
                     [self.collectionView reloadData];
                     [self.refreshControl endRefreshing];
                 }
+                if(!self.didInitSuggested){
+                    self.didInitSuggested = YES;
+                }
             });
         });
     }
@@ -101,15 +106,15 @@
         self.isGlobal = NO;
         [self.postArray removeAllObjects];
         [self.collectionView reloadData];
-        
-        if(!self.didInitSuggested){
-            [self hudtest];
-        } else {
-            self.postArray = [self.suggestedArray mutableCopy];
-            [self.collectionView reloadData];
+        [self.collectionView setContentOffset:CGPointZero animated:YES];
 
-            [self.refreshControl endRefreshing];
-        }
+        self.postArray = [self.suggestedArray mutableCopy];
+        [self.collectionView reloadData];
+        [self.collectionView setContentOffset:CGPointZero animated:YES];
+        
+        [self.refreshControl endRefreshing];
+        
+
     } else {
         self.postCount = self.incre;
         self.isForYou = NO;
@@ -175,9 +180,6 @@
 }
 
 - (void) loadSuggested {
-    if(!self.didInitSuggested){
-        self.didInitSuggested = YES;
-    }
 
     Suggested *creator = [[Suggested alloc] init];
     
@@ -304,15 +306,12 @@
     return self.postArray.count;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if(!self.isMoreDataLoading){
-        int scrollViewContentHeight = self.collectionView.contentSize.height;
-        int scrollOffsetThreshold = scrollViewContentHeight - self.collectionView.bounds.size.height;
-        
-        
-        
-        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.collectionView.isDragging) {
-            self.isMoreDataLoading = true;
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
+    if([title isEqualToString:@"Suggested"]){
+        if(indexPath.row + self.incre*3 >= self.suggestedCount && self.didInitSuggested){
             if(self.suggestedCount + self.incre < self.maxLim){
                 self.suggestedCount += self.incre;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -327,37 +326,33 @@
                     });
                 });
             }
-            self.isMoreDataLoading = true;
-
         }
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row + self.incre >= self.suggestedCount){
-        if(self.suggestedCount + self.incre < self.maxLim){
-            self.suggestedCount += self.incre;
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                [self loadSuggested];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if(self.isForYou){
-                        self.postCount = self.suggestedCount;
-                        self.postArray = [self.suggestedArray mutableCopy];
-                        [self.collectionView reloadData];
-                        [self.refreshControl endRefreshing];
-                    }
-                });
-            });
-        }
-    }
-    if(indexPath.row + 1 == [self.postArray count]){
-        if(self.isForYou){
-            
+    } else {
+        if(indexPath.row + self.incre >= self.suggestedCount && self.didInitSuggested){
             if(self.suggestedCount + self.incre < self.maxLim){
                 self.suggestedCount += self.incre;
-                self.postCount = self.suggestedCount;
-                [self makeQuery];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                    [self loadSuggested];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if(self.isForYou){
+                            self.postCount = self.suggestedCount;
+                            self.postArray = [self.suggestedArray mutableCopy];
+                            [self.collectionView reloadData];
+                            [self.refreshControl endRefreshing];
+                        }
+                    });
+                });
             }
+        }
+    }
+    
+    if(indexPath.row + 1 == [self.postArray count]){
+        if(self.isForYou){
+//            if(self.suggestedCount + self.incre < self.maxLim){
+//                self.suggestedCount += self.incre;
+//                self.postCount = self.suggestedCount;
+//                [self makeQuery];
+//            }
         } else {
             self.postCount += self.incre;
             [self makeQuery];

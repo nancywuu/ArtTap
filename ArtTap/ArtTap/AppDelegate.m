@@ -9,13 +9,14 @@
 #import "Parse/Parse.h"
 @import ParseSwift;
 @import GoogleSignIn;
+@import FirebaseCore;
+@import FirebaseAuth;
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -27,7 +28,18 @@
     }];
 
     [Parse initializeWithConfiguration:config];
+    
+    
+    [FIRApp configure];
+    
+    
     return YES;
+}
+
+- (BOOL)application:(nonnull UIApplication *)application
+            openURL:(nonnull NSURL *)url
+            options:(nonnull NSDictionary<NSString *, id> *)options {
+  return [[GIDSignIn sharedInstance] handleURL:url];
 }
 
 

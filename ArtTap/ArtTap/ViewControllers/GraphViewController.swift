@@ -14,7 +14,8 @@ import TinyConstraints
     @IBOutlet weak var engageCount: UILabel!
     @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var lineChartView: LineChartView!
-
+    @IBOutlet weak var viewLineChartView: LineChartView!
+    
     var post : Post?
     var dataArray = [NSNumber]()
     
@@ -53,6 +54,8 @@ import TinyConstraints
 
         
         let days = ["July 10"]
+        
+        
         lineChartView.xAxis.drawGridLinesEnabled = false;
         lineChartView.xAxis.granularity = 1;
         lineChartView.xAxis.drawLabelsEnabled = true;
