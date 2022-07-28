@@ -408,26 +408,72 @@
         [query includeKey:@"isEngage"];
         [query includeKey:@"createdAt"];
         [query whereKey:@"postID" equalTo: self.obj.objectId];
-        [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:YES]];
 
         NSArray *tempRes = [query findObjects];
         
-        NSMutableArray *tempArr = [NSMutableArray new];
-        for (int i = 0; i < 175; ++i)
-            [tempArr addObject:[NSNumber numberWithInt:0]];
+        PFQuery *comquery = [PFQuery queryWithClassName:@"Comment"];
+        [comquery includeKey:@"postID"];
+        [comquery includeKey:@"createdAt"];
+        [comquery whereKey:@"postID" equalTo: self.obj.objectId];
+
+        NSArray *comRes = [comquery findObjects];
         
+        // week: 168
+        // month: 730
+        
+        NSMutableArray *tempEngageArr = [NSMutableArray new];
+        NSMutableArray *tempLikeArr = [NSMutableArray new];
+        NSMutableArray *tempComArr = [NSMutableArray new];
+        for (int i = 0; i < 730; ++i){
+            [tempEngageArr addObject:[NSNumber numberWithInt:0]];
+            [tempLikeArr addObject:[NSNumber numberWithInt:0]];
+            [tempComArr addObject:[NSNumber numberWithInt:0]];
+        }
+            
         for(int i = 0; i < tempRes.count; i++){
             Liked *temp = tempRes[i];
             NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
-            NSLog(@"temp hours");
-            NSLog(@"%lu", hours);
+    
+            if(hours < 730){
+                // TODO: CUMULATIVE:
+//                if(temp.isEngage){
+//                    for(int j = 0; j < hours; j++){
+//                        tempEngageArr[j] = [NSNumber numberWithInteger:[tempEngageArr[j] integerValue] + 1];
+//                    }
+//                } else {
+//                    for(int j = 0; j < hours; j++){
+//                        tempLikeArr[j] = [NSNumber numberWithInteger:[tempLikeArr[j] integerValue] + 1];
+//                    }
+//                }
+                
+                // TODO: NON-CUMULATIVE:
+                if(temp.isEngage){
+                    tempEngageArr[hours] = [NSNumber numberWithInteger:[tempEngageArr[hours] integerValue] + 1];
+                } else {
+                    tempLikeArr[hours] = [NSNumber numberWithInteger:[tempLikeArr[hours] integerValue] + 1];
+                }
 
-            if(hours < 175){
-                tempArr[hours] = [NSNumber numberWithInteger:[tempArr[hours] integerValue] + 1];
             }
         }
         
-        graphVC.dataArray = tempArr;
+        for(int i = 0; i < comRes.count; i++){
+            Comment *temp = comRes[i];
+            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+    
+            if(hours < 730){
+                // TODO: CUMULATIVE:
+//                for(int j = 0; j < hours; j++){
+//                    tempComArr[j] = [NSNumber numberWithInteger:[tempComArr[j] integerValue] + 1];
+//                }
+                
+                // TODO: NON-CUMULATIVE:
+                tempComArr[hours] = [NSNumber numberWithInteger:[tempComArr[hours] integerValue] + 1];
+            }
+        }
+
+        graphVC.engageArray = tempEngageArr;
+        graphVC.likeArray = tempLikeArr;
+        graphVC.commentArray = tempComArr;
         
     }
 }
