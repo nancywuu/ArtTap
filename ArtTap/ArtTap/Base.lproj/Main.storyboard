@@ -387,6 +387,7 @@
                                 <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="hitSwitch:" destination="xTo-q4-r0X" eventType="valueChanged" id="M3Y-Wb-eyd"/>
+                                    <action selector="hitSwitch:" destination="5nE-7F-s2I" eventType="valueChanged" id="fkH-sw-WMy"/>
                                 </connections>
                             </switch>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PBe-Yn-yb9">
@@ -399,6 +400,7 @@
                                     <segment title="Today"/>
                                 </segments>
                                 <connections>
+                                    <action selector="changedTime:" destination="5nE-7F-s2I" eventType="valueChanged" id="Gyb-z4-ASe"/>
                                     <action selector="changedTime:" destination="xTo-q4-r0X" eventType="valueChanged" id="weu-XK-HFq"/>
                                 </connections>
                             </segmentedControl>

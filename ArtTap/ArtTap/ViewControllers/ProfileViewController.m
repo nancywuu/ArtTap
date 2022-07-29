@@ -17,7 +17,7 @@
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, EditViewDelegate>
 @property (nonatomic, strong) NSArray *postArray;
-@property (nonatomic, strong) NSArray *postIDArray;
+@property (nonatomic, strong) NSMutableArray *postIDArray;
 @property (nonatomic, strong) NSArray *followingArray;
 @property (nonatomic, strong) NSArray *followersArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
@@ -81,7 +81,7 @@
                 Post *current = posts[i];
                 [temp addObject: current.objectId];
             }
-            self.postIDArray = [temp copy];
+            self.postIDArray = [temp mutableCopy];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -251,7 +251,7 @@
         PFQuery *comquery = [PFQuery queryWithClassName:@"Comment"];
         [comquery includeKey:@"postID"];
         [comquery includeKey:@"createdAt"];
-        [comquery whereKey:@"postID" equalTo: self.postIDArray];
+        [comquery whereKey:@"postID" containedIn: self.postIDArray];
 
         NSArray *comRes = [comquery findObjects];
         
@@ -297,7 +297,21 @@
         graphVC.likeArray = tempLikeArr;
         graphVC.commentArray = tempComArr;
         graphVC.critArray = tempCritArr;
-        //graphVC.viewArray = self.obj.viewTrack;
+        
+        // set up view tracker for all posts
+        NSMutableArray *tempViewArr = [NSMutableArray new];
+        for(int i = 0; i < self.postArray.count; i++){
+            Post *currentPost = self.postArray[i];
+            NSArray *currentArray = currentPost.viewTrack;
+            for(int j = 0; j < currentArray.count; j++){
+                if(j >= tempViewArr.count){
+                    [tempViewArr addObject:currentArray[j]];
+                } else {
+                    tempViewArr[j] = [NSNumber numberWithInteger:[tempViewArr[j] integerValue] + [currentArray[j] integerValue]];
+                }
+            }
+        }
+        graphVC.viewArray = tempViewArr;
     }
 }
 
