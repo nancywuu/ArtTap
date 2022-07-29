@@ -108,6 +108,7 @@ PODS:
   - Parse/UI (1.19.3):
     - Parse/Core
   - ParseSwift (4.8.0)
+  - Pluralize.swift (1.0)
   - PromisesObjC (2.1.1)
   - SwiftAlgorithms (1.0.0)
   - TinyConstraints (4.0.2)
@@ -127,6 +128,7 @@ DEPENDENCIES:
   - Parse
   - Parse/UI
   - ParseSwift
+  - Pluralize.swift
   - TinyConstraints
 
 SPEC REPOS:
@@ -156,6 +158,7 @@ SPEC REPOS:
     - nanopb
     - Parse
     - ParseSwift
+    - Pluralize.swift
     - PromisesObjC
     - SwiftAlgorithms
     - TinyConstraints
@@ -186,10 +189,11 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
   ParseSwift: c9b165a92e506c4218c355e4f4e94754ec57393e
+  Pluralize.swift: 0e036a5ecc7f07faf0d87e52ff923a3f84f3500b
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: ffa33456bb7b1d4d250207967a7101b8fb70302f
+PODFILE CHECKSUM: b500e3b2b4cf880939654cc15dd1eed697b8b409
 
 COCOAPODS: 1.11.3

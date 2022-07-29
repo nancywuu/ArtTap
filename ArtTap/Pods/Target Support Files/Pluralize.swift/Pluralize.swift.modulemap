@@ -1,0 +1,6 @@
+framework module Pluralize_swift {
+  umbrella header "Pluralize.swift-umbrella.h"
+
+  export *
+  module * { export * }
+}
