@@ -29,6 +29,7 @@
 @property (assign, nonatomic) BOOL isForYou;
 @property (assign, nonatomic) BOOL isGlobal;
 @property (assign, nonatomic) BOOL didInitSuggested;
+@property (assign, nonatomic) BOOL showHUD;
 
 @property (nonatomic) int postCount;
 @property (nonatomic) int suggestedCount;
@@ -42,15 +43,17 @@
 
 @implementation HomeViewController
 
+#pragma mark - Lifecycle Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.incre = 8;
     self.postCount = 8;
     self.suggestedCount = 8;
-    
     self.isForYou = NO;
     self.isGlobal = YES;
     self.didInitSuggested = NO;
+    self.showHUD = NO;
     self.postArray = [[NSMutableArray alloc] init];
     self.suggestedArray = [[NSMutableArray alloc] init];
 
@@ -59,10 +62,7 @@
     self.layout.minimumInteritemSpacing = 0;
     self.layout.minimumColumnSpacing = 0;
     
-    
     [self makeQuery];
-    
-    
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(makeQuery) forControlEvents:UIControlEventValueChanged];
@@ -73,25 +73,13 @@
     [self getMax];
     [self loadFollowers];
     if(!self.didInitSuggested){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [self loadSuggested];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
-                if([title isEqualToString:@"Suggested"]){
-                    self.postArray = [self.suggestedArray mutableCopy];
-                    [self.collectionView reloadData];
-                    [self.refreshControl endRefreshing];
-                }
-                if(!self.didInitSuggested){
-                    self.didInitSuggested = YES;
-                }
-            });
-        });
+        [self loadhud];
     }
 }
 
-- (IBAction)changedFeedType:(id)sender {
+#pragma mark - Response
 
+- (IBAction)changedFeedType:(id)sender {
     NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
     if([title isEqualToString:@"Following"]){
         self.postCount = self.incre;
@@ -113,8 +101,6 @@
         [self.collectionView setContentOffset:CGPointZero animated:YES];
         
         [self.refreshControl endRefreshing];
-        
-
     } else {
         self.postCount = self.incre;
         self.isForYou = NO;
@@ -123,8 +109,6 @@
         [self.collectionView reloadData];
         [self makeQuery];
     }
-    
-    
 }
 
 - (IBAction)didLogout:(id)sender {
@@ -134,6 +118,15 @@
     }];
 }
 
+// delegate method to act after creating a new post
+- (void) didPost {
+    self.postCount = self.incre;
+    [self.postArray removeAllObjects];
+    [self makeQuery];
+}
+
+#pragma mark - Layout
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     PFFileObject *temp = self.postArray[indexPath.row][@"image"];
     NSData *data = [temp getData];
@@ -141,12 +134,25 @@
     return CGSizeMake(tempImage.size.width, tempImage.size.height);
 }
 
-- (void) didPost {
-    self.postCount = self.incre;
-    [self.postArray removeAllObjects];
-    [self makeQuery];
+#pragma mark - Feed Management
+
+/* This method is used to find the maximum amount of posts we can query for
+ the suggested feed. This is to insure that we do not query for more beyond
+ the limit which would cause errors */
+- (void) getMax {
+    PFQuery *sampleQuery = [PFQuery queryWithClassName:@"Post"];
+    [sampleQuery includeKey:@"author"];
+    [sampleQuery includeKey:@"createdAt"];
+    [sampleQuery orderByDescending:(@"numViews")];
+    PFUser *temp = User.currentUser;
+    [sampleQuery whereKey:@"author" notEqualTo:temp];
+    NSArray *arr = [sampleQuery findObjects];
+    
+    self.maxLim = (int)arr.count;
 }
 
+/* loads a list of users that the current user is following. This is used for
+ the 'Following' feed */
 - (void) loadFollowers {
     PFQuery *followingQ = [PFQuery queryWithClassName:@"Follower"];
     [followingQ includeKey:@"user"];
@@ -167,23 +173,13 @@
     }];
 }
 
-- (void) getMax {
-    PFQuery *sampleQuery = [PFQuery queryWithClassName:@"Post"];
-    [sampleQuery includeKey:@"author"];
-    [sampleQuery includeKey:@"createdAt"];
-    [sampleQuery orderByDescending:(@"numViews")];
-    PFUser *temp = User.currentUser;
-    [sampleQuery whereKey:@"author" notEqualTo:temp];
-    NSArray *arr = [sampleQuery findObjects];
-    
-    self.maxLim = (int)arr.count;
-}
-
+/* Queries for ten more posts for the suggested feed based on view count,
+ and sorts them depending on similarity to the current user's posts */
 - (void) loadSuggested {
 
     Suggested *creator = [[Suggested alloc] init];
-    
-    // query for all posts not made by user to look for similarity
+
+    // query for next ten posts to sort
     PFQuery *sampleQuery = [PFQuery queryWithClassName:@"Post"];
     [sampleQuery includeKey:@"author"];
     [sampleQuery includeKey:@"createdAt"];
@@ -192,20 +188,17 @@
     [sampleQuery whereKey:@"author" notEqualTo:temp];
     sampleQuery.limit = self.suggestedCount;
     
-    
     NSRange range;
     range.location = self.suggestedCount - self.incre;
     NSArray *firstres = [sampleQuery findObjects];
     
-    if((int)firstres.count < range.location){
-    } else {
+    if((int)firstres.count >= range.location){
         if((int)firstres.count < self.suggestedCount){
             range.length = (int)firstres.count - range.location;
         } else {
             range.length = self.incre;
         }
         creator.sampleArray = [firstres subarrayWithRange:range];
-        
         
         // query for user's own posts to compare to
         PFQuery *origQuery = [PFQuery queryWithClassName:@"Post"];
@@ -230,35 +223,53 @@
         
         [self.suggestedArray addObjectsFromArray:creator.resArray];
     }
-    
 }
 
-- (void) hudtest {
-    [MBProgressHUD showHUDAddedTo:self.tabBarController.view animated:YES];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self loadSuggested];
-        [self completehud];
-        
-    });
+/* load suggested posts in the background using low priority queue
+ used to load suggested posts even when not looking at suggested feed */
+- (void) loadhud {
+    if(self.suggestedCount + self.incre < self.maxLim){
+        self.suggestedCount += self.incre;
+        if(self.isForYou && self.showHUD){
+            // we only want to show the activity loader if we are at the bottom
+            // of the feed
+            [MBProgressHUD showHUDAddedTo:self.tabBarController.view animated:YES];
+        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self loadSuggested];
+            [self completehud];
+        });
+    }
 }
 
+/* complete loading in background, HUD loader must be hidden using the
+ main queue, but we want this to happen after we've finished loading
+ suggested posts in the low priority queue.
+ If we are on the suggested feed, load into collectionview */
 - (void) completehud {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.postArray = [self.suggestedArray mutableCopy];
-        [self.collectionView reloadData];
-        [self.refreshControl endRefreshing];
-        
-        [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
+        if(self.isForYou){
+            self.postCount = self.suggestedCount;
+            self.postArray = [self.suggestedArray mutableCopy];
+            [self.collectionView reloadData];
+            [self.refreshControl endRefreshing];
+            if(self.showHUD){
+                [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
+                self.showHUD = NO;
+            }
+        }
+        if(!self.didInitSuggested){
+            self.didInitSuggested = YES;
+        }
     });
 }
 
+/* queries for Global and Following feed */
 - (void) makeQuery {
-    //self.collectionView.hidden = YES;
-    if(self.isForYou){
+    if(self.isForYou && !self.didInitSuggested){
         if(self.suggestedCount > self.incre){
-            [self hudtest];
+            [self loadhud];
         }
-        
     } else {
         [MBProgressHUD showHUDAddedTo:self.tabBarController.view animated:YES];
         PFQuery *query = [PFQuery queryWithClassName:@"Post"];
@@ -268,14 +279,13 @@
         [query includeKey:@"commentCount"];
         [query orderByDescending:(@"createdAt")];
         
+        // if on Following feed, we need to filter the posts
         if(!self.isGlobal){
             [self loadFollowers];
             [query whereKey:@"author" containedIn:self.followingArray];
         }
         
         query.limit = self.postCount;
-
-        // fetch data asynchronously
         [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
             int base = (int)self.postArray.count;
             int end = (int)posts.count;
@@ -284,16 +294,14 @@
                     [self.postArray addObject:posts[i]];
                 }
                 [self.collectionView reloadData];
-                //self.collectionView.hidden = NO;
-                [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
-            } else {
-                [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
             }
-            
+            [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
         }];
         [self.refreshControl endRefreshing];
     }
 }
+
+#pragma mark - Collection View Loading
 
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     HomePhotoCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"homeCell" forIndexPath:indexPath];
@@ -312,54 +320,26 @@
 
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
-    if([title isEqualToString:@"Suggested"]){
-        if(indexPath.row + self.incre*3 >= self.suggestedCount && self.didInitSuggested){
-            if(self.suggestedCount + self.incre < self.maxLim){
-                self.suggestedCount += self.incre;
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                    [self loadSuggested];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if(self.isForYou){
-                            self.postCount = self.suggestedCount;
-                            self.postArray = [self.suggestedArray mutableCopy];
-                            [self.collectionView reloadData];
-                            [self.refreshControl endRefreshing];
-                        }
-                    });
-                });
-            }
-        }
-    } else {
-        if(indexPath.row + self.incre >= self.suggestedCount && self.didInitSuggested){
-            if(self.suggestedCount + self.incre < self.maxLim){
-                self.suggestedCount += self.incre;
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                    [self loadSuggested];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if(self.isForYou){
-                            self.postCount = self.suggestedCount;
-                            self.postArray = [self.suggestedArray mutableCopy];
-                            [self.collectionView reloadData];
-                            [self.refreshControl endRefreshing];
-                        }
-                    });
-                });
-            }
-        }
+
+    // if we are scrolling in the feed, we want to load posts in advance
+    int multiplier = 1;
+    if(self.isForYou){
+        // want to load posts further in advance if directly on Suggested Feed, because the user will be scrolling
+        multiplier = 2;
+    }
+
+    if(indexPath.row + self.incre*multiplier >= self.suggestedCount && self.didInitSuggested){
+        [self loadhud];
     }
     
+    // if we've hit the bottom of the currently loaded posts
     if(indexPath.row + 1 == [self.postArray count]){
-        if(self.isForYou){
-//            if(self.suggestedCount + self.incre < self.maxLim){
-//                self.suggestedCount += self.incre;
-//                self.postCount = self.suggestedCount;
-//                [self makeQuery];
-//            }
-        } else {
+        if(!self.isForYou){
             self.postCount += self.incre;
             [self makeQuery];
+        } else {
+            self.showHUD = YES;
+            [self loadhud];
         }
         
     }
