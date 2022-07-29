@@ -237,14 +237,18 @@
     [MBProgressHUD showHUDAddedTo:self.tabBarController.view animated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self loadSuggested];
+        [self completehud];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.postArray = [self.suggestedArray mutableCopy];
-            [self.collectionView reloadData];
-            [self.refreshControl endRefreshing];
-            
-            [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
-        });
+    });
+}
+
+- (void) completehud {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.postArray = [self.suggestedArray mutableCopy];
+        [self.collectionView reloadData];
+        [self.refreshControl endRefreshing];
+        
+        [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
     });
 }
 

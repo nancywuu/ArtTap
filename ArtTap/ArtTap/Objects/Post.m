@@ -18,6 +18,7 @@
 @dynamic createdAt;
 @dynamic critBool;
 @dynamic numViews;
+@dynamic viewTrack;
 
 
 + (nonnull NSString *)parseClassName {
@@ -50,6 +51,28 @@
     Post *temp = post;
     int val = [temp.numViews intValue];
     temp.numViews = [NSNumber numberWithInt:val + 1];
+    
+    NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+
+    NSMutableArray *tempViewArr = [NSMutableArray new];
+    
+    if(temp.viewTrack.count != 0){
+        tempViewArr = [temp.viewTrack mutableCopy];
+    } else {
+        [tempViewArr addObject:@(0)];
+    }
+
+    
+    if(hours > tempViewArr.count - 1){
+        for(int i = (int)tempViewArr.count - 1; i <= hours; i++){
+            [tempViewArr addObject:@(0)];
+        }
+    }
+    
+    tempViewArr[hours] = [NSNumber numberWithInteger:[tempViewArr[hours] integerValue] + 1];
+    
+    temp.viewTrack = [tempViewArr copy];
+    
     [temp saveInBackgroundWithBlock: completion];
 }
 

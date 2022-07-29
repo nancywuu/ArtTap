@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSNumber *likeCount;
 @property (nonatomic, strong) NSNumber *commentCount;
 @property (nonatomic, strong) NSNumber *numViews;
+@property (nonatomic, strong) NSArray *viewTrack;
 @property BOOL critBool;
 
 + (void) postUserImage: ( UIImage * _Nullable )image withCaption: ( NSString * _Nullable )caption withBool: (BOOL)critBool withCompletion: (PFBooleanResultBlock  _Nullable)completion;

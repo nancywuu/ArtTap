@@ -424,10 +424,12 @@
         NSMutableArray *tempEngageArr = [NSMutableArray new];
         NSMutableArray *tempLikeArr = [NSMutableArray new];
         NSMutableArray *tempComArr = [NSMutableArray new];
+        NSMutableArray *tempCritArr = [NSMutableArray new];
         for (int i = 0; i < 730; ++i){
             [tempEngageArr addObject:[NSNumber numberWithInt:0]];
             [tempLikeArr addObject:[NSNumber numberWithInt:0]];
             [tempComArr addObject:[NSNumber numberWithInt:0]];
+            [tempCritArr addObject:[NSNumber numberWithInt:0]];
         }
             
         for(int i = 0; i < tempRes.count; i++){
@@ -467,14 +469,19 @@
 //                }
                 
                 // TODO: NON-CUMULATIVE:
-                tempComArr[hours] = [NSNumber numberWithInteger:[tempComArr[hours] integerValue] + 1];
+                if(temp.critBool){
+                    tempCritArr[hours] = [NSNumber numberWithInteger:[tempCritArr[hours] integerValue] + 1];
+                } else {
+                    tempComArr[hours] = [NSNumber numberWithInteger:[tempComArr[hours] integerValue] + 1];
+                }
             }
         }
 
         graphVC.engageArray = tempEngageArr;
         graphVC.likeArray = tempLikeArr;
         graphVC.commentArray = tempComArr;
-        
+        graphVC.critArray = tempCritArr;
+        graphVC.viewArray = self.obj.viewTrack;
     }
 }
 
