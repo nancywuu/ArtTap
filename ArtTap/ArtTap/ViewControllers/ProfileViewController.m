@@ -11,9 +11,13 @@
 #import "FollowListViewController.h"
 #import "ProfileTableViewCell.h"
 #import "Notifications.h"
+#import "Liked.h"
+#import "Comment.h"
+#import "ArtTap-Swift.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, EditViewDelegate>
 @property (nonatomic, strong) NSArray *postArray;
+@property (nonatomic, strong) NSArray *postIDArray;
 @property (nonatomic, strong) NSArray *followingArray;
 @property (nonatomic, strong) NSArray *followersArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
@@ -51,7 +55,6 @@
     self.name.text = self.currentUser.name;
     self.bio.text = self.currentUser.bio;
 
-    //self.data = self.currentUser.profileImage.getData();
     if(self.currentUser.profilePic != nil){
         self.profileImg.file = self.currentUser.profilePic;
         self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width/2;
@@ -60,8 +63,6 @@
     }
     self.backgroundImg.file = self.currentUser.backgroundPic;
     [self.backgroundImg loadInBackground];
-    
-    NSLog(@"%lu", self.followersArray.count);
     
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query includeKey:@"author"];
@@ -75,6 +76,12 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.postArray = posts;
+            NSMutableArray *temp = [NSMutableArray new];
+            for(int i = 0; i < posts.count; i++){
+                Post *current = posts[i];
+                [temp addObject: current.objectId];
+            }
+            self.postIDArray = [temp copy];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -229,6 +236,68 @@
         FollowListViewController *followVC = [segue destinationViewController];
         followVC.userArray = self.followersArray;
         followVC.isFollowing = NO;
+    } else if (([segue.identifier isEqualToString:@"insightsSegue"])){
+        GraphViewController *graphVC = [segue destinationViewController];
+    
+        PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+        [query includeKey:@"postID"];
+        [query includeKey:@"userID"];
+        [query includeKey:@"isEngage"];
+        [query includeKey:@"createdAt"];
+        [query whereKey:@"postID" containedIn:self.postIDArray];
+
+        NSArray *tempRes = [query findObjects];
+        
+        PFQuery *comquery = [PFQuery queryWithClassName:@"Comment"];
+        [comquery includeKey:@"postID"];
+        [comquery includeKey:@"createdAt"];
+        [comquery whereKey:@"postID" equalTo: self.postIDArray];
+
+        NSArray *comRes = [comquery findObjects];
+        
+        NSMutableArray *tempEngageArr = [NSMutableArray new];
+        NSMutableArray *tempLikeArr = [NSMutableArray new];
+        NSMutableArray *tempComArr = [NSMutableArray new];
+        NSMutableArray *tempCritArr = [NSMutableArray new];
+        for (int i = 0; i < 730; ++i){
+            [tempEngageArr addObject:[NSNumber numberWithInt:0]];
+            [tempLikeArr addObject:[NSNumber numberWithInt:0]];
+            [tempComArr addObject:[NSNumber numberWithInt:0]];
+            [tempCritArr addObject:[NSNumber numberWithInt:0]];
+        }
+            
+        for(int i = 0; i < tempRes.count; i++){
+            Liked *temp = tempRes[i];
+            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+    
+            if(hours < 730){
+                if(temp.isEngage){
+                    tempEngageArr[hours] = [NSNumber numberWithInteger:[tempEngageArr[hours] integerValue] + 1];
+                } else {
+                    tempLikeArr[hours] = [NSNumber numberWithInteger:[tempLikeArr[hours] integerValue] + 1];
+                }
+
+            }
+        }
+        
+        for(int i = 0; i < comRes.count; i++){
+            Comment *temp = comRes[i];
+            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+    
+            if(hours < 730){
+                if(temp.critBool){
+                    tempCritArr[hours] = [NSNumber numberWithInteger:[tempCritArr[hours] integerValue] + 1];
+                } else {
+                    tempComArr[hours] = [NSNumber numberWithInteger:[tempComArr[hours] integerValue] + 1];
+                }
+            }
+        }
+
+        graphVC.engageArray = tempEngageArr;
+        graphVC.likeArray = tempLikeArr;
+        graphVC.commentArray = tempComArr;
+        graphVC.critArray = tempCritArr;
+        //graphVC.viewArray = self.obj.viewTrack;
     }
 }
 

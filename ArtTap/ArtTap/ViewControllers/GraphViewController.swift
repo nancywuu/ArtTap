@@ -23,8 +23,6 @@ import TinyConstraints
     let hoursInMonth : Int = 730
     let hoursInWeek : Int = 168
     let hoursInDay : Int = 24
-    
-    var post : Post?
 
     var isCumulat : Bool = false
     var timeFrame : Int = 0
@@ -42,18 +40,6 @@ import TinyConstraints
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if(post?.likeCount == 1){
-            self.likeCount.text = (post?.likeCount.stringValue ?? "<no_name>") + " like"
-        } else {
-            self.likeCount.text = (post?.likeCount.stringValue ?? "<no_name>") + " likes"
-        }
-        
-        if(post?.numViews == 1){
-            self.viewCount.text = (post?.numViews.stringValue ?? "<no_name>") + " view";
-        } else {
-            self.viewCount.text = (post?.numViews.stringValue ?? "<no_name>") + " views";
-        }
 
         self.cumulatSwitch.setOn(false, animated: false)
         
@@ -85,23 +71,37 @@ import TinyConstraints
         
         let engageCountVal = engageArrayCumulat[engageArrayCumulat.count - 1]
         if(engageCountVal == 1){
-            self.engageCount.text = engageArrayCumulat[engageArrayCumulat.count - 1].stringValue + " user engaged";
+            self.engageCount.text = engageCountVal.stringValue + " user engaged";
         } else {
-            self.engageCount.text = engageArrayCumulat[engageArrayCumulat.count - 1].stringValue + " users engaged";
+            self.engageCount.text = engageCountVal.stringValue + " users engaged";
         }
         
         let commentCountVal = commentArrayCumulat[commentArrayCumulat.count - 1]
         if(commentCountVal == 1){
-            self.commentCount.text = commentArrayCumulat[commentArrayCumulat.count - 1].stringValue + " comment";
+            self.commentCount.text = commentCountVal.stringValue + " comment";
         } else {
-            self.commentCount.text = commentArrayCumulat[commentArrayCumulat.count - 1].stringValue + " comments";
+            self.commentCount.text = commentCountVal.stringValue + " comments";
         }
         
         let critCountVal = critArrayCumulat[critArrayCumulat.count - 1]
         if(critCountVal == 1){
-            self.critCount.text = critArrayCumulat[critArrayCumulat.count - 1].stringValue + " critique";
+            self.critCount.text = critCountVal.stringValue + " critique";
         } else {
-            self.critCount.text = critArrayCumulat[critArrayCumulat.count - 1].stringValue + " critiques";
+            self.critCount.text = critCountVal.stringValue + " critiques";
+        }
+        
+        let likeCountVal = likeArrayCumulat[likeArrayCumulat.count - 1]
+        if(likeCountVal == 1){
+            self.likeCount.text = likeCountVal.stringValue + " like"
+        } else {
+            self.likeCount.text = likeCountVal.stringValue + " likes"
+        }
+        
+        let viewCountVal = viewArrayCumulat[viewArrayCumulat.count - 1]
+        if(viewCountVal == 1){
+            self.viewCount.text = viewCountVal.stringValue + " view";
+        } else {
+            self.viewCount.text = viewCountVal.stringValue + " views";
         }
     }
     

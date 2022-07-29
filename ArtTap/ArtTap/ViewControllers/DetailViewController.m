@@ -375,8 +375,7 @@
 
 // methods for arranging dates for post analysis
 
-+ (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate
-{
++ (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate {
     if ([date compare:beginDate] == NSOrderedAscending)
         return NO;
 
@@ -400,7 +399,6 @@
         profileViewController.currentUser = temp;
     } else if (([segue.identifier isEqualToString:@"analytics"])){
         GraphViewController *graphVC = [segue destinationViewController];
-        graphVC.post = self.obj;
     
         PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
         [query includeKey:@"postID"];
@@ -418,9 +416,6 @@
 
         NSArray *comRes = [comquery findObjects];
         
-        // week: 168
-        // month: 730
-        
         NSMutableArray *tempEngageArr = [NSMutableArray new];
         NSMutableArray *tempLikeArr = [NSMutableArray new];
         NSMutableArray *tempComArr = [NSMutableArray new];
@@ -437,18 +432,6 @@
             NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
     
             if(hours < 730){
-                // TODO: CUMULATIVE:
-//                if(temp.isEngage){
-//                    for(int j = 0; j < hours; j++){
-//                        tempEngageArr[j] = [NSNumber numberWithInteger:[tempEngageArr[j] integerValue] + 1];
-//                    }
-//                } else {
-//                    for(int j = 0; j < hours; j++){
-//                        tempLikeArr[j] = [NSNumber numberWithInteger:[tempLikeArr[j] integerValue] + 1];
-//                    }
-//                }
-                
-                // TODO: NON-CUMULATIVE:
                 if(temp.isEngage){
                     tempEngageArr[hours] = [NSNumber numberWithInteger:[tempEngageArr[hours] integerValue] + 1];
                 } else {
@@ -463,12 +446,6 @@
             NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
     
             if(hours < 730){
-                // TODO: CUMULATIVE:
-//                for(int j = 0; j < hours; j++){
-//                    tempComArr[j] = [NSNumber numberWithInteger:[tempComArr[j] integerValue] + 1];
-//                }
-                
-                // TODO: NON-CUMULATIVE:
                 if(temp.critBool){
                     tempCritArr[hours] = [NSNumber numberWithInteger:[tempCritArr[hours] integerValue] + 1];
                 } else {
