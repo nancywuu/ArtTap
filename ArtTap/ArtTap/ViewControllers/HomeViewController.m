@@ -325,7 +325,7 @@
     int multiplier = 1;
     if(self.isForYou){
         // want to load posts further in advance if directly on Suggested Feed, because the user will be scrolling
-        multiplier = 2;
+        multiplier = 3;
     }
 
     if(indexPath.row + self.incre*multiplier >= self.suggestedCount && self.didInitSuggested){
@@ -334,12 +334,12 @@
     
     // if we've hit the bottom of the currently loaded posts
     if(indexPath.row + 1 == [self.postArray count]){
-        if(!self.isForYou){
-            self.postCount += self.incre;
-            [self makeQuery];
-        } else {
+        if(self.isForYou){
             self.showHUD = YES;
             [self loadhud];
+        } else {
+            self.postCount += self.incre;
+            [self makeQuery];
         }
         
     }

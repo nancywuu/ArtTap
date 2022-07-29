@@ -7,7 +7,6 @@
 
 import UIKit
 import Charts
-import TinyConstraints
 
 @objcMembers class GraphViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var viewCount: UILabel!
@@ -53,11 +52,11 @@ import TinyConstraints
         modifyLineChart(lineChartView: lineChartView)
         modifyLineChart(lineChartView: viewLineChartView)
         
-        setCumulative()
+        getCumulativeArrays()
         setData()
     }
     
-    func setCumulative() {
+    func getCumulativeArrays() {
         self.engageArray.reverse()
         self.likeArray.reverse()
         self.commentArray.reverse()
@@ -113,30 +112,30 @@ import TinyConstraints
             limit = hoursInMonth - hoursInDay
         }
         
-        var set1 : LineChartDataSet
-        var set2 : LineChartDataSet
-        var set3 : LineChartDataSet
-        var set4 : LineChartDataSet
-        var set5 : LineChartDataSet
+        var engageSet : LineChartDataSet
+        var likeSet : LineChartDataSet
+        var commentSet : LineChartDataSet
+        var critSet : LineChartDataSet
+        var viewSet : LineChartDataSet
         
         if(self.isCumulat){
-            set1 = createDataSetFromArr(ourArray: engageArrayCumulat, limit: limit, ourLabel: "User Engagement", ourColor: UIColor.systemCyan)
-            set2 = createDataSetFromArr(ourArray: likeArrayCumulat, limit: limit, ourLabel: "Likes", ourColor: UIColor.systemRed)
-            set3 = createDataSetFromArr(ourArray: commentArrayCumulat, limit: limit, ourLabel: "Comments", ourColor: UIColor.systemMint)
-            set4 = createDataSetFromArr(ourArray: critArrayCumulat, limit: limit, ourLabel: "Critiques", ourColor: UIColor.systemYellow)
-            set5 = createDataSetFromArr(ourArray: viewArrayCumulat, limit: limit, ourLabel: "Views", ourColor: UIColor.systemPurple)
+            engageSet = createDataSetFromArr(ourArray: engageArrayCumulat, limit: limit, ourLabel: "User Engagement", ourColor: UIColor.systemCyan)
+            likeSet = createDataSetFromArr(ourArray: likeArrayCumulat, limit: limit, ourLabel: "Likes", ourColor: UIColor.systemRed)
+            commentSet = createDataSetFromArr(ourArray: commentArrayCumulat, limit: limit, ourLabel: "Comments", ourColor: UIColor.systemMint)
+            critSet = createDataSetFromArr(ourArray: critArrayCumulat, limit: limit, ourLabel: "Critiques", ourColor: UIColor.systemYellow)
+            viewSet = createDataSetFromArr(ourArray: viewArrayCumulat, limit: limit, ourLabel: "Views", ourColor: UIColor.systemPurple)
         } else {
-            set1 = createDataSetFromArr(ourArray: engageArray, limit: limit, ourLabel: "User Engagement", ourColor: UIColor.systemCyan)
-            set2 = createDataSetFromArr(ourArray: likeArray, limit: limit, ourLabel: "Likes", ourColor: UIColor.systemRed)
-            set3 = createDataSetFromArr(ourArray: commentArray, limit: limit, ourLabel: "Comments", ourColor: UIColor.systemMint)
-            set4 = createDataSetFromArr(ourArray: critArray, limit: limit, ourLabel: "Critiques", ourColor: UIColor.systemYellow)
-            set5 = createDataSetFromArr(ourArray: viewArray, limit: limit, ourLabel: "Views", ourColor: UIColor.systemPurple)
+            engageSet = createDataSetFromArr(ourArray: engageArray, limit: limit, ourLabel: "User Engagement", ourColor: UIColor.systemCyan)
+            likeSet = createDataSetFromArr(ourArray: likeArray, limit: limit, ourLabel: "Likes", ourColor: UIColor.systemRed)
+            commentSet = createDataSetFromArr(ourArray: commentArray, limit: limit, ourLabel: "Comments", ourColor: UIColor.systemMint)
+            critSet = createDataSetFromArr(ourArray: critArray, limit: limit, ourLabel: "Critiques", ourColor: UIColor.systemYellow)
+            viewSet = createDataSetFromArr(ourArray: viewArray, limit: limit, ourLabel: "Views", ourColor: UIColor.systemPurple)
         }
         
-        let data = LineChartData(dataSets: [set1, set2, set3, set4])
+        let data = LineChartData(dataSets: [engageSet, likeSet, commentSet, critSet])
         data.setDrawValues(false)
         
-        let viewdata = LineChartData(dataSets: [set5])
+        let viewdata = LineChartData(dataSets: [viewSet])
         viewdata.setDrawValues(false)
     
         lineChartView.data = data;
