@@ -17,8 +17,10 @@
 #import "Post.h"
 #import "DateTools.h"
 #import "ArtTap-Swift.h"
+#import "PopUpViewController.h"
+#import "STPopup/STPopup.h"
 
-@interface HomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateViewControllerDelegate, CHTCollectionViewDelegateWaterfallLayout, UIScrollViewDelegate>
+@interface HomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CreateViewControllerDelegate, CHTCollectionViewDelegateWaterfallLayout, UIScrollViewDelegate, HomePhotoCellDelegate>
 @property (nonatomic, strong) NSMutableArray *postArray;
 @property (nonatomic, strong) NSMutableArray *suggestedArray;
 @property (nonatomic, strong) NSMutableArray *homeArray;
@@ -61,6 +63,8 @@
     self.collectionView.dataSource = self;
     self.layout.minimumInteritemSpacing = 0;
     self.layout.minimumColumnSpacing = 0;
+    UIEdgeInsets photoInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
+    self.layout.sectionInset = photoInsets;
     
     [self makeQuery];
     
@@ -82,30 +86,27 @@
 - (IBAction)changedFeedType:(id)sender {
     NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
     if([title isEqualToString:@"Following"]){
-        self.postCount = self.incre;
+        self.postCount = (int)self.followingArray.count + self.incre;
         self.isForYou = NO;
         self.isGlobal = NO;
-        [self.postArray removeAllObjects];
+        self.postArray = [self.followingArray mutableCopy];
         [self.collectionView reloadData];
         [self makeQuery];
     } else if([title isEqualToString:@"Suggested"]){
         self.postCount = self.suggestedCount;
         self.isForYou = YES;
         self.isGlobal = NO;
-        [self.postArray removeAllObjects];
-        [self.collectionView reloadData];
-        [self.collectionView setContentOffset:CGPointZero animated:YES];
 
         self.postArray = [self.suggestedArray mutableCopy];
         [self.collectionView reloadData];
         [self.collectionView setContentOffset:CGPointZero animated:YES];
-        
         [self.refreshControl endRefreshing];
+        [self.collectionView setContentOffset:CGPointZero animated:YES];
     } else {
-        self.postCount = self.incre;
+        self.postCount = (int)self.homeArray.count + self.incre;
         self.isForYou = NO;
         self.isGlobal = YES;
-        [self.postArray removeAllObjects];
+        self.postArray = [self.homeArray mutableCopy];
         [self.collectionView reloadData];
         [self makeQuery];
     }
@@ -123,6 +124,27 @@
     self.postCount = self.incre;
     [self.postArray removeAllObjects];
     [self makeQuery];
+}
+
+// delegate method to act after long gesture recognizer to preview post in feed
+- (void) didPreview:(Post *)current {
+    Post *ourPost = current;
+//    ProfileViewController *profileViewController = [ProfileViewController alloc];
+//    profileViewController.isFromTimeline = YES;
+//    profileViewController.currentUser = User.currentUser;
+//
+//    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:profileViewController];
+//    [popupController presentInViewController:self];
+    
+    PopUpViewController *ourPopController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PopUpPreviewController"];
+    ourPopController.currentPost = ourPost;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:ourPopController];
+   // popupController.style = STPopupStyleBottomSheet;
+    popupController.transitionStyle = STPopupTransitionStyleFade;
+    popupController.containerView.backgroundColor = [UIColor clearColor];
+
+    [popupController presentInViewController:self];
 }
 
 #pragma mark - Layout
@@ -234,11 +256,17 @@
             // we only want to show the activity loader if we are at the bottom
             // of the feed
             [MBProgressHUD showHUDAddedTo:self.tabBarController.view animated:YES];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                [self loadSuggested];
+                [self completehud];
+            });
+        } else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [self loadSuggested];
+                [self completehud];
+            });
         }
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self loadSuggested];
-            [self completehud];
-        });
+        
     }
 }
 
@@ -271,7 +299,6 @@
             [self loadhud];
         }
     } else {
-        [MBProgressHUD showHUDAddedTo:self.tabBarController.view animated:YES];
         PFQuery *query = [PFQuery queryWithClassName:@"Post"];
         [query includeKey:@"author"];
         [query includeKey:@"createdAt"];
@@ -293,9 +320,13 @@
                 for(int i = base; i < end; i++){
                     [self.postArray addObject:posts[i]];
                 }
+                if(self.isGlobal){
+                    self.homeArray = [self.postArray mutableCopy];
+                } else {
+                    self.followingArray = [self.postArray mutableCopy];
+                }
                 [self.collectionView reloadData];
             }
-            [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
         }];
         [self.refreshControl endRefreshing];
     }
@@ -310,6 +341,7 @@
     cell.layer.cornerRadius = 40;
     
     cell.post = self.postArray[indexPath.row];
+    cell.delegate = self;
     [cell.image loadInBackground];
     return cell;
 }
@@ -325,7 +357,7 @@
     int multiplier = 1;
     if(self.isForYou){
         // want to load posts further in advance if directly on Suggested Feed, because the user will be scrolling
-        multiplier = 3;
+        multiplier = 2;
     }
 
     if(indexPath.row + self.incre*multiplier >= self.suggestedCount && self.didInitSuggested){

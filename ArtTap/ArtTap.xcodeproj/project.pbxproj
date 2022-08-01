@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2FCA5E01A16D0B4ACF7497E2 /* Pods_ArtTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B269BC26BAAA8844CEFA381 /* Pods_ArtTap.framework */; };
 		7F0C1AD828861AAD00A86EE7 /* SuggestedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C1AD728861AAD00A86EE7 /* SuggestedCell.swift */; };
 		7F0C1ADE288765BC00A86EE7 /* Suggested.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C1ADD288765BC00A86EE7 /* Suggested.swift */; };
 		7F384BC4287643C4003F9894 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BC3287643C4003F9894 /* HomeViewController.m */; };
@@ -49,8 +48,10 @@
 		7FDA60E628763AE8002FF556 /* ArtTapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60E528763AE8002FF556 /* ArtTapUITests.m */; };
 		7FDA60E828763AE8002FF556 /* ArtTapUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60E728763AE8002FF556 /* ArtTapUITestsLaunchTests.m */; };
 		7FDBC963288F1BDE00EE450D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC962288F1BDE00EE450D /* GoogleService-Info.plist */; };
-		B8FBC1C0B1AB2B34256C412A /* Pods_ArtTapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */; };
-		C70A6EF0CEDB391957E2E131 /* Pods_ArtTap_ArtTapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */; };
+		7FDBC96B2898719F00EE450D /* PopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBC96A2898719F00EE450D /* PopUpViewController.m */; };
+		8700F648FB076D4DFD21B25A /* Pods_ArtTap_ArtTapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB9E9CBE30E9B2EBE87995D /* Pods_ArtTap_ArtTapUITests.framework */; };
+		B8B0CFF3D2594B237F609A91 /* Pods_ArtTapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9B3825BEDD368B4FD8F0C9 /* Pods_ArtTapTests.framework */; };
+		C6CF4B0B8E49D0464F04D6E1 /* Pods_ArtTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198454C5C21DA2CA10A7D953 /* Pods_ArtTap.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,10 +72,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B269BC26BAAA8844CEFA381 /* Pods_ArtTap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		278C68BA29AECF4A7EC5A873 /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap-ArtTapUITests.debug.xcconfig"; path = "Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		3E2204E75A06A8F12C315A2E /* Pods-ArtTap-ArtTapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap-ArtTapUITests.release.xcconfig"; path = "Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests.release.xcconfig"; sourceTree = "<group>"; };
-		569ED851EE11A4DF4F7C6211 /* Pods-ArtTap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap.debug.xcconfig"; path = "Target Support Files/Pods-ArtTap/Pods-ArtTap.debug.xcconfig"; sourceTree = "<group>"; };
+		0BD41010A86A3BACD2A3A5F5 /* Pods-ArtTap-ArtTapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap-ArtTapUITests.release.xcconfig"; path = "Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests.release.xcconfig"; sourceTree = "<group>"; };
+		0D3969B0BDEC2FDA83350C6C /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap-ArtTapUITests.debug.xcconfig"; path = "Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		198454C5C21DA2CA10A7D953 /* Pods_ArtTap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DC47C5788927B8580F7442F /* Pods-ArtTapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTapTests.debug.xcconfig"; path = "Target Support Files/Pods-ArtTapTests/Pods-ArtTapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7F0C1AD728861AAD00A86EE7 /* SuggestedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedCell.swift; sourceTree = "<group>"; };
 		7F0C1ADD288765BC00A86EE7 /* Suggested.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Suggested.swift; path = ArtTap/Objects/Suggested.swift; sourceTree = SOURCE_ROOT; };
 		7F384BC2287643C4003F9894 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -151,11 +152,13 @@
 		7FDA60E528763AE8002FF556 /* ArtTapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtTapUITests.m; sourceTree = "<group>"; };
 		7FDA60E728763AE8002FF556 /* ArtTapUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtTapUITestsLaunchTests.m; sourceTree = "<group>"; };
 		7FDBC962288F1BDE00EE450D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTap_ArtTapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ABB952D7214269D69AC0C691 /* Pods-ArtTapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTapTests.release.xcconfig"; path = "Target Support Files/Pods-ArtTapTests/Pods-ArtTapTests.release.xcconfig"; sourceTree = "<group>"; };
-		B9FC722B36A27AB4A91C97F8 /* Pods-ArtTap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap.release.xcconfig"; path = "Target Support Files/Pods-ArtTap/Pods-ArtTap.release.xcconfig"; sourceTree = "<group>"; };
-		FBCC3B94A5DA09DB6733445C /* Pods-ArtTapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTapTests.debug.xcconfig"; path = "Target Support Files/Pods-ArtTapTests/Pods-ArtTapTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7FDBC9692898719F00EE450D /* PopUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopUpViewController.h; sourceTree = "<group>"; };
+		7FDBC96A2898719F00EE450D /* PopUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopUpViewController.m; sourceTree = "<group>"; };
+		9CB9E9CBE30E9B2EBE87995D /* Pods_ArtTap_ArtTapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTap_ArtTapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD73C56D5727AAFE00B11C48 /* Pods-ArtTapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTapTests.release.xcconfig"; path = "Target Support Files/Pods-ArtTapTests/Pods-ArtTapTests.release.xcconfig"; sourceTree = "<group>"; };
+		B69DE00E881BF1186D2A7252 /* Pods-ArtTap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap.debug.xcconfig"; path = "Target Support Files/Pods-ArtTap/Pods-ArtTap.debug.xcconfig"; sourceTree = "<group>"; };
+		D4FF01E7FC2C16EEE67ED57D /* Pods-ArtTap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtTap.release.xcconfig"; path = "Target Support Files/Pods-ArtTap/Pods-ArtTap.release.xcconfig"; sourceTree = "<group>"; };
+		EE9B3825BEDD368B4FD8F0C9 /* Pods_ArtTapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtTapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FCA5E01A16D0B4ACF7497E2 /* Pods_ArtTap.framework in Frameworks */,
+				C6CF4B0B8E49D0464F04D6E1 /* Pods_ArtTap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8FBC1C0B1AB2B34256C412A /* Pods_ArtTapTests.framework in Frameworks */,
+				B8B0CFF3D2594B237F609A91 /* Pods_ArtTapTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,23 +182,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C70A6EF0CEDB391957E2E131 /* Pods_ArtTap_ArtTapUITests.framework in Frameworks */,
+				8700F648FB076D4DFD21B25A /* Pods_ArtTap_ArtTapUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0132132931F5FCD11552BA2B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0B269BC26BAAA8844CEFA381 /* Pods_ArtTap.framework */,
-				842ADBE5A1CA7ADE48BD3868 /* Pods_ArtTap_ArtTapUITests.framework */,
-				8E238B15AF869A6BE71C15C6 /* Pods_ArtTapTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7F384BCB28764845003F9894 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +250,8 @@
 				7F384BDE28778120003F9894 /* DetailViewController.m */,
 				7F384BC2287643C4003F9894 /* HomeViewController.h */,
 				7F384BC3287643C4003F9894 /* HomeViewController.m */,
+				7FDBC9692898719F00EE450D /* PopUpViewController.h */,
+				7FDBC96A2898719F00EE450D /* PopUpViewController.m */,
 				7F384BC52876451C003F9894 /* ProfileViewController.h */,
 				7F384BC62876451C003F9894 /* ProfileViewController.m */,
 				7F384BC8287645D7003F9894 /* NotifViewController.h */,
@@ -290,7 +285,7 @@
 				7FDA60E428763AE8002FF556 /* ArtTapUITests */,
 				7FDA60BD28763AE7002FF556 /* Products */,
 				E1EC5C970EA29CBE70616D71 /* Pods */,
-				0132132931F5FCD11552BA2B /* Frameworks */,
+				F24A622C7656F05C1C159D5A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -347,14 +342,24 @@
 		E1EC5C970EA29CBE70616D71 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				569ED851EE11A4DF4F7C6211 /* Pods-ArtTap.debug.xcconfig */,
-				B9FC722B36A27AB4A91C97F8 /* Pods-ArtTap.release.xcconfig */,
-				278C68BA29AECF4A7EC5A873 /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */,
-				3E2204E75A06A8F12C315A2E /* Pods-ArtTap-ArtTapUITests.release.xcconfig */,
-				FBCC3B94A5DA09DB6733445C /* Pods-ArtTapTests.debug.xcconfig */,
-				ABB952D7214269D69AC0C691 /* Pods-ArtTapTests.release.xcconfig */,
+				B69DE00E881BF1186D2A7252 /* Pods-ArtTap.debug.xcconfig */,
+				D4FF01E7FC2C16EEE67ED57D /* Pods-ArtTap.release.xcconfig */,
+				0D3969B0BDEC2FDA83350C6C /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */,
+				0BD41010A86A3BACD2A3A5F5 /* Pods-ArtTap-ArtTapUITests.release.xcconfig */,
+				7DC47C5788927B8580F7442F /* Pods-ArtTapTests.debug.xcconfig */,
+				AD73C56D5727AAFE00B11C48 /* Pods-ArtTapTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F24A622C7656F05C1C159D5A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				198454C5C21DA2CA10A7D953 /* Pods_ArtTap.framework */,
+				9CB9E9CBE30E9B2EBE87995D /* Pods_ArtTap_ArtTapUITests.framework */,
+				EE9B3825BEDD368B4FD8F0C9 /* Pods_ArtTapTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,11 +369,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FDA60EB28763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTap" */;
 			buildPhases = (
-				97375588389821F5135CCBA8 /* [CP] Check Pods Manifest.lock */,
+				E2EDB61397E5710026394FDC /* [CP] Check Pods Manifest.lock */,
 				7FDA60B828763AE7002FF556 /* Sources */,
 				7FDA60B928763AE7002FF556 /* Frameworks */,
 				7FDA60BA28763AE7002FF556 /* Resources */,
-				53E578D65B657937DB2F64CD /* [CP] Embed Pods Frameworks */,
+				3F12D7CB91E141B44EACEAE8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -383,7 +388,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FDA60EE28763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTapTests" */;
 			buildPhases = (
-				9CF636CEBF893FC8E8F7D97B /* [CP] Check Pods Manifest.lock */,
+				4AC2964E3D08CD1BB88EEA45 /* [CP] Check Pods Manifest.lock */,
 				7FDA60D328763AE8002FF556 /* Sources */,
 				7FDA60D428763AE8002FF556 /* Frameworks */,
 				7FDA60D528763AE8002FF556 /* Resources */,
@@ -402,11 +407,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FDA60F128763AE8002FF556 /* Build configuration list for PBXNativeTarget "ArtTapUITests" */;
 			buildPhases = (
-				F4087FA90668235C1EF36DBC /* [CP] Check Pods Manifest.lock */,
+				23F669B4ADCFBCAEA2F606F8 /* [CP] Check Pods Manifest.lock */,
 				7FDA60DD28763AE8002FF556 /* Sources */,
 				7FDA60DE28763AE8002FF556 /* Frameworks */,
 				7FDA60DF28763AE8002FF556 /* Resources */,
-				4CB246A6DD467E086AC8EF5A /* [CP] Embed Pods Frameworks */,
+				C465CC496D5274618666E7DC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -450,8 +455,6 @@
 				Base,
 			);
 			mainGroup = 7FDA60B328763AE7002FF556;
-			packageReferences = (
-			);
 			productRefGroup = 7FDA60BD28763AE7002FF556 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -492,85 +495,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4CB246A6DD467E086AC8EF5A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		53E578D65B657937DB2F64CD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97375588389821F5135CCBA8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ArtTap-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9CF636CEBF893FC8E8F7D97B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ArtTapTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F4087FA90668235C1EF36DBC /* [CP] Check Pods Manifest.lock */ = {
+		23F669B4ADCFBCAEA2F606F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -592,6 +517,84 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3F12D7CB91E141B44EACEAE8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ArtTap/Pods-ArtTap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4AC2964E3D08CD1BB88EEA45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ArtTapTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C465CC496D5274618666E7DC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ArtTap-ArtTapUITests/Pods-ArtTap-ArtTapUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2EDB61397E5710026394FDC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ArtTap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -602,6 +605,7 @@
 				7F384BCF28764888003F9894 /* HomePhotoCell.m in Sources */,
 				7F384C06287E0F2F003F9894 /* AnalyticsViewController.m in Sources */,
 				7FDA60C728763AE7002FF556 /* ViewController.m in Sources */,
+				7FDBC96B2898719F00EE450D /* PopUpViewController.m in Sources */,
 				7F384BE8287894A8003F9894 /* InsightsViewController.m in Sources */,
 				7F384C09287E19D7003F9894 /* SearchViewController.m in Sources */,
 				7F384C192880B143003F9894 /* GraphViewController.swift in Sources */,
@@ -800,7 +804,7 @@
 		};
 		7FDA60EC28763AE8002FF556 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 569ED851EE11A4DF4F7C6211 /* Pods-ArtTap.debug.xcconfig */;
+			baseConfigurationReference = B69DE00E881BF1186D2A7252 /* Pods-ArtTap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -834,7 +838,7 @@
 		};
 		7FDA60ED28763AE8002FF556 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9FC722B36A27AB4A91C97F8 /* Pods-ArtTap.release.xcconfig */;
+			baseConfigurationReference = D4FF01E7FC2C16EEE67ED57D /* Pods-ArtTap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -867,7 +871,7 @@
 		};
 		7FDA60EF28763AE8002FF556 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBCC3B94A5DA09DB6733445C /* Pods-ArtTapTests.debug.xcconfig */;
+			baseConfigurationReference = 7DC47C5788927B8580F7442F /* Pods-ArtTapTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -887,7 +891,7 @@
 		};
 		7FDA60F028763AE8002FF556 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABB952D7214269D69AC0C691 /* Pods-ArtTapTests.release.xcconfig */;
+			baseConfigurationReference = AD73C56D5727AAFE00B11C48 /* Pods-ArtTapTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -907,7 +911,7 @@
 		};
 		7FDA60F228763AE8002FF556 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 278C68BA29AECF4A7EC5A873 /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */;
+			baseConfigurationReference = 0D3969B0BDEC2FDA83350C6C /* Pods-ArtTap-ArtTapUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -925,7 +929,7 @@
 		};
 		7FDA60F328763AE8002FF556 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E2204E75A06A8F12C315A2E /* Pods-ArtTap-ArtTapUITests.release.xcconfig */;
+			baseConfigurationReference = 0BD41010A86A3BACD2A3A5F5 /* Pods-ArtTap-ArtTapUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

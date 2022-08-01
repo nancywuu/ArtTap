@@ -11,11 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomePhotoCell : UICollectionViewCell
+@protocol HomePhotoCellDelegate;
+@interface HomePhotoCell : UICollectionViewCell <UIGestureRecognizerDelegate>
+@property (nonatomic, weak) id<HomePhotoCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet PFImageView *image;
 @property (strong, nonatomic) Post *post;
-@property (weak, nonatomic) IBOutlet UIButton *tagButton;
 
+@end
+
+@protocol HomePhotoCellDelegate
+- (void)didPreview:(Post *)current;
 @end
 
 NS_ASSUME_NONNULL_END

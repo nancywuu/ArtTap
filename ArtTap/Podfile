@@ -21,7 +21,7 @@ target 'ArtTap' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
-  pod 'Pluralize.swift'
+  pod 'STPopup'
 
   target 'ArtTapTests' do
     inherit! :search_paths

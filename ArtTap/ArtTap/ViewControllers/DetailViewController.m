@@ -15,11 +15,12 @@
 #import "Notifications.h"
 #import "ArtTap-Swift.h"
 
-@interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate>
+@interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate, UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, strong) NSArray *commentArray;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIImageView *heartPopup;
 
 @end
 
@@ -50,10 +51,37 @@
     [self.profileImage addGestureRecognizer:profileTapGestureRecognizer];
     [self.profileImage setUserInteractionEnabled:YES];
     
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapped:)];
+    doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    [self.postImage addGestureRecognizer:doubleTapGestureRecognizer];
+    [self.postImage setUserInteractionEnabled:YES];
+    
     [self fetchComments];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchComments) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void) animateLike {
+    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        self.heartPopup.transform = CGAffineTransformMakeScale(1.3, 1.3);
+        self.heartPopup.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            self.heartPopup.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+                self.heartPopup.transform = CGAffineTransformMakeScale(1.3, 1.3);
+                self.heartPopup.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                self.heartPopup.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            }];
+        }];
+    }];
+}
+
+- (void) doubleTapped:(UITapGestureRecognizer *)sender{
+    [self triggerLike];
 }
 
 - (void) didTapUserProfile:(UITapGestureRecognizer *)sender{
@@ -85,6 +113,9 @@
 }
 
 - (void) visUnlike {
+    self.heartPopup.image = [UIImage systemImageNamed:@"heart.slash"];
+    [self animateLike];
+
     self.liked = NO;
     int temp = [self.obj.likeCount intValue];
     self.obj.likeCount = [NSNumber numberWithInt:temp - 1];
@@ -147,6 +178,9 @@
 }
 
 - (void) visLike {
+    self.heartPopup.image = [UIImage systemImageNamed:@"heart.fill"];
+    [self animateLike];
+
     self.liked = YES;
     int temp = [self.obj.likeCount intValue];
     self.obj.likeCount = [NSNumber numberWithInt:temp + 1];
@@ -177,7 +211,7 @@
     
 }
 
-- (IBAction)didLike:(id)sender {
+- (void) triggerLike {
     if(self.liked == YES){
         // update likeCount
         [self visUnlike];
@@ -193,6 +227,10 @@
              }
         }];
     }
+}
+
+- (IBAction)didLike:(id)sender {
+    [self triggerLike];
 }
 
 - (IBAction)didComment:(id)sender {
@@ -359,7 +397,6 @@
     cell.date.text = comment.createdAt.shortTimeAgoSinceNow;
     cell.delegate = self;
     [self checkCommentLikes:cell];
-    
     
     return cell;
 }
