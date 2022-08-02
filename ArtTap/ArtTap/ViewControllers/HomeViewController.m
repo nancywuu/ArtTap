@@ -38,6 +38,10 @@
 @property (nonatomic) int incre;
 @property (nonatomic) int maxLim;
 
+@property UIColor *backColor;
+@property UIColor *frontColor;
+@property UIColor *secondaryColor;
+
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet CHTCollectionViewWaterfallLayout *layout;
 
@@ -68,6 +72,8 @@
     
     [self makeQuery];
     
+    [self.segCon addTarget:self action:@selector(animate) forControlEvents:UIControlEventValueChanged];
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(makeQuery) forControlEvents:UIControlEventValueChanged];
     [self.collectionView insertSubview:self.refreshControl atIndex:0];
@@ -79,6 +85,31 @@
     if(!self.didInitSuggested){
         [self loadhud];
     }
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self setColors];
+}
+
+- (void) setColors {
+    if(User.currentUser.darkmode == YES){
+        self.backColor = UIColor.blackColor;
+        self.frontColor = UIColor.whiteColor;
+        self.secondaryColor = UIColor.darkGrayColor;
+    } else {
+        self.backColor = UIColor.whiteColor;
+        self.frontColor = UIColor.blackColor;
+        self.secondaryColor = UIColor.lightGrayColor;
+    }
+    
+    self.view.backgroundColor = self.backColor;
+    self.collectionView.backgroundColor = self.backColor;
+
+    self.segCon.backgroundColor = self.secondaryColor;
+    self.segCon.tintColor = self.frontColor;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:self.frontColor}];
+    [self.tabBarController.tabBar setBarTintColor: self.backColor];
 }
 
 #pragma mark - Response
@@ -110,6 +141,11 @@
         [self.collectionView reloadData];
         [self makeQuery];
     }
+}
+
+- (void)animate {
+    [UIView animateWithDuration:1 animations:^{ self.collectionView.alpha = 0.3; self.collectionView.alpha = 0.3; }];
+    [UIView animateWithDuration:1 animations:^{ self.collectionView.alpha = 1; self.collectionView.alpha = 1; }];
 }
 
 - (IBAction)didLogout:(id)sender {

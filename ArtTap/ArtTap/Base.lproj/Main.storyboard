@@ -188,7 +188,7 @@
                     <connections>
                         <outlet property="tableView" destination="5KM-31-vxb" id="1R4-WH-Mvr"/>
                         <segue destination="SOV-sc-HhP" kind="presentation" identifier="notifToDetail" id="VkK-8D-d2t"/>
-                        <segue destination="mUd-VA-n3Q" kind="presentation" identifier="notifToProfile" id="oxt-xD-FpW"/>
+                        <segue destination="mUd-VA-n3Q" kind="show" identifier="notifToProfile" id="oxt-xD-FpW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rax-dT-hMM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -353,7 +353,11 @@
                                     <segue destination="5nE-7F-s2I" kind="show" identifier="insightsSegue" id="MWP-Dm-KZ7"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="moon.stars" catalog="system" id="BgV-E9-U1x"/>
+                            <barButtonItem image="moon.stars" catalog="system" id="BgV-E9-U1x">
+                                <connections>
+                                    <action selector="selectColorMode:" destination="mUd-VA-n3Q" id="HRG-83-YGp"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -364,6 +368,7 @@
                         <outlet property="followingButton" destination="EpK-qE-2Sg" id="dHw-GK-ok8"/>
                         <outlet property="name" destination="Xhq-Tf-Qeb" id="qye-z3-4jz"/>
                         <outlet property="profileImg" destination="kPE-Rb-9NH" id="Ohp-Vh-1Be"/>
+                        <outlet property="smallView" destination="PuD-fP-JiX" id="vmF-1N-Tnn"/>
                         <outlet property="tableView" destination="DC4-96-HkH" id="o9R-an-UzC"/>
                         <outlet property="username" destination="aDM-3A-3k7" id="lNH-cx-tJC"/>
                     </connections>
@@ -615,8 +620,10 @@
                     <navigationItem key="navigationItem" id="zgz-qx-seS"/>
                     <connections>
                         <outlet property="segCon" destination="vQB-l6-xLA" id="lLW-Yk-roZ"/>
+                        <outlet property="smallView" destination="5lS-Ah-jse" id="wiy-VO-dqu"/>
                         <outlet property="tableView" destination="LTQ-0M-I9U" id="Dl3-w1-KAW"/>
                         <outlet property="timeCon" destination="GoI-i0-poE" id="LoT-s1-TOa"/>
+                        <outlet property="topTitle" destination="Mk2-Lg-GJc" id="Myp-cc-zG3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rko-v9-lqP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -780,7 +787,7 @@
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="chart.line.uptrend.xyaxis" catalog="system" title=""/>
                                             <connections>
-                                                <segue destination="xTo-q4-r0X" kind="presentation" identifier="analytics" id="TSY-IH-BiA"/>
+                                                <segue destination="xTo-q4-r0X" kind="presentation" identifier="analytics" modalTransitionStyle="crossDissolve" id="TSY-IH-BiA"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYG-11-dpG">
@@ -1274,7 +1281,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="Rfw-hz-qvx"/>
                     <connections>
+                        <outlet property="searchTitle" destination="n5X-Uf-iLP" id="Pnp-7F-Cjx"/>
                         <outlet property="searchbar" destination="5s5-QZ-br7" id="CG8-qb-2jc"/>
+                        <outlet property="smallView" destination="mKJ-mO-erO" id="L2H-9s-ZQF"/>
                         <outlet property="tableView" destination="zq5-zT-U8L" id="Fj8-rS-qLh"/>
                     </connections>
                 </viewController>
@@ -1527,12 +1536,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="doc.plaintext" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Wgm-6i-K5g" customClass="PFImageView">
                                 <rect key="frame" x="127" y="113" width="161" height="182"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="LBn-wl-Fnk"/>
-                                    <constraint firstAttribute="height" constant="200" id="Prc-4h-KTC"/>
+                                    <constraint firstAttribute="width" constant="300" id="LBn-wl-Fnk"/>
+                                    <constraint firstAttribute="height" constant="300" id="Prc-4h-KTC"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="likeCount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOx-Gd-ZU8">
-                                <rect key="frame" x="18" y="303" width="378" height="24"/>
+                                <rect key="frame" x="18" y="403" width="378" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1549,7 +1558,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="commentCount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08l-8T-Cai">
-                                <rect key="frame" x="18" y="369" width="378" height="24"/>
+                                <rect key="frame" x="18" y="469" width="378" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1597,7 +1606,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="t2T-yx-azJ"/>
-        <segue reference="pQk-Pu-81c"/>
+        <segue reference="oD1-tJ-JRa"/>
         <segue reference="Cmn-nw-l2k"/>
     </inferredMetricsTieBreakers>
     <resources>

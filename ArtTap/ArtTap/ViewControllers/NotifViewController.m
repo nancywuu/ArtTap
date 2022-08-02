@@ -18,6 +18,10 @@
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NotifCell *selectedCell;
 
+@property UIColor *backColor;
+@property UIColor *frontColor;
+@property UIColor *secondaryColor;
+
 @end
 
 @implementation NotifViewController
@@ -28,11 +32,35 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 100;
+    [self.tabBarController.tabBar setBarTintColor: self.backColor];
     
     [self fetchNotifs];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchNotifs) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self setColors];
+}
+
+- (void) setColors {
+    if(User.currentUser.darkmode == YES){
+        self.backColor = UIColor.blackColor;
+        self.frontColor = UIColor.whiteColor;
+        self.secondaryColor = UIColor.darkGrayColor;
+    } else {
+        self.backColor = UIColor.whiteColor;
+        self.frontColor = UIColor.blackColor;
+        self.secondaryColor = UIColor.lightGrayColor;
+    }
+    
+    self.view.backgroundColor = self.backColor;
+    self.tableView.backgroundColor = self.backColor;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:self.frontColor}];
+    [self.tabBarController.tabBar setBarTintColor: self.backColor];
+    [self.tableView reloadData];
 }
 
 - (void) fetchNotifs {
@@ -103,6 +131,10 @@
         [cell.previewImage loadInBackground];
         cell.isFollow = YES;
     }
+    
+    cell.backgroundColor = self.backColor;
+    cell.title.textColor = self.frontColor;
+    cell.text.textColor = self.frontColor;
     
     cell.delegate = self;
     return cell;

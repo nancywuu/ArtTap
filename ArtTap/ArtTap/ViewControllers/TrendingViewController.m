@@ -15,6 +15,12 @@
 @property (nonatomic, strong) NSArray *postArray;
 @property BOOL isByView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIView *smallView;
+
+@property UIColor *backColor;
+@property UIColor *frontColor;
+@property UIColor *secondaryColor;
+
 @end
 
 @implementation TrendingViewController
@@ -36,6 +42,33 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self setColors];
+}
+
+- (void) setColors {
+    if(User.currentUser.darkmode == YES){
+        self.backColor = UIColor.blackColor;
+        self.frontColor = UIColor.whiteColor;
+        self.secondaryColor = UIColor.darkGrayColor;
+    } else {
+        self.backColor = UIColor.whiteColor;
+        self.frontColor = UIColor.blackColor;
+        self.secondaryColor = UIColor.lightGrayColor;
+    }
+    
+    self.view.backgroundColor = self.backColor;
+    self.tableView.backgroundColor = self.backColor;
+    self.smallView.backgroundColor = self.backColor;
+    self.topTitle.textColor = self.frontColor;
+    self.segCon.backgroundColor = self.secondaryColor;
+    self.timeCon.backgroundColor = self.secondaryColor;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:self.frontColor}];
+    [self.tabBarController.tabBar setBarTintColor: self.backColor];
+    [self.tableView reloadData];
 }
 
 - (void) fetchPosts {
@@ -107,11 +140,8 @@
     TrendTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trendCell" forIndexPath:indexPath];
     Post *post = self.postArray[indexPath.row];
     cell.name.text = post.author.name;
-    
     cell.username.text = [@"@" stringByAppendingString:post.author.username];
     cell.date.text = post.createdAt.shortTimeAgoSinceNow;
-    
-    
     cell.caption.text = post.caption;
     
     cell.previewImage.file = post.image;
@@ -123,6 +153,13 @@
     } else {
         cell.value.text = [NSString stringWithFormat:@"%@%s", post.likeCount, " likes"];
     }
+    
+    cell.backgroundColor = self.backColor;
+    cell.name.textColor = self.frontColor;
+    cell.username.textColor = self.frontColor;
+    cell.date.textColor = self.frontColor;
+    cell.caption.textColor = self.frontColor;
+    cell.value.textColor = self.frontColor;
 
     return cell;
 }

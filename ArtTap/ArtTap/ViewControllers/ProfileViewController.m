@@ -21,6 +21,11 @@
 @property (nonatomic, strong) NSArray *followingArray;
 @property (nonatomic, strong) NSArray *followersArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIView *smallView;
+
+@property UIColor *backColor;
+@property UIColor *frontColor;
+@property UIColor *secondaryColor;
 
 @end
 
@@ -45,6 +50,36 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchProfile) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self setColors];
+}
+
+- (void) setColors {
+    if(User.currentUser.darkmode == YES){
+        self.backColor = UIColor.blackColor;
+        self.frontColor = UIColor.whiteColor;
+        self.secondaryColor = UIColor.darkGrayColor;
+    } else {
+        self.backColor = UIColor.whiteColor;
+        self.frontColor = UIColor.blackColor;
+        self.secondaryColor = UIColor.lightGrayColor;
+    }
+    
+    self.view.backgroundColor = self.backColor;
+    self.tableView.backgroundColor = self.backColor;
+    self.smallView.backgroundColor = self.backColor;
+    
+    self.username.textColor = self.frontColor;
+    self.name.textColor = self.frontColor;
+    self.bio.textColor = self.frontColor;
+    self.followersButton.tintColor = self.frontColor;
+    self.followingButton.tintColor = self.frontColor;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:self.frontColor}];
+    [self.tabBarController.tabBar setBarTintColor: self.backColor];
+    [self.tableView reloadData];
 }
 
 - (void) fetchProfile {
@@ -142,6 +177,11 @@
     }];
 }
 
+- (IBAction)selectColorMode:(id)sender {
+    [User switchColorMode:User.currentUser];
+    [self setColors];
+}
+
 - (IBAction)didFollow:(id)sender {
     if(self.isFollowing){
         self.isFollowing = NO;
@@ -198,9 +238,10 @@
     ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell" forIndexPath:indexPath];
     cell.post = self.postArray[indexPath.row];
     cell.image.file = self.postArray[indexPath.row][@"image"];
-    
-    
     [cell.image loadInBackground];
+    
+    cell.backgroundColor = self.backColor;
+    
     return cell;
 }
 

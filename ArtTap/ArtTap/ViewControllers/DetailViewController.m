@@ -22,6 +22,10 @@
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIImageView *heartPopup;
 
+@property UIColor *backColor;
+@property UIColor *frontColor;
+@property UIColor *secondaryColor;
+
 @end
 
 @implementation DetailViewController
@@ -60,6 +64,29 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchComments) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self setColors];
+}
+
+- (void) setColors {
+    if(User.currentUser.darkmode == YES){
+        self.backColor = UIColor.blackColor;
+        self.frontColor = UIColor.whiteColor;
+        self.secondaryColor = UIColor.darkGrayColor;
+    } else {
+        self.backColor = UIColor.whiteColor;
+        self.frontColor = UIColor.blackColor;
+        self.secondaryColor = UIColor.lightGrayColor;
+    }
+    
+    self.view.backgroundColor = self.backColor;
+    self.tableView.backgroundColor = self.backColor;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:self.frontColor}];
+    [self.tabBarController.tabBar setBarTintColor: self.backColor];
+    [self.tableView reloadData];
 }
 
 - (void) animateLike {

@@ -15,6 +15,7 @@
 @dynamic name;
 @dynamic bio;
 @dynamic backgroundPic;
+@dynamic darkmode;
 
 
 + (void) updateUser: ( UIImage * _Nullable )image withBackground: (UIImage * _Nullable )bgImage withName: ( NSString * _Nullable )name withUsername: ( NSString * _Nullable )username withBio: (NSString * _Nullable)bio withCompletion: (PFBooleanResultBlock  _Nullable)completion {
@@ -35,8 +36,22 @@
     if(![bio isEqualToString:@""]){
         user.bio = bio;
     }
+    
+    user.darkmode = NO;
 
     [user saveInBackgroundWithBlock: completion];
+}
+
++ (void) switchColorMode: ( User * _Nullable )user {
+    User *ourUser = user;
+    
+    if(ourUser.darkmode){
+        ourUser.darkmode = NO;
+    } else {
+        ourUser.darkmode = YES;
+    }
+    
+    [ourUser saveInBackground];
 }
 
 + (PFFileObject * )getPFFileFromImage: (UIImage * _Nullable)image {

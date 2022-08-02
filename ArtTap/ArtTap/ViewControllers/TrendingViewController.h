@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segCon;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *timeCon;
+@property (weak, nonatomic) IBOutlet UILabel *topTitle;
 
 
 @end
