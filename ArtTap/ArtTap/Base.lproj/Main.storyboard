@@ -326,7 +326,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="image" destination="yFP-uM-mzs" id="j7O-Ug-AuK"/>
-                                            <segue destination="SOV-sc-HhP" kind="presentation" identifier="detailFromProfileSegue" id="2Fc-Ot-mbV"/>
+                                            <segue destination="SOV-sc-HhP" kind="show" identifier="detailFromProfileSegue" id="2Fc-Ot-mbV"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -759,7 +759,7 @@
             <objects>
                 <viewController id="SOV-sc-HhP" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1g7-Ng-zea">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rpy-XP-lMw">
@@ -862,6 +862,15 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MbQ-fg-TIP">
+                                            <rect key="frame" x="203" y="559" width="152" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="View Speedpaint"/>
+                                            <connections>
+                                                <action selector="viewVideo:" destination="SOV-sc-HhP" eventType="touchUpInside" id="3sv-tL-hdC"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
@@ -944,6 +953,7 @@
                         <outlet property="postImage" destination="OLQ-rY-1v8" id="uWN-fs-fhT"/>
                         <outlet property="profileImage" destination="B11-wK-jni" id="omH-qk-3le"/>
                         <outlet property="segCon" destination="gv4-5N-bF6" id="8aq-c6-zLo"/>
+                        <outlet property="speedpaintButton" destination="MbQ-fg-TIP" id="wx1-RQ-tQQ"/>
                         <outlet property="tableView" destination="Rpy-XP-lMw" id="EPe-gH-DhP"/>
                         <outlet property="username" destination="FCS-V4-TBm" id="RbQ-ZS-Iue"/>
                         <segue destination="mUd-VA-n3Q" kind="show" identifier="profileSegue" id="bym-h3-3ic"/>
@@ -1104,29 +1114,45 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo.artframe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRS-o6-7bh">
-                                <rect key="frame" x="20" y="83" width="193" height="257"/>
+                                <rect key="frame" x="20" y="83" width="193" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="tintColor" systemColor="systemGray3Color"/>
                             </imageView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iuw-ob-z9M">
-                                <rect key="frame" x="347" y="172" width="49" height="31"/>
+                                <rect key="frame" x="135" y="686" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Allow critiques" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTo-6y-bD5">
-                                <rect key="frame" x="231" y="177" width="118" height="21"/>
+                                <rect key="frame" x="20" y="671" width="118" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Add a caption..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="brj-B7-gjq">
-                                <rect key="frame" x="20" y="349" width="374" height="243"/>
+                                <rect key="frame" x="221" y="164" width="174" height="205"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="video.square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TMk-Fp-d8C">
+                                <rect key="frame" x="20" y="396" width="193" height="280"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRY-VH-gNl">
+                                <rect key="frame" x="220" y="395" width="174" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add a Speedpaint"/>
+                                <connections>
+                                    <action selector="didTapVideo:" destination="zCb-Hg-mYE" eventType="touchUpInside" id="LFw-I2-Dba"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6hZ-O5-b7Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1147,6 +1173,7 @@
                         <outlet property="captionField" destination="brj-B7-gjq" id="Rug-zb-e6A"/>
                         <outlet property="critSwitch" destination="Iuw-ob-z9M" id="a9S-5u-5N9"/>
                         <outlet property="displayImage" destination="PRS-o6-7bh" id="nyZ-8D-Uyq"/>
+                        <outlet property="displayVideo" destination="TMk-Fp-d8C" id="QeY-AV-sBi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SUI-pO-bix" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1627,8 +1654,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="5aD-3X-4oQ"/>
-        <segue reference="pQk-Pu-81c"/>
-        <segue reference="IxY-0C-eQl"/>
+        <segue reference="2Fc-Ot-mbV"/>
+        <segue reference="Cmn-nw-l2k"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>
@@ -1645,6 +1672,7 @@
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="video" catalog="system" width="128" height="83"/>
+        <image name="video.square" catalog="system" width="128" height="114"/>
         <image name="xmark.rectangle" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

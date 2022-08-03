@@ -13,6 +13,7 @@
 @dynamic author;
 @dynamic caption;
 @dynamic image;
+@dynamic speedpaint;
 @dynamic likeCount;
 @dynamic commentCount;
 @dynamic createdAt;
@@ -25,7 +26,7 @@
     return @"Post";
 }
 
-+ (void) postUserImage: ( UIImage * _Nullable )image withCaption: ( NSString * _Nullable )caption withBool: (BOOL)critBool withCompletion: (PFBooleanResultBlock  _Nullable)completion {
++ (void) postUserImage: ( UIImage * _Nullable )image withVideo: ( NSData * _Nullable )video withCaption: ( NSString * _Nullable )caption withBool: (BOOL)critBool withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     
     Post *newPost = [Post new];
     newPost.image = [self getPFFileFromImage:image];
@@ -35,6 +36,10 @@
     newPost.commentCount = @(0);
     newPost.critBool = critBool;
     newPost.numViews = @(0);
+    if(video != nil){
+        //newPost.speedpaint = [PFFileObject fileObjectWithData:video];
+        newPost.speedpaint = [PFFileObject fileObjectWithData:video contentType:@"video/mp4"];
+    }
     
     [newPost saveInBackgroundWithBlock: completion];
 }

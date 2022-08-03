@@ -8,23 +8,30 @@
 #import "CreateViewController.h"
 #import "Post.h"
 #import "MBProgressHUD/MBProgressHUD.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface CreateViewController () <UITextViewDelegate>
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) UIImage *chosenImage;
+@property (nonatomic, strong) NSData *chosenFromURL;
+
+@property BOOL didUploadImage;
 
 @end
 
 @implementation CreateViewController
+
 - (IBAction)didShare:(id)sender {
-    if(self.displayImage != nil){
+    if(self.didUploadImage){
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         if([self.captionField.text isEqualToString: @"Add a caption..."]) {
             self.caption = @"";
         } else {
             self.caption = self.captionField.text;
         }
-        [Post postUserImage:self.chosenImage withCaption:self.caption withBool:self.critSwitch.isOn withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Post postUserImage:self.chosenImage withVideo:self.chosenFromURL withCaption:self.caption withBool:self.critSwitch.isOn withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error posting: %@", error.localizedDescription);
              }
@@ -35,9 +42,19 @@
                  [self dismissViewControllerAnimated:true completion:nil];
              }
         } ];
+    } else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Image Needed"
+                                                  message:@"Please upload an image with your post"
+                                                  preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                      handler:^(UIAlertAction * action) {}];
+
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
-    
 }
+
 - (IBAction)didClose:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
@@ -54,6 +71,17 @@
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+- (IBAction)didTapVideo:(id)sender {
+    UIImagePickerController *videoPicker = [[UIImagePickerController alloc] init];
+    videoPicker.delegate = self; // ensure you set the delegate so when a video is chosen the right method can be called
+
+    videoPicker.modalPresentationStyle = UIModalPresentationCurrentContext;
+    // This code ensures only videos are shown to the end user
+    videoPicker.mediaTypes = @[(NSString*)kUTTypeMovie];
+
+    videoPicker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+    [self presentViewController:videoPicker animated:YES completion:nil];
 }
 
 - (IBAction)didTapCamera:(id)sender {
@@ -86,6 +114,7 @@
     self.captionField.text = @"Add a caption...";
     self.captionField.textColor = [UIColor lightGrayColor];
     self.captionField.delegate = self;
+    self.didUploadImage = NO;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
@@ -96,22 +125,27 @@
     [textView becomeFirstResponder];
 }
 
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    BOOL isMovie = UTTypeConformsTo((__bridge CFStringRef)mediaType,
+                                    kUTTypeMovie) != 0;
     
-    // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
-    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    
-    if(editedImage != nil){
-        CGFloat width = 500;
-        CGFloat height = 500 * originalImage.size.height/originalImage.size.width;
-        CGSize newSize = CGSizeMake(width, height);
-        UIImage *editedImage2 = [self resizeImage:editedImage withSize:newSize];
-    
-        self.chosenImage = editedImage2;
-        [self.displayImage setImage:editedImage2];
+    if(isMovie){
+        NSString *videoPath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+        NSURL *ourURL = info[UIImagePickerControllerMediaURL];
+
+        self.chosenFromURL = [NSData dataWithContentsOfURL:ourURL];
+        AVAsset *asset = [AVAsset assetWithURL:ourURL];
+        AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+        CMTime time = CMTimeMake(1, 1);
+        CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
+        [self.displayVideo setImage:[UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationRight]];
+        CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
     } else {
-        
+        // Get the image captured by the UIImagePickerController
+        self.didUploadImage = YES;
+        UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
         CGFloat width = 500;
         CGFloat height = 500 * originalImage.size.height/originalImage.size.width;
         CGSize newSize = CGSizeMake(width, height);
@@ -120,9 +154,6 @@
         self.chosenImage = originalImage2;
         [self.displayImage setImage:originalImage2];
     }
-
-    // Do something with the images (based on your use case)
-    
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
 }

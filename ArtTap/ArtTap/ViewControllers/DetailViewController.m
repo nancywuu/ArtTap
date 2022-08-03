@@ -14,8 +14,11 @@
 #import "DateTools.h"
 #import "Notifications.h"
 #import "ArtTap-Swift.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
 
 @interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate, UIGestureRecognizerDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *speedpaintButton;
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, strong) NSArray *commentArray;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -25,6 +28,10 @@
 @property UIColor *backColor;
 @property UIColor *frontColor;
 @property UIColor *secondaryColor;
+
+@property AVPlayerViewController *playerController;
+@property AVPlayerLayer *playerLayer;
+@property AVPlayer *player;
 
 @end
 
@@ -50,6 +57,10 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 80;
+    self.playerController = [[AVPlayerViewController alloc] init];
+    if(self.obj.speedpaint == nil){
+        self.speedpaintButton.hidden = YES;
+    }
     
     UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
     [self.profileImage addGestureRecognizer:profileTapGestureRecognizer];
@@ -254,6 +265,20 @@
              }
         }];
     }
+}
+
+#pragma mark - ACTIONS
+
+- (IBAction)viewVideo:(id)sender {
+    // your filepath which is may be "http" type
+    NSURL *url = [NSURL URLWithString: self.obj.speedpaint.url];
+    self.player = [AVPlayer playerWithURL:url];
+    self.playerController.player = self.player;
+    self.playerController.videoGravity = AVLayerVideoGravityResizeAspect;
+    [self presentViewController:self.playerController animated:YES completion:^{
+        [self.playerController.player play];
+    }];
+
 }
 
 - (IBAction)didLike:(id)sender {
