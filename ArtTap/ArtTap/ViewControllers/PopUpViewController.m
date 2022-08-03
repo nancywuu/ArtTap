@@ -23,9 +23,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    CGFloat margin = 20;
-    self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width - margin * 2, 480);
-    self.view.layer.cornerRadius = 20;
+    
 }
 
 - (void)viewDidLoad
@@ -58,6 +56,21 @@
         self.commentCount.text = [NSString stringWithFormat:@"%@%s", [self.currentPost.commentCount stringValue], " comments"];
     }
 
+    CGFloat margin = 10;
+    PFFileObject *temp = self.currentPost[@"image"];
+    NSData *data = [temp getData];
+    UIImage *tempImage = [UIImage imageWithData:data];
+    
+    NSLog(@"%f", [UIScreen mainScreen].bounds.size.width - margin * 2);
+    NSLog(@"%f", self.image.frame.size.width);
+    NSLog(@"%f", tempImage.size.width);
+    NSLog(@"%f", tempImage.size.height);
+    NSLog(@"%f", ([UIScreen mainScreen].bounds.size.width - margin * 2)/tempImage.size.width*tempImage.size.height + 100);
+    
+    self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width - margin * 2,
+                                         ([UIScreen mainScreen].bounds.size.width - margin * 2)/tempImage.size.width*tempImage.size.height);
+    self.view.layer.cornerRadius = 20;
+    self.view.alpha = 0.9;
     self.popupController.navigationBarHidden = YES;
 }
 

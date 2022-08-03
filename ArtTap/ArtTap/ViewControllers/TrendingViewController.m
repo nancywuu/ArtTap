@@ -160,6 +160,10 @@
     cell.date.textColor = self.frontColor;
     cell.caption.textColor = self.frontColor;
     cell.value.textColor = self.frontColor;
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = self.secondaryColor;
+    [cell setSelectedBackgroundView:bgColorView];
 
     return cell;
 }

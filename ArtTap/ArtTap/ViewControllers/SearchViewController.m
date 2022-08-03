@@ -57,8 +57,9 @@
     self.view.backgroundColor = self.backColor;
     self.smallView.backgroundColor = self.backColor;
     self.tableView.backgroundColor = self.backColor;
-    self.searchbar.barTintColor = self.secondaryColor;
+    self.searchbar.barTintColor = self.backColor;
     self.searchTitle.textColor = self.frontColor;
+    self.searchbar.searchTextField.backgroundColor = self.secondaryColor;
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:self.frontColor}];
     [self.tabBarController.tabBar setBarTintColor: self.backColor];

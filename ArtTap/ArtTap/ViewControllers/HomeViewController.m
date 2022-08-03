@@ -165,18 +165,10 @@
 // delegate method to act after long gesture recognizer to preview post in feed
 - (void) didPreview:(Post *)current {
     Post *ourPost = current;
-//    ProfileViewController *profileViewController = [ProfileViewController alloc];
-//    profileViewController.isFromTimeline = YES;
-//    profileViewController.currentUser = User.currentUser;
-//
-//    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:profileViewController];
-//    [popupController presentInViewController:self];
-    
     PopUpViewController *ourPopController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PopUpPreviewController"];
     ourPopController.currentPost = ourPost;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:ourPopController];
-   // popupController.style = STPopupStyleBottomSheet;
     popupController.transitionStyle = STPopupTransitionStyleFade;
     popupController.containerView.backgroundColor = [UIColor clearColor];
 

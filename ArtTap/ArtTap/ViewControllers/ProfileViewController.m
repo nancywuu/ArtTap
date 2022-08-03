@@ -27,6 +27,8 @@
 @property UIColor *frontColor;
 @property UIColor *secondaryColor;
 
+@property int hoursInMonth;
+
 @end
 
 @implementation ProfileViewController
@@ -43,8 +45,8 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    //self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.rowHeight = 500;
+    self.hoursInMonth = 730;
 
     [self fetchProfile];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -56,6 +58,7 @@
     [self setColors];
 }
 
+// for dark mode
 - (void) setColors {
     if(User.currentUser.darkmode == YES){
         self.backColor = UIColor.blackColor;
@@ -89,13 +92,10 @@
     self.username.text = [@"@" stringByAppendingString:self.currentUser.username];
     self.name.text = self.currentUser.name;
     self.bio.text = self.currentUser.bio;
-
-    if(self.currentUser.profilePic != nil){
-        self.profileImg.file = self.currentUser.profilePic;
-        self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width/2;
-        self.profileImg.clipsToBounds = YES;
-        [self.profileImg loadInBackground];
-    }
+    self.profileImg.file = self.currentUser.profilePic;
+    self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width/2;
+    self.profileImg.clipsToBounds = YES;
+    [self.profileImg loadInBackground];
     self.backgroundImg.file = self.currentUser.backgroundPic;
     [self.backgroundImg loadInBackground];
     
@@ -107,7 +107,7 @@
     [query whereKey:@"author" equalTo: temp];
     query.limit = 20;
 
-    // fetch data asynchronously
+    // fetch user posts
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.postArray = posts;
@@ -125,6 +125,7 @@
     [self.refreshControl endRefreshing];
 }
 
+// load arrays for following and followers
 - (void) loadFollowers {
     PFQuery *followerQ = [PFQuery queryWithClassName:@"Follower"];
     [followerQ includeKey:@"user"];
@@ -134,7 +135,11 @@
     [followerQ findObjectsInBackgroundWithBlock:^(NSArray *res, NSError *error) {
         if (res != nil) {
             self.followersArray = res;
-            [self.followersButton setTitle:[NSString stringWithFormat:@"%lu%s", self.followersArray.count, " followers"] forState:UIControlStateNormal];
+            if(self.followersArray.count == 1){
+                [self.followersButton setTitle:[NSString stringWithFormat:@"%lu%s", self.followersArray.count, " follower"] forState:UIControlStateNormal];
+            } else {
+                [self.followersButton setTitle:[NSString stringWithFormat:@"%lu%s", self.followersArray.count, " followers"] forState:UIControlStateNormal];
+            }
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -155,6 +160,7 @@
     }];
 }
 
+// check if the logged in user is following the profile we are looking at
 - (void) checkFollow {
     PFQuery *query = [PFQuery queryWithClassName:@"Follower"];
     [query includeKey:@"user"];
@@ -177,11 +183,13 @@
     }];
 }
 
+// switch to dark or light mode
 - (IBAction)selectColorMode:(id)sender {
     [User switchColorMode:User.currentUser];
     [self setColors];
 }
 
+// clicked follow/unfollow
 - (IBAction)didFollow:(id)sender {
     if(self.isFollowing){
         self.isFollowing = NO;
@@ -196,28 +204,20 @@
         [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable follow, NSError * _Nullable error) {
             if (follow != nil) {
                 [follow deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                    if (succeeded) {
-                        NSLog(@"succeeded in deleting like boolean obj");
-                        [self loadFollowers];
-                    } else {
-                        NSLog(@"%@", error.localizedDescription);
+                    if(error){
+                          NSLog(@"Error following: %@", error.localizedDescription);
                     }
                 }];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
             }
         }];
         
     } else {
-        // follow
         self.isFollowing = YES;
         [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         
         [Follower follow:self.currentUser withFollower:User.currentUser withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error following: %@", error.localizedDescription);
-            } else {
-                [self loadFollowers];
             }
         }];
         
@@ -230,6 +230,7 @@
     [self loadFollowers];
 }
 
+// delegate method for after editing profile, we need to refresh
 - (void) didEdit {
     [self fetchProfile];
 }
@@ -239,8 +240,11 @@
     cell.post = self.postArray[indexPath.row];
     cell.image.file = self.postArray[indexPath.row][@"image"];
     [cell.image loadInBackground];
-    
+
     cell.backgroundColor = self.backColor;
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = self.secondaryColor;
+    [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }
@@ -317,7 +321,6 @@
                 } else {
                     tempLikeArr[hours] = [NSNumber numberWithInteger:[tempLikeArr[hours] integerValue] + 1];
                 }
-
             }
         }
         
@@ -325,7 +328,7 @@
             Comment *temp = comRes[i];
             NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
     
-            if(hours < 730){
+            if((int)hours < self.hoursInMonth){
                 if(temp.critBool){
                     tempCritArr[hours] = [NSNumber numberWithInteger:[tempCritArr[hours] integerValue] + 1];
                 } else {
