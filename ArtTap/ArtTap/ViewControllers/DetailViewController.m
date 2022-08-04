@@ -278,7 +278,6 @@
     [self presentViewController:self.playerController animated:YES completion:^{
         [self.playerController.player play];
     }];
-
 }
 
 - (IBAction)didLike:(id)sender {
@@ -548,6 +547,24 @@
         graphVC.commentArray = tempComArr;
         graphVC.critArray = tempCritArr;
         graphVC.viewArray = self.obj.viewTrack;
+    } else if (([segue.identifier isEqualToString:@"drawSegue"])){
+        DrawViewController *drawVC = [segue destinationViewController];
+//        if let userPicture = object.valueForKey("Image")! as! PFFile {
+//           userPicture.getDataInBackgroundWithBlock({
+//              (imageData: NSData!, error NSError!) -> Void in
+//                 if (error == nil) {
+//                    let image = UIImage(data:imageData)
+//                    self.ImageArray.append(image)
+//                 }
+//              })
+//        }
+        PFFileObject *tempObj = (PFFileObject *)self.obj.image;
+//        [tempObj getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+//                    drawVC.image = [UIImage imageWithData:data];
+//        }];
+        
+        NSData *data = [tempObj getData];
+        drawVC.image = [UIImage imageWithData:data];
     }
 }
 

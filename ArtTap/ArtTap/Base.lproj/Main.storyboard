@@ -187,13 +187,57 @@
                     <navigationItem key="navigationItem" id="FYL-jE-aPw"/>
                     <connections>
                         <outlet property="tableView" destination="5KM-31-vxb" id="1R4-WH-Mvr"/>
-                        <segue destination="SOV-sc-HhP" kind="presentation" identifier="notifToDetail" id="VkK-8D-d2t"/>
+                        <segue destination="SOV-sc-HhP" kind="show" identifier="notifToDetail" id="VkK-8D-d2t"/>
                         <segue destination="mUd-VA-n3Q" kind="show" identifier="notifToProfile" id="oxt-xD-FpW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rax-dT-hMM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3502.898550724638" y="144.64285714285714"/>
+        </scene>
+        <!--Draw View Controller-->
+        <scene sceneID="Zhl-rL-AXi">
+            <objects>
+                <viewController id="cgz-M3-sse" customClass="DrawViewController" customModule="ArtTap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZO9-Sg-QJk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Zn-us-hYo" customClass="PKCanvasView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VET-ws-jLX">
+                                        <rect key="frame" x="0.0" y="96" width="414" height="676"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OyU-xb-P19"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="y5Y-On-tc1">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Done" id="9JT-8w-3cg">
+                                <connections>
+                                    <action selector="saveDrawing:" destination="cgz-M3-sse" id="mUq-c6-WF9"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Pencil" id="evE-fF-p2B"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="canvasView" destination="2Zn-us-hYo" id="b9h-Gk-muG"/>
+                        <outlet property="doneButton" destination="9JT-8w-3cg" id="0jZ-UX-kj3"/>
+                        <outlet property="pencilFingerButton" destination="evE-fF-p2B" id="C8q-3G-ZXD"/>
+                        <outlet property="underlayImage" destination="VET-ws-jLX" id="8Cs-EP-RZj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jbm-Rq-aGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4926.0869565217399" y="14.732142857142856"/>
         </scene>
         <!--Profile-->
         <scene sceneID="HgR-l0-OAa">
@@ -217,11 +261,11 @@
             <objects>
                 <viewController title="Profile" id="mUd-VA-n3Q" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LEm-YZ-bEh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DC4-96-HkH">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="132" width="414" height="652"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="PuD-fP-JiX">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="235"/>
@@ -382,7 +426,7 @@
             <objects>
                 <viewController id="5nE-7F-s2I" customClass="GraphViewController" customModule="ArtTap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pF4-Bk-22b">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TKg-D8-Vkb">
@@ -759,7 +803,7 @@
             <objects>
                 <viewController id="SOV-sc-HhP" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1g7-Ng-zea">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rpy-XP-lMw">
@@ -843,13 +887,13 @@
                                             </connections>
                                         </segmentedControl>
                                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eRc-oR-ZA9">
-                                            <rect key="frame" x="20" y="636" width="299" height="34"/>
+                                            <rect key="frame" x="20" y="636" width="264" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIa-3a-4Ix">
-                                            <rect key="frame" x="321" y="638" width="73" height="31"/>
+                                            <rect key="frame" x="320" y="638" width="74" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Send"/>
@@ -869,6 +913,15 @@
                                             <buttonConfiguration key="configuration" style="plain" title="View Speedpaint"/>
                                             <connections>
                                                 <action selector="viewVideo:" destination="SOV-sc-HhP" eventType="touchUpInside" id="3sv-tL-hdC"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUu-Lg-aKO">
+                                            <rect key="frame" x="290" y="638" width="33" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="pencil.and.outline" catalog="system" title=""/>
+                                            <connections>
+                                                <segue destination="cgz-M3-sse" kind="show" identifier="drawSegue" id="9Hk-3Y-nHh"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -894,7 +947,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Se-ZS-4Hm">
-                                                    <rect key="frame" x="133" y="30" width="275" height="31"/>
+                                                    <rect key="frame" x="133" y="30" width="236" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -923,6 +976,12 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZB-Hv-mPC">
+                                                    <rect key="frame" x="357" y="20" width="52" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="square.and.pencil" catalog="system" title=""/>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1360,7 +1419,7 @@
             <objects>
                 <viewController id="Ghh-gz-66R" customClass="EditViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZMX-tK-gId">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wGF-bb-X5i" customClass="PFImageView">
@@ -1458,7 +1517,7 @@
             <objects>
                 <viewController id="JMC-aD-akL" customClass="FollowListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4ss-dk-C0V">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iGC-S0-4g5">
@@ -1649,12 +1708,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1c-EH-tna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4750.7246376811599" y="95.758928571428569"/>
+            <point key="canvasLocation" x="1329" y="-664"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="5aD-3X-4oQ"/>
-        <segue reference="2Fc-Ot-mbV"/>
+        <segue reference="VkK-8D-d2t"/>
         <segue reference="Cmn-nw-l2k"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -1667,10 +1726,12 @@
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="moon.stars" catalog="system" width="124" height="128"/>
+        <image name="pencil.and.outline" catalog="system" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <image name="video" catalog="system" width="128" height="83"/>
         <image name="video.square" catalog="system" width="128" height="114"/>
         <image name="xmark.rectangle" catalog="system" width="128" height="93"/>

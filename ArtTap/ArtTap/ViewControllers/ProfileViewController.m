@@ -173,12 +173,10 @@
             NSLog(@"found a follow obj in setup");
             self.isFollowing = YES;
             [self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
-            self.followButton.backgroundColor = [UIColor blackColor];
         } else {
             NSLog(@"did not find a follow obj in setup");
             self.isFollowing = NO;
             [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
-            self.followButton.backgroundColor = [UIColor systemBlueColor];
         }
     }];
 }

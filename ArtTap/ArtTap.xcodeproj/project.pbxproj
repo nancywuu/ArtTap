@@ -37,6 +37,7 @@
 		7F384C15287F9654003F9894 /* CommentLikes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C14287F9654003F9894 /* CommentLikes.m */; };
 		7F384C192880B143003F9894 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C182880B143003F9894 /* GraphViewController.swift */; };
 		7FA726C028763D3500119325 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA726BF28763D3500119325 /* LoginViewController.m */; };
+		7FD20B96289B5D2E0047A590 /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD20B95289B5D2E0047A590 /* DrawViewController.swift */; };
 		7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C028763AE7002FF556 /* AppDelegate.m */; };
 		7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C328763AE7002FF556 /* SceneDelegate.m */; };
 		7FDA60C728763AE7002FF556 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C628763AE7002FF556 /* ViewController.m */; };
@@ -134,6 +135,7 @@
 		7F384C182880B143003F9894 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		7FA726BE28763D3500119325 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7FA726BF28763D3500119325 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		7FD20B95289B5D2E0047A590 /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
 		7FDA60BC28763AE7002FF556 /* ArtTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FDA60BF28763AE7002FF556 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7FDA60C028763AE7002FF556 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				7F384C07287E19D6003F9894 /* SearchViewController.h */,
 				7F384C08287E19D6003F9894 /* SearchViewController.m */,
 				7F0C1ADD288765BC00A86EE7 /* Suggested.swift */,
+				7FD20B95289B5D2E0047A590 /* DrawViewController.swift */,
 				7F384C182880B143003F9894 /* GraphViewController.swift */,
 				7F384C172880B143003F9894 /* ArtTap-Bridging-Header.h */,
 			);
@@ -614,6 +617,7 @@
 				7F384BD228764D93003F9894 /* CreateViewController.m in Sources */,
 				7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */,
 				7F384BE52878949F003F9894 /* EditViewController.m in Sources */,
+				7FD20B96289B5D2E0047A590 /* DrawViewController.swift in Sources */,
 				7F384BFA287CCDAA003F9894 /* FollowListViewController.m in Sources */,
 				7FDA60D228763AE8002FF556 /* main.m in Sources */,
 				7F384BF7287CA6AD003F9894 /* Follower.m in Sources */,

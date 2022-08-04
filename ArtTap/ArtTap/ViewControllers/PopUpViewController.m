@@ -20,14 +20,12 @@
 
 @implementation PopUpViewController
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     [super awakeFromNib];
     
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
 }
@@ -60,17 +58,11 @@
     PFFileObject *temp = self.currentPost[@"image"];
     NSData *data = [temp getData];
     UIImage *tempImage = [UIImage imageWithData:data];
-    
-    NSLog(@"%f", [UIScreen mainScreen].bounds.size.width - margin * 2);
-    NSLog(@"%f", self.image.frame.size.width);
-    NSLog(@"%f", tempImage.size.width);
-    NSLog(@"%f", tempImage.size.height);
-    NSLog(@"%f", ([UIScreen mainScreen].bounds.size.width - margin * 2)/tempImage.size.width*tempImage.size.height + 100);
-    
+
     self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width - margin * 2,
-                                         ([UIScreen mainScreen].bounds.size.width - margin * 2)/tempImage.size.width*tempImage.size.height);
+                                         ([UIScreen mainScreen].bounds.size.width - margin * 2)/tempImage.size.width*tempImage.size.height + 150);
     self.view.layer.cornerRadius = 20;
-    self.view.alpha = 0.9;
+    self.view.alpha = 0.85;
     self.popupController.navigationBarHidden = YES;
 }
 
