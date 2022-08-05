@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) UIImage *chosenImage;
 @property (nonatomic, strong) NSData *chosenFromURL;
+@property (weak, nonatomic) IBOutlet UILabel *critText;
 
 @property BOOL didUploadImage;
 
@@ -52,6 +53,16 @@
 
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    if(User.currentUser.darkmode){
+        self.view.backgroundColor = UIColor.blackColor;
+        self.critText.textColor = UIColor.whiteColor;
+    } else {
+        self.view.backgroundColor = UIColor.whiteColor;
+        self.critText.textColor = UIColor.blackColor;
     }
 }
 

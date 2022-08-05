@@ -73,6 +73,9 @@
     self.view.backgroundColor = self.backColor;
     self.tableView.backgroundColor = self.backColor;
     self.smallView.backgroundColor = self.backColor;
+    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.backgroundColor = self.backColor;
+    self.navigationController.navigationBar.backgroundColor = self.backColor;
     
     self.username.textColor = self.frontColor;
     self.name.textColor = self.frontColor;

@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, strong) NSArray *commentArray;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (weak, nonatomic) IBOutlet UIView *smallView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIImageView *heartPopup;
 @property UIImage *markUp;
@@ -101,9 +102,19 @@
     
     self.view.backgroundColor = self.backColor;
     self.tableView.backgroundColor = self.backColor;
+    self.smallView.backgroundColor = self.backColor;
+    self.name.textColor = self.frontColor;
+    self.username.textColor = self.frontColor;
+    self.caption.textColor = self.frontColor;
+    self.date.textColor = self.frontColor;
+    self.segCon.backgroundColor = self.secondaryColor;
+    self.segCon.tintColor = self.frontColor;
+    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.backgroundColor = self.backColor;
+    self.navigationController.navigationBar.backgroundColor = self.backColor;
+
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:self.frontColor}];
-    [self.tabBarController.tabBar setBarTintColor: self.backColor];
     [self.tableView reloadData];
 }
 
@@ -477,6 +488,10 @@
     }
     cell.date.text = comment.createdAt.shortTimeAgoSinceNow;
     cell.delegate = self;
+    cell.backgroundColor = self.backColor;
+    cell.username.textColor = self.frontColor;
+    cell.caption.textColor = self.frontColor;
+    cell.date.textColor = self.frontColor;
     if(comment.didMarkUp == NO){
         cell.markUpView.hidden = YES;
     }

@@ -71,7 +71,6 @@
     self.layout.sectionInset = photoInsets;
     
     [self makeQuery];
-    
     [self.segCon addTarget:self action:@selector(animate) forControlEvents:UIControlEventValueChanged];
     
     self.refreshControl = [[UIRefreshControl alloc] init];

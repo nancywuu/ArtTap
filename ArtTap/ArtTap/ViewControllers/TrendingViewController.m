@@ -65,6 +65,11 @@
     self.topTitle.textColor = self.frontColor;
     self.segCon.backgroundColor = self.secondaryColor;
     self.timeCon.backgroundColor = self.secondaryColor;
+    [self.tableView setSeparatorColor:self.frontColor];
+    
+    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.backgroundColor = self.backColor;
+    self.navigationController.navigationBar.backgroundColor = self.backColor;
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:self.frontColor}];
     [self.tabBarController.tabBar setBarTintColor: self.backColor];
