@@ -12,10 +12,6 @@
 @interface PopUpViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet PFImageView *image;
-@property (weak, nonatomic) IBOutlet UILabel *likeCount;
-@property (weak, nonatomic) IBOutlet UILabel *viewCount;
-@property (weak, nonatomic) IBOutlet UILabel *commentCount;
-@property (strong, nonatomic) NSString *chosenUsername;
 @end
 
 @implementation PopUpViewController
@@ -33,29 +29,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.username.text = [@"@" stringByAppendingString:self.currentPost.author.username];
-    self.image.file = self.currentPost.image;
-    
-    if([self.currentPost.likeCount intValue] == 1){
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.currentPost.likeCount stringValue], " like"];
-    } else {
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.currentPost.likeCount stringValue], " likes"];
-    }
-    
-    if([self.currentPost.numViews intValue] == 1){
-        self.viewCount.text = [NSString stringWithFormat:@"%@%s", [self.currentPost.numViews stringValue], " view"];
-    } else {
-        self.viewCount.text = [NSString stringWithFormat:@"%@%s", [self.currentPost.numViews stringValue], " views"];
-    }
-    
-    if([self.currentPost.commentCount intValue] == 1){
-        self.commentCount.text = [NSString stringWithFormat:@"%@%s", [self.currentPost.commentCount stringValue], " comment"];
-    } else {
-        self.commentCount.text = [NSString stringWithFormat:@"%@%s", [self.currentPost.commentCount stringValue], " comments"];
-    }
+    self.username.text = [@"@" stringByAppendingString:self.chosenUsername];
+    self.image.file = self.chosenImage;
+    [self.image loadInBackground];
 
     CGFloat margin = 10;
-    PFFileObject *temp = self.currentPost[@"image"];
+    PFFileObject *temp = self.chosenImage;
     NSData *data = [temp getData];
     UIImage *tempImage = [UIImage imageWithData:data];
 

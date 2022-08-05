@@ -15,15 +15,21 @@
 #import "Notifications.h"
 #import "ArtTap-Swift.h"
 #import <AVFoundation/AVFoundation.h>
+#import "PopUpViewController.h"
+#import "STPopup/STPopup.h"
 #import <AVKit/AVKit.h>
 
-@interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate, UIGestureRecognizerDelegate>
+@interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate, UIGestureRecognizerDelegate,
+                                    DrawViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *speedpaintButton;
+@property (weak, nonatomic) IBOutlet UIButton *markUpButton;
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, strong) NSArray *commentArray;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIImageView *heartPopup;
+@property UIImage *markUp;
+@property BOOL didMarkUp;
 
 @property UIColor *backColor;
 @property UIColor *frontColor;
@@ -57,6 +63,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 80;
+    self.didMarkUp = NO;
     self.playerController = [[AVPlayerViewController alloc] init];
     if(self.obj.speedpaint == nil){
         self.speedpaintButton.hidden = YES;
@@ -297,7 +304,7 @@
     
     
     if(![self.commentField.text isEqualToString:@""]){
-        [Comment postComment:self.obj.objectId withUser:User.currentUser withText:self.commentField.text withBool:temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [Comment postComment:self.obj.objectId withUser:User.currentUser withText:self.commentField.text withMarkUp:self.markUp withMarkBool: self.didMarkUp withBool:temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error posting: %@", error.localizedDescription);
              }
@@ -325,6 +332,9 @@
                       }
                  }];
                  self.commentField.text = @"";
+                 self.markUp = nil;
+                 self.didMarkUp = NO;
+                 self.markUpButton.tintColor = UIColor.systemBlueColor;
              }
         }];
     }
@@ -332,6 +342,26 @@
 
 - (void)didLikeComment{
     //[self fetchComments];
+}
+
+// delegate for finishing drawing for comment
+- (void)drawingDidFinish:(UIImage *)finishedImage {
+    self.markUp = finishedImage;
+    self.didMarkUp = YES;
+    self.markUpButton.tintColor = UIColor.redColor;
+}
+
+- (void) didDisplayMarkUp:(NSString *)username withImage:(PFFileObject *)image{
+    PopUpViewController *ourPopController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PopUpPreviewController"];
+
+    ourPopController.chosenImage = image;
+    ourPopController.chosenUsername = username;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:ourPopController];
+    popupController.transitionStyle = STPopupTransitionStyleFade;
+    popupController.containerView.backgroundColor = [UIColor clearColor];
+
+    [popupController presentInViewController:self];
 }
 
 - (void)setDetails {
@@ -447,6 +477,9 @@
     }
     cell.date.text = comment.createdAt.shortTimeAgoSinceNow;
     cell.delegate = self;
+    if(comment.didMarkUp == NO){
+        cell.markUpView.hidden = YES;
+    }
     [self checkCommentLikes:cell];
     
     return cell;
@@ -565,6 +598,7 @@
         
         NSData *data = [tempObj getData];
         drawVC.image = [UIImage imageWithData:data];
+        drawVC.delegate = self;
     }
 }
 

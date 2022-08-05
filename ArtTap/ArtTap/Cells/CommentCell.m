@@ -7,6 +7,7 @@
 
 #import "CommentCell.h"
 #import "CommentLikes.h"
+#import "PopUpViewController.h"
 
 @implementation CommentCell
 - (IBAction)hitLike:(id)sender {
@@ -62,6 +63,10 @@
         
     }
     
+}
+
+- (IBAction)tapMarkUp:(id)sender {
+    [self.delegate didDisplayMarkUp:self.comment.author.username withImage:self.comment.markUp];
 }
 
 - (void)awakeFromNib {

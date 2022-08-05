@@ -19,8 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL critBool;
 @property (nonatomic, strong) User *author;
 @property (nonatomic, strong) NSNumber *likeCount;
+@property (nonatomic, strong) PFFileObject *markUp;
+@property BOOL didMarkUp;
 
-+ (void) postComment: ( NSString * _Nullable )post withUser: ( User * _Nullable )user withText: ( NSString * _Nullable )text withBool: (BOOL)critBool withCompletion: (PFBooleanResultBlock  _Nullable)completion;
+
++ (void) postComment: ( NSString * _Nullable )post withUser: ( User * _Nullable )user withText: ( NSString * _Nullable )text withMarkUp: ( UIImage * _Nullable )markUp withMarkBool: (BOOL)markUpBool withBool: (BOOL)critBool withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 + (void) favorite: (Comment * _Nullable)comment withValue: ( NSNumber * _Nullable )value withCompletion: (PFBooleanResultBlock _Nullable)completion;
 

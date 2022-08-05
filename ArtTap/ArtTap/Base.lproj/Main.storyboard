@@ -811,7 +811,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="8Yl-aa-nYB">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="689"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="677"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OLQ-rY-1v8" customClass="PFImageView">
@@ -919,7 +919,7 @@
                                             <rect key="frame" x="290" y="638" width="33" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" image="pencil.and.outline" catalog="system" title=""/>
+                                            <buttonConfiguration key="configuration" style="plain" image="scribble.variable" catalog="system" title=""/>
                                             <connections>
                                                 <segue destination="cgz-M3-sse" kind="show" identifier="drawSegue" id="9Hk-3Y-nHh"/>
                                             </connections>
@@ -929,7 +929,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="72" id="xTJ-yK-w0Y" customClass="CommentCell">
-                                        <rect key="frame" x="0.0" y="733.5" width="414" height="72"/>
+                                        <rect key="frame" x="0.0" y="721.5" width="414" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xTJ-yK-w0Y" id="X9V-Nr-uba">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
@@ -980,7 +980,10 @@
                                                     <rect key="frame" x="357" y="20" width="52" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="square.and.pencil" catalog="system" title=""/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="highlighter" catalog="system" title=""/>
+                                                    <connections>
+                                                        <action selector="tapMarkUp:" destination="xTJ-yK-w0Y" eventType="touchUpInside" id="vxt-Lg-ciS"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -990,6 +993,7 @@
                                             <outlet property="image" destination="DMU-aF-JLm" id="F24-vb-xyR"/>
                                             <outlet property="likeButton" destination="WgI-FO-d3B" id="KBd-ra-Q9p"/>
                                             <outlet property="likeCount" destination="yju-4j-ERv" id="mBc-9i-DLg"/>
+                                            <outlet property="markUpView" destination="dZB-Hv-mPC" id="xI2-Kw-L2k"/>
                                             <outlet property="username" destination="8uT-UQ-QBx" id="9N7-jx-ur4"/>
                                             <segue destination="mUd-VA-n3Q" kind="show" identifier="commentProfileSegue" id="Cmn-nw-l2k"/>
                                         </connections>
@@ -1008,6 +1012,7 @@
                         <outlet property="heartPopup" destination="ApA-uj-wfe" id="AjT-SN-i5v"/>
                         <outlet property="likeButton" destination="IuL-2A-R35" id="xyg-nQ-jrE"/>
                         <outlet property="likeCount" destination="EQh-bb-zo5" id="JxZ-Vi-Xot"/>
+                        <outlet property="markUpButton" destination="WUu-Lg-aKO" id="jCD-Nn-pA2"/>
                         <outlet property="name" destination="G0j-U9-dh3" id="h7z-H7-MDz"/>
                         <outlet property="postImage" destination="OLQ-rY-1v8" id="uWN-fs-fhT"/>
                         <outlet property="profileImage" destination="B11-wK-jni" id="omH-qk-3le"/>
@@ -1625,11 +1630,6 @@
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="likeCount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOx-Gd-ZU8">
-                                                <rect key="frame" x="22" y="313" width="378" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhb-7c-VOt" userLabel="Close">
                                                 <rect key="frame" x="374" y="21" width="32" height="29.5"/>
                                                 <constraints>
@@ -1642,35 +1642,18 @@
                                                     <action selector="closeButtonDidTap" destination="sn7-LZ-Ntj" eventType="touchUpInside" id="8Ek-fs-k93"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="commentCount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08l-8T-Cai">
-                                                <rect key="frame" x="22" y="377" width="378" height="35"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="viewCount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfo-bK-Zn6">
-                                                <rect key="frame" x="22" y="345" width="376" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="doc.plaintext" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Wgm-6i-K5g" customClass="PFImageView">
                                                 <rect key="frame" x="129" y="68" width="161" height="182"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="08l-8T-Cai" firstAttribute="top" secondItem="Wfo-bK-Zn6" secondAttribute="bottom" constant="10" id="2rF-CC-zrI"/>
-                                            <constraint firstItem="Wfo-bK-Zn6" firstAttribute="top" secondItem="OOx-Gd-ZU8" secondAttribute="bottom" constant="10" id="58A-6g-8HD"/>
                                             <constraint firstAttribute="trailing" secondItem="Zhb-7c-VOt" secondAttribute="trailing" constant="20" id="Bbp-fs-maW"/>
                                             <constraint firstItem="Zhb-7c-VOt" firstAttribute="top" secondItem="6Kb-u0-gCo" secondAttribute="top" constant="20" id="DeY-T6-4L8"/>
                                             <constraint firstItem="Wgm-6i-K5g" firstAttribute="top" secondItem="h1w-KE-Mnk" secondAttribute="bottom" constant="10" id="I75-FF-xMG"/>
-                                            <constraint firstItem="Wfo-bK-Zn6" firstAttribute="centerX" secondItem="6Kb-u0-gCo" secondAttribute="centerX" id="IMJ-bh-yRs"/>
-                                            <constraint firstItem="OOx-Gd-ZU8" firstAttribute="top" secondItem="Wgm-6i-K5g" secondAttribute="bottom" constant="10" id="Ilk-m1-LnJ"/>
                                             <constraint firstItem="Wgm-6i-K5g" firstAttribute="centerX" secondItem="6Kb-u0-gCo" secondAttribute="centerX" id="Phh-Ed-1BL"/>
-                                            <constraint firstItem="08l-8T-Cai" firstAttribute="centerX" secondItem="6Kb-u0-gCo" secondAttribute="centerX" id="Qi8-eY-2Oq"/>
                                             <constraint firstItem="h1w-KE-Mnk" firstAttribute="top" secondItem="6Kb-u0-gCo" secondAttribute="top" constant="28" id="VdB-cW-Tky"/>
-                                            <constraint firstItem="OOx-Gd-ZU8" firstAttribute="leading" secondItem="6Kb-u0-gCo" secondAttribute="leading" constant="22" id="aLP-Tk-Pbx"/>
                                             <constraint firstAttribute="trailing" secondItem="h1w-KE-Mnk" secondAttribute="trailing" constant="28" id="l7y-rk-pDW"/>
-                                            <constraint firstAttribute="trailing" secondItem="OOx-Gd-ZU8" secondAttribute="trailing" constant="26" id="qEQ-AD-85Y"/>
                                             <constraint firstItem="h1w-KE-Mnk" firstAttribute="leading" secondItem="6Kb-u0-gCo" secondAttribute="leading" constant="20" id="rTe-BW-rOh"/>
                                         </constraints>
                                     </view>
@@ -1699,11 +1682,8 @@
                     <navigationItem key="navigationItem" id="hGL-Fc-zfA"/>
                     <size key="freeformSize" width="414" height="800"/>
                     <connections>
-                        <outlet property="commentCount" destination="08l-8T-Cai" id="sHL-c7-ZtN"/>
-                        <outlet property="image" destination="Wgm-6i-K5g" id="RjZ-Ff-aO5"/>
-                        <outlet property="likeCount" destination="OOx-Gd-ZU8" id="fwB-GJ-8ZH"/>
+                        <outlet property="image" destination="Wgm-6i-K5g" id="fkg-GB-DTb"/>
                         <outlet property="username" destination="h1w-KE-Mnk" id="ugH-9b-gd1"/>
-                        <outlet property="viewCount" destination="Wfo-bK-Zn6" id="ya6-AK-Za4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1c-EH-tna" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1723,15 +1703,15 @@
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="highlighter" catalog="system" width="128" height="119"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="moon.stars" catalog="system" width="124" height="128"/>
-        <image name="pencil.and.outline" catalog="system" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
+        <image name="scribble.variable" catalog="system" width="128" height="118"/>
         <image name="video" catalog="system" width="128" height="83"/>
         <image name="video.square" catalog="system" width="128" height="114"/>
         <image name="xmark.rectangle" catalog="system" width="128" height="93"/>

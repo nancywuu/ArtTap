@@ -19,7 +19,6 @@
 		7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BDB2876AA78003F9894 /* HomeFeedLayout.m */; };
 		7F384BDF28778120003F9894 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BDE28778120003F9894 /* DetailViewController.m */; };
 		7F384BE52878949F003F9894 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE42878949F003F9894 /* EditViewController.m */; };
-		7F384BE8287894A8003F9894 /* InsightsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BE7287894A8003F9894 /* InsightsViewController.m */; };
 		7F384BEB2878E572003F9894 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BEA2878E572003F9894 /* ProfileTableViewCell.m */; };
 		7F384BEE2878FA1F003F9894 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BED2878FA1F003F9894 /* Comment.m */; };
 		7F384BF1287C8FE2003F9894 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BF0287C8FE2003F9894 /* CommentCell.m */; };
@@ -99,8 +98,6 @@
 		7F384BDE28778120003F9894 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		7F384BE32878949F003F9894 /* EditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		7F384BE42878949F003F9894 /* EditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
-		7F384BE6287894A8003F9894 /* InsightsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsightsViewController.h; sourceTree = "<group>"; };
-		7F384BE7287894A8003F9894 /* InsightsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsightsViewController.m; sourceTree = "<group>"; };
 		7F384BE92878E572003F9894 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
 		7F384BEA2878E572003F9894 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
 		7F384BEC2878FA1F003F9894 /* Comment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
@@ -264,8 +261,6 @@
 				7F384BF9287CCDAA003F9894 /* FollowListViewController.m */,
 				7F384BE32878949F003F9894 /* EditViewController.h */,
 				7F384BE42878949F003F9894 /* EditViewController.m */,
-				7F384BE6287894A8003F9894 /* InsightsViewController.h */,
-				7F384BE7287894A8003F9894 /* InsightsViewController.m */,
 				7F384C04287E0F2F003F9894 /* AnalyticsViewController.h */,
 				7F384C05287E0F2F003F9894 /* AnalyticsViewController.m */,
 				7F384BFE287E0512003F9894 /* TrendingViewController.h */,
@@ -609,7 +604,6 @@
 				7F384C06287E0F2F003F9894 /* AnalyticsViewController.m in Sources */,
 				7FDA60C728763AE7002FF556 /* ViewController.m in Sources */,
 				7FDBC96B2898719F00EE450D /* PopUpViewController.m in Sources */,
-				7F384BE8287894A8003F9894 /* InsightsViewController.m in Sources */,
 				7F384C09287E19D7003F9894 /* SearchViewController.m in Sources */,
 				7F384C192880B143003F9894 /* GraphViewController.swift in Sources */,
 				7F384BF1287C8FE2003F9894 /* CommentCell.m in Sources */,

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *date;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *likeCount;
+@property (weak, nonatomic) IBOutlet UIButton *markUpView;
 @property BOOL liked;
 @property (nonatomic, strong) Comment *comment;
 
@@ -29,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CommentCellDelegate
 - (void)didLikeComment;
+- (void)didDisplayMarkUp:(NSString *)username withImage: (PFFileObject *)image;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -166,7 +166,9 @@
 - (void) didPreview:(Post *)current {
     Post *ourPost = current;
     PopUpViewController *ourPopController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PopUpPreviewController"];
-    ourPopController.currentPost = ourPost;
+    //ourPopController.currentPost = ourPost;
+    ourPopController.chosenImage = ourPost.image;
+    ourPopController.chosenUsername = ourPost.author.username;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:ourPopController];
     popupController.transitionStyle = STPopupTransitionStyleFade;
@@ -385,7 +387,7 @@
     int multiplier = 1;
     if(self.isForYou){
         // want to load posts further in advance if directly on Suggested Feed, because the user will be scrolling
-        multiplier = 2;
+        multiplier = 2.5;
     }
 
     if(indexPath.row + self.incre*multiplier >= self.suggestedCount && self.didInitSuggested){
