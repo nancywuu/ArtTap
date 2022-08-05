@@ -698,7 +698,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OOa-G0-1lt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.94394329899999996" green="0.87246599469999997" blue="0.92846849070000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <connections>
                         <segue destination="8HQ-D2-Sca" kind="relationship" relationship="rootViewController" id="1ep-fP-4kO"/>
@@ -1694,7 +1693,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="5aD-3X-4oQ"/>
         <segue reference="VkK-8D-d2t"/>
-        <segue reference="Cmn-nw-l2k"/>
+        <segue reference="aPE-q1-qkl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>

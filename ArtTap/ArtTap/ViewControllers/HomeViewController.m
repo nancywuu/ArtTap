@@ -104,6 +104,9 @@
     
     self.view.backgroundColor = self.backColor;
     self.collectionView.backgroundColor = self.backColor;
+    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.backgroundColor = self.backColor;
+    self.navigationController.navigationBar.backgroundColor = self.backColor;
 
     self.segCon.backgroundColor = self.secondaryColor;
     self.segCon.tintColor = self.frontColor;
@@ -369,7 +372,8 @@
     cell.image.file = self.postArray[indexPath.row][@"image"];
     cell.clipsToBounds = true;
     cell.layer.cornerRadius = 40;
-    
+    cell.layer.masksToBounds = YES;
+
     cell.post = self.postArray[indexPath.row];
     cell.delegate = self;
     [cell.image loadInBackground];
@@ -378,6 +382,10 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.postArray.count;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    self.navigationController.navigationBar.backgroundColor = self.backColor;
 }
 
 
