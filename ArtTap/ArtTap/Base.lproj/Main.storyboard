@@ -905,15 +905,6 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MbQ-fg-TIP">
-                                            <rect key="frame" x="203" y="559" width="152" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" title="View Speedpaint"/>
-                                            <connections>
-                                                <action selector="viewVideo:" destination="SOV-sc-HhP" eventType="touchUpInside" id="3sv-tL-hdC"/>
-                                            </connections>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUu-Lg-aKO">
                                             <rect key="frame" x="290" y="638" width="33" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -921,6 +912,15 @@
                                             <buttonConfiguration key="configuration" style="plain" image="scribble.variable" catalog="system" title=""/>
                                             <connections>
                                                 <segue destination="cgz-M3-sse" kind="show" identifier="drawSegue" id="9Hk-3Y-nHh"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MbQ-fg-TIP">
+                                            <rect key="frame" x="320" y="556" width="29" height="36"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="video" catalog="system" title=""/>
+                                            <connections>
+                                                <action selector="viewVideo:" destination="SOV-sc-HhP" eventType="touchUpInside" id="3sv-tL-hdC"/>
                                             </connections>
                                         </button>
                                     </subviews>
