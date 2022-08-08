@@ -39,7 +39,6 @@ import Charts
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.cumulatSwitch.setOn(false, animated: false)
         
         if(self.viewArray.count < hoursInMonth){
@@ -68,40 +67,22 @@ import Charts
         self.critArrayCumulat = createCumulativeArray(givenArray: self.critArray)
         self.viewArrayCumulat = createCumulativeArray(givenArray: self.viewArray)
         
+        
+
         let engageCountVal = engageArrayCumulat[engageArrayCumulat.count - 1]
-        if(engageCountVal == 1){
-            self.engageCount.text = engageCountVal.stringValue + " user engaged";
-        } else {
-            self.engageCount.text = engageCountVal.stringValue + " users engaged";
-        }
+        self.engageCount.text = Int(truncating: engageCountVal) > 1 ? engageCountVal.stringValue + " users engaged" : engageCountVal.stringValue + " user engaged";
         
         let commentCountVal = commentArrayCumulat[commentArrayCumulat.count - 1]
-        if(commentCountVal == 1){
-            self.commentCount.text = commentCountVal.stringValue + " comment";
-        } else {
-            self.commentCount.text = commentCountVal.stringValue + " comments";
-        }
+        self.commentCount.text = Int(truncating: commentCountVal) > 1 ? commentCountVal.stringValue + " comments" : commentCountVal.stringValue + " comment";
         
         let critCountVal = critArrayCumulat[critArrayCumulat.count - 1]
-        if(critCountVal == 1){
-            self.critCount.text = critCountVal.stringValue + " critique";
-        } else {
-            self.critCount.text = critCountVal.stringValue + " critiques";
-        }
+        self.critCount.text = Int(truncating: critCountVal) > 1 ? critCountVal.stringValue + " critiques" : critCountVal.stringValue + " critique";
         
         let likeCountVal = likeArrayCumulat[likeArrayCumulat.count - 1]
-        if(likeCountVal == 1){
-            self.likeCount.text = likeCountVal.stringValue + " like"
-        } else {
-            self.likeCount.text = likeCountVal.stringValue + " likes"
-        }
+        self.likeCount.text = Int(truncating: likeCountVal) > 1 ? likeCountVal.stringValue + " likes" : likeCountVal.stringValue + " like";
         
         let viewCountVal = viewArrayCumulat[viewArrayCumulat.count - 1]
-        if(viewCountVal == 1){
-            self.viewCount.text = viewCountVal.stringValue + " view";
-        } else {
-            self.viewCount.text = viewCountVal.stringValue + " views";
-        }
+        self.viewCount.text = Int(truncating: viewCountVal) > 1 ? viewCountVal.stringValue + " views" : engageCountVal.stringValue + " view";
     }
     
     func setData() {
