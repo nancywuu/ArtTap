@@ -6,6 +6,8 @@
 //
 //  Post.m
 #import "Post.h"
+#import "Liked.h"
+#import "Comment.h"
 @implementation Post
     
 @dynamic postID;
@@ -102,6 +104,52 @@
     }
     
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
+- (void) getPostData: (NSMutableArray *)tempEngageArr withLikeArr: (NSMutableArray *)tempLikeArr withComArr: (NSMutableArray *)tempComArr
+         withCritArr: (NSMutableArray *)tempCritArr {
+    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+    [query includeKey:@"postID"];
+    [query includeKey:@"userID"];
+    [query includeKey:@"isEngage"];
+    [query includeKey:@"createdAt"];
+    [query whereKey:@"postID" equalTo: self.objectId];
+
+    NSArray *tempRes = [query findObjects];
+    
+    PFQuery *comquery = [PFQuery queryWithClassName:@"Comment"];
+    [comquery includeKey:@"postID"];
+    [comquery includeKey:@"createdAt"];
+    [comquery whereKey:@"postID" equalTo: self.objectId];
+
+    NSArray *comRes = [comquery findObjects];
+    
+    for(int i = 0; i < tempRes.count; i++){
+        Liked *temp = tempRes[i];
+        NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+
+        if(hours < 730){
+            if(temp.isEngage){
+                tempEngageArr[hours] = [NSNumber numberWithInteger:[tempEngageArr[hours] integerValue] + 1];
+            } else {
+                tempLikeArr[hours] = [NSNumber numberWithInteger:[tempLikeArr[hours] integerValue] + 1];
+            }
+
+        }
+    }
+    
+    for(int i = 0; i < comRes.count; i++){
+        Comment *temp = comRes[i];
+        NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
+
+        if(hours < 730){
+            if(temp.critBool){
+                tempCritArr[hours] = [NSNumber numberWithInteger:[tempCritArr[hours] integerValue] + 1];
+            } else {
+                tempComArr[hours] = [NSNumber numberWithInteger:[tempComArr[hours] integerValue] + 1];
+            }
+        }
+    }
 }
 
 @end

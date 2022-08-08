@@ -517,23 +517,7 @@
         profileViewController.currentUser = temp;
     } else if (([segue.identifier isEqualToString:@"analytics"])){
         GraphViewController *graphVC = [segue destinationViewController];
-    
-        PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
-        [query includeKey:@"postID"];
-        [query includeKey:@"userID"];
-        [query includeKey:@"isEngage"];
-        [query includeKey:@"createdAt"];
-        [query whereKey:@"postID" equalTo: self.obj.objectId];
 
-        NSArray *tempRes = [query findObjects];
-        
-        PFQuery *comquery = [PFQuery queryWithClassName:@"Comment"];
-        [comquery includeKey:@"postID"];
-        [comquery includeKey:@"createdAt"];
-        [comquery whereKey:@"postID" equalTo: self.obj.objectId];
-
-        NSArray *comRes = [comquery findObjects];
-        
         NSMutableArray *tempEngageArr = [NSMutableArray new];
         NSMutableArray *tempLikeArr = [NSMutableArray new];
         NSMutableArray *tempComArr = [NSMutableArray new];
@@ -545,32 +529,7 @@
             [tempCritArr addObject:[NSNumber numberWithInt:0]];
         }
             
-        for(int i = 0; i < tempRes.count; i++){
-            Liked *temp = tempRes[i];
-            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
-    
-            if(hours < 730){
-                if(temp.isEngage){
-                    tempEngageArr[hours] = [NSNumber numberWithInteger:[tempEngageArr[hours] integerValue] + 1];
-                } else {
-                    tempLikeArr[hours] = [NSNumber numberWithInteger:[tempLikeArr[hours] integerValue] + 1];
-                }
-
-            }
-        }
-        
-        for(int i = 0; i < comRes.count; i++){
-            Comment *temp = comRes[i];
-            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
-    
-            if(hours < 730){
-                if(temp.critBool){
-                    tempCritArr[hours] = [NSNumber numberWithInteger:[tempCritArr[hours] integerValue] + 1];
-                } else {
-                    tempComArr[hours] = [NSNumber numberWithInteger:[tempComArr[hours] integerValue] + 1];
-                }
-            }
-        }
+        [self.obj getPostData:tempEngageArr withLikeArr:tempLikeArr withComArr:tempComArr withCritArr:tempCritArr];
 
         graphVC.engageArray = tempEngageArr;
         graphVC.likeArray = tempLikeArr;

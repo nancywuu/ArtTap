@@ -32,4 +32,7 @@
 
 + (void) comment: (Post * _Nullable)post withValue: ( NSNumber * _Nullable )value withCompletion: (PFBooleanResultBlock _Nullable)completion;
 
+- (void) getPostData: (NSMutableArray *)tempEngageArr withLikeArr: (NSMutableArray *)tempLikeArr withComArr: (NSMutableArray *)tempComArr
+         withCritArr: (NSMutableArray *)tempCritArr;
+
 @end
