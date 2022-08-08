@@ -90,6 +90,8 @@
     [self setColors];
 }
 
+#pragma mark - Color Mode
+
 - (void) setColors {
     if(User.currentUser.darkmode == YES){
         self.backColor = UIColor.blackColor;

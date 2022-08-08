@@ -16,18 +16,17 @@
 
 @implementation PopUpViewController
 
+#pragma mark - Lifecycle Methods
+
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.username.text = [@"@" stringByAppendingString:self.chosenUsername];
     self.image.file = self.chosenImage;
@@ -45,19 +44,8 @@
     self.popupController.navigationBarHidden = YES;
 }
 
-- (IBAction)closeButtonDidTap
-{
+- (IBAction)closeButtonDidTap {
     [self.popupController dismiss];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

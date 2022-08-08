@@ -22,10 +22,15 @@
 
 @implementation LoginViewController
 
+#pragma mark - Lifecycle Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
+#pragma mark - Standard Login
+
 - (IBAction)didLogin:(id)sender {
     if([self.usernameField.text isEqual:@""] || [self.passwordField.text isEqual:@""]){
         [self presentViewController:self.alert animated:YES completion:^{
@@ -43,6 +48,63 @@
         [self registerUser];
     }
 }
+
+- (void)registerUser {
+    // initialize a user object
+    User *newUser = [User user];
+    
+    newUser.username = self.usernameField.text;
+    newUser.name = self.usernameField.text;
+    newUser.password = self.passwordField.text;
+
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Username Already Exists"
+                                                      message:@"Please login or signup with another username"
+                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                          handler:^(UIAlertAction * action) {}];
+
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            // user registered successfully
+            [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
+        }
+    }];
+}
+
+- (void)loginUser {
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+    
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+        if (error != nil) {
+            NSLog(@"User log in failed: %@", error.localizedDescription);
+            [self loginAlert];
+        } else {
+            // user logged in successfully
+            [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
+        }
+    }];
+}
+
+- (void) loginAlert {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Invalid Login"
+                                              message:@"Please ensure your username and password are correct"
+                                              preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                  handler:^(UIAlertAction * action) {}];
+
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Google Login
+
 - (IBAction)googleLogin:(id)sender {
     GIDConfiguration *config = [[GIDConfiguration alloc] initWithClientID:[FIRApp defaultApp].options.clientID];
 
@@ -71,110 +133,39 @@
                 }
 
                 FIRUser *user = authResult.user;
-                
-                User *tempUser = [User user];
-                tempUser.username = user.uid;
-                tempUser.name = user.displayName;
-                tempUser.password = @"temporary";
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:user.photoURL]];
-                NSData *imageData = UIImagePNGRepresentation(image);
-                // get image data and check if that is not nil
-                
-                tempUser.profilePic =  [PFFileObject fileObjectWithName:@"image.png" data:imageData];
-                
-                [tempUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-                    if (error != nil) {
-                        NSLog(@"Error: %@", error.localizedDescription);
-                        [PFUser logInWithUsernameInBackground:tempUser.username password:tempUser.password block:^(PFUser * user, NSError *  error) {
-                            if (error != nil) {
-                                NSLog(@"User log in failed: %@", error.localizedDescription);
-                                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Invalid Login"
-                                                                          message:@"Please ensure your username and password are correct"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-
-                                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {}];
-
-                                [alert addAction:defaultAction];
-                                [self presentViewController:alert animated:YES completion:nil];
-                            } else {
-                                NSLog(@"User logged in successfully");
-                                [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
-                                // display view controller that needs to shown after successful login
-                            }
-                        }];
-                    } else {
-                        NSLog(@"User registered successfully");
-                        [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
-                        // manually segue to logged in view
-                    }
-                }];
+                [self googleLoginAfterAuth:user];
  
             }];
         }
     }];
 }
 
-- (void)registerUser {
-    // initialize a user object
-    User *newUser = [User user];
+- (void)googleLoginAfterAuth: (FIRUser *)user {
+    User *tempUser = [User user];
+    tempUser.username = user.uid;
+    tempUser.name = user.displayName;
+    tempUser.password = @"temporary";
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:user.photoURL]];
+    NSData *imageData = UIImagePNGRepresentation(image);
     
-    newUser.username = self.usernameField.text;
-    newUser.name = self.usernameField.text;
-    newUser.password = self.passwordField.text;
-
-    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+    tempUser.profilePic =  [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+    
+    [tempUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Username Already Exists"
-                                                      message:@"Please login or signup with another username"
-                                                      preferredStyle:UIAlertControllerStyleAlert];
-
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                          handler:^(UIAlertAction * action) {}];
-
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
+            [PFUser logInWithUsernameInBackground:tempUser.username password:tempUser.password block:^(PFUser * user, NSError *  error) {
+                if (error != nil) {
+                    NSLog(@"User log in failed: %@", error.localizedDescription);
+                    [self loginAlert];
+                } else {
+                    // user logged in successfully
+                    [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
+                }
+            }];
         } else {
-            NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
-            // manually segue to logged in view
         }
     }];
 }
-
-- (void)loginUser {
-    NSString *username = self.usernameField.text;
-    NSString *password = self.passwordField.text;
-    
-    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-        if (error != nil) {
-            NSLog(@"User log in failed: %@", error.localizedDescription);
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Invalid Login"
-                                                      message:@"Please ensure your username and password are correct"
-                                                      preferredStyle:UIAlertControllerStyleAlert];
-
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                          handler:^(UIAlertAction * action) {}];
-
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            NSLog(@"User logged in successfully");
-            [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
-            // display view controller that needs to shown after successful login
-        }
-    }];
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

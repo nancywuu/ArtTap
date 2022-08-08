@@ -14,6 +14,8 @@
 
 @implementation EditViewController
 
+#pragma mark - Lifecycle Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.usernameField.delegate = self;
@@ -22,6 +24,9 @@
     self.profileImage.image = self.currentProfileImage;
     self.backgroundImage.image = self.currentBackgroundImage;
 }
+
+#pragma mark - Actions
+
 - (IBAction)didClickDone:(id)sender {
     if([self.usernameField.text isEqualToString:@""] && [self.nameField.text isEqualToString:@""] &&
        [self.bioField.text isEqualToString:@""] && self.profileImage.image == nil){
@@ -65,10 +70,9 @@
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
+#pragma mark - Image Control
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
-    // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
 
     if(self.fromBg){
@@ -89,9 +93,6 @@
         [self.profileImage loadInBackground];
     }
 
-    // Do something with the images (based on your use case)
-    
-    // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -108,15 +109,5 @@
     
     return newImage;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

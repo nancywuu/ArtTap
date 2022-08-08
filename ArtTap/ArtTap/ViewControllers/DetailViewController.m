@@ -21,14 +21,17 @@
 
 @interface DetailViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CommentCellDelegate, UIGestureRecognizerDelegate,
                                     DrawViewControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *speedpaintButton;
 @property (weak, nonatomic) IBOutlet UIButton *markUpButton;
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
+@property (weak, nonatomic) IBOutlet UIView *smallView;
+@property (weak, nonatomic) IBOutlet UIImageView *heartPopup;
+
 @property (nonatomic, strong) NSArray *commentArray;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (weak, nonatomic) IBOutlet UIView *smallView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (weak, nonatomic) IBOutlet UIImageView *heartPopup;
+
 @property UIImage *markUp;
 @property BOOL didMarkUp;
 
@@ -47,12 +50,22 @@
     [self fetchComments];
 }
 
+#pragma mark - Lifecycle Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view
+    
+    // prepare and initialize
     [self refreshUser];
     [self checkEngage];
-    // update post views
+    [self setTapGestures];
+
+    self.didMarkUp = NO;
+    self.playerController = [[AVPlayerViewController alloc] init];
+    if(self.obj.speedpaint == nil){
+        self.speedpaintButton.hidden = YES;
+    }
+
     [Post viewed:self.obj withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
          if(error){
               NSLog(@"Error updating post views: %@", error.localizedDescription);
@@ -64,20 +77,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 80;
-    self.didMarkUp = NO;
-    self.playerController = [[AVPlayerViewController alloc] init];
-    if(self.obj.speedpaint == nil){
-        self.speedpaintButton.hidden = YES;
-    }
-    
-    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
-    [self.profileImage addGestureRecognizer:profileTapGestureRecognizer];
-    [self.profileImage setUserInteractionEnabled:YES];
-    
-    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapped:)];
-    doubleTapGestureRecognizer.numberOfTapsRequired = 2;
-    [self.postImage addGestureRecognizer:doubleTapGestureRecognizer];
-    [self.postImage setUserInteractionEnabled:YES];
     
     [self fetchComments];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -88,6 +87,103 @@
 - (void) viewWillAppear:(BOOL)animated {
     [self setColors];
 }
+
+#pragma mark - Initiators
+
+- (void)setDetails {
+    self.username.text = self.obj.author.username;
+
+    User *temp = self.obj.author;
+    self.username.text = [@"@" stringByAppendingString:temp.username];
+    self.name.text = self.obj.author.name;
+    self.date.text = self.obj.createdAt.shortTimeAgoSinceNow;
+    self.postImage.file = self.obj.image;
+    self.profileImage.file = self.obj.author.profilePic;
+    [self.profileImage loadInBackground];
+    self.caption.text = self.obj.caption;
+    
+    if([self.obj.likeCount intValue] == 1){
+        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " like"];
+    } else {
+        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " likes"];
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+    [query includeKey:@"postID"];
+    [query includeKey:@"userID"];
+    [query orderByDescending:(@"createdAt")];
+    [query whereKey:@"postID" equalTo: self.obj.objectId];
+    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
+    [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:NO]];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable like, NSError * _Nullable error) {
+        if (like != nil) {
+            self.liked = YES;
+            [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        } else {
+            self.liked = NO;
+            [self.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        }
+    }];
+}
+
+- (void)checkCommentLikes: (CommentCell *)cell {
+    PFQuery *query = [PFQuery queryWithClassName:@"CommentLikes"];
+    [query includeKey:@"userID"];
+    [query includeKey:@"commentID"];
+    [query whereKey:@"commentID" equalTo: cell.comment.objectId];
+    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable like, NSError * _Nullable error) {
+        if (like != nil) {
+            cell.liked = YES;
+            [cell.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        } else {
+            cell.liked = NO;
+            [cell.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        }
+    }];
+}
+
+- (void) checkEngage {
+    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+    [query includeKey:@"postID"];
+    [query includeKey:@"userID"];
+    [query orderByDescending:(@"createdAt")];
+    [query whereKey:@"postID" equalTo: self.obj.objectId];
+    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
+    [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:YES]];
+    
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable engage, NSError * _Nullable error) {
+        if (engage == nil) {
+            [Liked favorite:self.obj.objectId withUser:User.currentUser.objectId withDef:YES withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error){
+                    NSLog(@"Error boolean liking: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"Successfully updated boolean like count: %@", self.obj.likeCount);
+                }
+            }];
+        }
+    }];
+}
+
+- (void) refreshUser {
+    // refresh necessary due to loss of data in segue
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query includeKey:@"author"];
+    [query includeKey:@"createdAt"];
+    [query includeKey:@"likeCount"];
+    [query includeKey:@"commentCount"];
+    [query orderByDescending:(@"createdAt")];
+    [query whereKey:@"objectId" equalTo:self.obj.objectId];
+    
+    query.limit = 1;
+    
+    NSArray *res = [query findObjects];
+    self.obj = res[0];
+}
+
+#pragma mark - Color Mode
 
 - (void) setColors {
     if(User.currentUser.darkmode == YES){
@@ -103,6 +199,7 @@
     self.view.backgroundColor = self.backColor;
     self.tableView.backgroundColor = self.backColor;
     self.smallView.backgroundColor = self.backColor;
+    self.likeCount.textColor = self.frontColor;
     self.name.textColor = self.frontColor;
     self.username.textColor = self.frontColor;
     self.caption.textColor = self.frontColor;
@@ -117,6 +214,8 @@
      @{NSForegroundColorAttributeName:self.frontColor}];
     [self.tableView reloadData];
 }
+
+#pragma mark - Animations
 
 - (void) animateLike {
     [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -140,34 +239,78 @@
     [self triggerLike];
 }
 
+- (void) setTapGestures {
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
+    [self.profileImage addGestureRecognizer:profileTapGestureRecognizer];
+    [self.profileImage setUserInteractionEnabled:YES];
+    
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapped:)];
+    doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    [self.postImage addGestureRecognizer:doubleTapGestureRecognizer];
+    [self.postImage setUserInteractionEnabled:YES];
+}
+
+#pragma mark - Actions
+
+- (IBAction)didLike:(id)sender {
+    [self triggerLike];
+}
+
+- (IBAction)viewVideo:(id)sender {
+    NSURL *url = [NSURL URLWithString: self.obj.speedpaint.url];
+    self.player = [AVPlayer playerWithURL:url];
+    self.playerController.player = self.player;
+    self.playerController.videoGravity = AVLayerVideoGravityResizeAspect;
+    [self presentViewController:self.playerController animated:YES completion:^{
+        [self.playerController.player play];
+    }];
+}
+
+- (IBAction)didComment:(id)sender {
+    BOOL temp = YES;
+    NSNumber *typeTemp = @(0);
+    NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
+    if([title isEqualToString:@"Comments"]){
+        temp = NO;
+    } else {
+        temp = YES;
+        typeTemp = @(1);
+    }
+    
+    if(![self.commentField.text isEqualToString:@""]){
+        [Comment postComment:self.obj.objectId withUser:User.currentUser withText:self.commentField.text withMarkUp:self.markUp withMarkBool: self.didMarkUp withBool:temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error){
+                  NSLog(@"Error posting: %@", error.localizedDescription);
+            } else {
+                [self fetchComments];
+                 
+                int temp = [self.obj.commentCount intValue];
+                self.obj.commentCount = [NSNumber numberWithInt:temp + 1];
+                [Post comment:self.obj withValue:self.obj.commentCount withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                    if(error){
+                        NSLog(@"Error posting: %@", error.localizedDescription);
+                    }
+                }];
+                 
+                [Notifications notif:self.obj withAuthor:self.obj.author withType:typeTemp withText:self.commentField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                    if(error){
+                        NSLog(@"Error posting: %@", error.localizedDescription);
+                    }
+                }];
+                self.commentField.text = @"";
+                self.markUp = nil;
+                self.didMarkUp = NO;
+                self.markUpButton.tintColor = UIColor.systemBlueColor;
+            }
+        }];
+    }
+}
+
 - (void) didTapUserProfile:(UITapGestureRecognizer *)sender{
     [self performSegueWithIdentifier:@"profileSegue" sender:self.obj.author];
 }
 
-- (void) checkEngage {
-    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
-    [query includeKey:@"postID"];
-    [query includeKey:@"userID"];
-    [query orderByDescending:(@"createdAt")];
-    [query whereKey:@"postID" equalTo: self.obj.objectId];
-    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
-    [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:YES]];
-    
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable engage, NSError * _Nullable error) {
-        if (engage == nil) {
-            [Liked favorite:self.obj.objectId withUser:User.currentUser.objectId withDef:YES withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                if(error){
-                    NSLog(@"Error boolean liking: %@", error.localizedDescription);
-                } else {
-                    NSLog(@"Successfully updated boolean like count: %@", self.obj.likeCount);
-                }
-            }];
-        }
-    }];
-
-    
-}
-
+// handles visually unliking a post
 - (void) visUnlike {
     self.heartPopup.image = [UIImage systemImageNamed:@"heart.slash"];
     [self animateLike];
@@ -176,14 +319,22 @@
     int temp = [self.obj.likeCount intValue];
     self.obj.likeCount = [NSNumber numberWithInt:temp - 1];
     [self.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+}
+
+// handles visually liking a post
+- (void) visLike {
+    self.heartPopup.image = [UIImage systemImageNamed:@"heart.fill"];
+    [self animateLike];
+
+    self.liked = YES;
+    int temp = [self.obj.likeCount intValue];
+    self.obj.likeCount = [NSNumber numberWithInt:temp + 1];
+    [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
     
-    // account for plural
-    if([self.obj.likeCount intValue] == 1){
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " like"];
-    } else {
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " likes"];
-    }
-    
+}
+
+// updates backend for unliking
+- (void) dataUnlike {
     [Post favorite:self.obj withValue:self.obj.likeCount withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error){
               NSLog(@"Error posting like: %@", error.localizedDescription);
@@ -215,40 +366,7 @@
     }];
 }
 
-- (void) refreshUser {
-    // refresh necessary due to loss of data in segue
-    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
-    [query includeKey:@"author"];
-    [query includeKey:@"createdAt"];
-    [query includeKey:@"likeCount"];
-    [query includeKey:@"commentCount"];
-    [query orderByDescending:(@"createdAt")];
-    [query whereKey:@"objectId" equalTo:self.obj.objectId];
-    
-    query.limit = 1;
-    
-    NSArray *res = [query findObjects];
-
-    // fetch data asynchronously
-    self.obj = res[0];
-}
-
-- (void) visLike {
-    self.heartPopup.image = [UIImage systemImageNamed:@"heart.fill"];
-    [self animateLike];
-
-    self.liked = YES;
-    int temp = [self.obj.likeCount intValue];
-    self.obj.likeCount = [NSNumber numberWithInt:temp + 1];
-    [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-    
-    // account for plural
-    if([self.obj.likeCount intValue] == 1){
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " like"];
-    } else {
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " likes"];
-    }
-    
+- (void) dataLike {
     [Post favorite:self.obj withValue:self.obj.likeCount withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error){
               NSLog(@"Error posting: %@", error.localizedDescription);
@@ -264,96 +382,34 @@
              NSLog(@"Successfully updated boolean like count: %@", self.obj.likeCount);
         }
     }];
-    
+    [Notifications notif:self.obj withAuthor:self.obj.author withType:@(2) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error){
+              NSLog(@"Error posting: %@", error.localizedDescription);
+         }
+         else{
+             NSLog(@"Successfully send like notif");
+         }
+    }];
 }
 
 - (void) triggerLike {
     if(self.liked == YES){
-        // update likeCount
         [self visUnlike];
-        
+        [self dataUnlike];
     } else {
         [self visLike];
-        [Notifications notif:self.obj withAuthor:self.obj.author withType:@(2) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if(error){
-                  NSLog(@"Error posting: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully send like notif");
-             }
-        }];
+        [self dataLike];
     }
-}
-
-#pragma mark - ACTIONS
-
-- (IBAction)viewVideo:(id)sender {
-    // your filepath which is may be "http" type
-    NSURL *url = [NSURL URLWithString: self.obj.speedpaint.url];
-    self.player = [AVPlayer playerWithURL:url];
-    self.playerController.player = self.player;
-    self.playerController.videoGravity = AVLayerVideoGravityResizeAspect;
-    [self presentViewController:self.playerController animated:YES completion:^{
-        [self.playerController.player play];
-    }];
-}
-
-- (IBAction)didLike:(id)sender {
-    [self triggerLike];
-}
-
-- (IBAction)didComment:(id)sender {
-    BOOL temp = YES;
-    NSNumber *typeTemp = @(0);
-    NSString *title = [self.segCon titleForSegmentAtIndex:self.segCon.selectedSegmentIndex];
-    if([title isEqualToString:@"Comments"]){
-        temp = NO;
+    
+    // set our visual likecount
+    if([self.obj.likeCount intValue] == 1){
+        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " like"];
     } else {
-        temp = YES;
-        typeTemp = @(1);
-    }
-    
-    
-    if(![self.commentField.text isEqualToString:@""]){
-        [Comment postComment:self.obj.objectId withUser:User.currentUser withText:self.commentField.text withMarkUp:self.markUp withMarkBool: self.didMarkUp withBool:temp withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-            if(error){
-                  NSLog(@"Error posting: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully commented on post: %@", self.commentField.text);
-                 [self fetchComments];
-                 
-                 int temp = [self.obj.commentCount intValue];
-                 self.obj.commentCount = [NSNumber numberWithInt:temp + 1];
-                 [Post comment:self.obj withValue:self.obj.commentCount withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                     if(error){
-                           NSLog(@"Error posting: %@", error.localizedDescription);
-                      }
-                      else{
-                          NSLog(@"Successfully updated comment count: %@", self.obj.commentCount);
-                      }
-                 }];
-                 
-                 [Notifications notif:self.obj withAuthor:self.obj.author withType:typeTemp withText:self.commentField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                     if(error){
-                           NSLog(@"Error posting: %@", error.localizedDescription);
-                      }
-                      else{
-                          NSLog(@"Successfully updated comment count: %@", self.obj.commentCount);
-                      }
-                 }];
-                 self.commentField.text = @"";
-                 self.markUp = nil;
-                 self.didMarkUp = NO;
-                 self.markUpButton.tintColor = UIColor.systemBlueColor;
-             }
-        }];
+        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " likes"];
     }
 }
 
-- (void)didLikeComment{
-    //[self fetchComments];
-}
+#pragma mark - Delegates
 
 // delegate for finishing drawing for comment
 - (void)drawingDidFinish:(UIImage *)finishedImage {
@@ -375,47 +431,7 @@
     [popupController presentInViewController:self];
 }
 
-- (void)setDetails {
-    // FIX: temporarily commented out due to unsolved bug
-    self.username.text = self.obj.author.username;
-
-    User *temp = self.obj.author;
-    self.username.text = [@"@" stringByAppendingString:temp.username];
-
-    self.name.text = self.obj.author.name;
-
-    
-    self.date.text = self.obj.createdAt.shortTimeAgoSinceNow;
-    self.postImage.file = self.obj.image;
-    self.profileImage.file = self.obj.author.profilePic;
-    [self.profileImage loadInBackground];
-    self.caption.text = self.obj.caption;
-    
-    // account for plural
-    if([self.obj.likeCount intValue] == 1){
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " like"];
-    } else {
-        self.likeCount.text = [NSString stringWithFormat:@"%@%s", [self.obj.likeCount stringValue], " likes"];
-    }
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
-    [query includeKey:@"postID"];
-    [query includeKey:@"userID"];
-    [query orderByDescending:(@"createdAt")];
-    [query whereKey:@"postID" equalTo: self.obj.objectId];
-    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
-    [query whereKey:@"isEngage" equalTo: [NSNumber numberWithBool:NO]];
-    
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable like, NSError * _Nullable error) {
-        if (like != nil) {
-            self.liked = YES;
-            [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-        } else {
-            self.liked = NO;
-            [self.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-        }
-    }];
-}
+#pragma mark - Tableview
 
 - (void)fetchComments {
     [self setDetails];
@@ -451,26 +467,6 @@
         }
     }];
     [self.refreshControl endRefreshing];
-}
-
-- (void)checkCommentLikes: (CommentCell *)cell {
-    PFQuery *query = [PFQuery queryWithClassName:@"CommentLikes"];
-    [query includeKey:@"userID"];
-    [query includeKey:@"commentID"];
-    [query whereKey:@"commentID" equalTo: cell.comment.objectId];
-    [query whereKey:@"userID" equalTo: User.currentUser.objectId];
-    
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable like, NSError * _Nullable error) {
-        if (like != nil) {
-            cell.liked = YES;
-            [cell.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-        } else {
-            cell.liked = NO;
-            [cell.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-        }
-    }];
-    
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -509,25 +505,11 @@
     return self.commentArray.count;
 }
 
-// methods for arranging dates for post analysis
-
-+ (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate {
-    if ([date compare:beginDate] == NSOrderedAscending)
-        return NO;
-
-    if ([date compare:endDate] == NSOrderedDescending)
-        return NO;
-
-    return YES;
-}
-
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if (([segue.identifier isEqualToString:@"profileSegue"])){
         User *temp = sender;
         ProfileViewController *profileViewController = [segue destinationViewController];
@@ -597,20 +579,7 @@
         graphVC.viewArray = self.obj.viewTrack;
     } else if (([segue.identifier isEqualToString:@"drawSegue"])){
         DrawViewController *drawVC = [segue destinationViewController];
-//        if let userPicture = object.valueForKey("Image")! as! PFFile {
-//           userPicture.getDataInBackgroundWithBlock({
-//              (imageData: NSData!, error NSError!) -> Void in
-//                 if (error == nil) {
-//                    let image = UIImage(data:imageData)
-//                    self.ImageArray.append(image)
-//                 }
-//              })
-//        }
         PFFileObject *tempObj = (PFFileObject *)self.obj.image;
-//        [tempObj getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-//                    drawVC.image = [UIImage imageWithData:data];
-//        }];
-        
         NSData *data = [tempObj getData];
         drawVC.image = [UIImage imageWithData:data];
         drawVC.delegate = self;

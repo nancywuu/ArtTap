@@ -24,12 +24,8 @@
 @end
 
 @implementation TrendingViewController
-- (IBAction)didChangeSeg:(id)sender {
-    [self fetchPosts];
-}
-- (IBAction)didChangeTime:(id)sender {
-    [self fetchPosts];
-}
+
+#pragma mark - Lifecycle Methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +43,8 @@
 - (void) viewWillAppear:(BOOL)animated {
     [self setColors];
 }
+
+#pragma mark - Color Mode
 
 - (void) setColors {
     if(User.currentUser.darkmode == YES){
@@ -76,6 +74,17 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Actions
+
+- (IBAction)didChangeSeg:(id)sender {
+    [self fetchPosts];
+}
+- (IBAction)didChangeTime:(id)sender {
+    [self fetchPosts];
+}
+
+#pragma mark - Tableview
+
 - (void) fetchPosts {
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query includeKey:@"author"];
@@ -91,42 +100,29 @@
         [query orderByDescending:(@"likeCount")];
     }
     
-    // modify time constraints
-    
     NSString *time = [self.timeCon titleForSegmentAtIndex:self.timeCon.selectedSegmentIndex];
     NSDate *now = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:now];
 
+    [components setHour:23];
+    [components setMinute:59];
+    [components setSecond:59];
+    NSDate *tonightEnd = [calendar dateFromComponents:components];
+    
+    NSDate *start;
+    [components setHour:0];
+    [components setMinute:0];
+    [components setSecond:1];
     if([time isEqualToString:@"Today"]){
-        [components setHour:0];
-        [components setMinute:0];
-        [components setSecond:1];
-        NSDate *morningStart = [calendar dateFromComponents:components];
-
-        [components setHour:23];
-        [components setMinute:59];
-        [components setSecond:59];
-        NSDate *tonightEnd = [calendar dateFromComponents:components];
-
-        [query whereKey:@"createdAt" greaterThan:morningStart];
-        [query whereKey:@"createdAt" lessThan:tonightEnd];
+        start = [calendar dateFromComponents:components];
     } else if([time isEqualToString:@"This Week"]){
-
-        [components setHour:0];
-        [components setMinute:0];
-        [components setSecond:1];
-        NSDate *weekStart = [now dateByAddingTimeInterval: -518400.0];
-
-        [components setHour:23];
-        [components setMinute:59];
-        [components setSecond:59];
-        NSDate *tonightEnd = [calendar dateFromComponents:components];
-        [query whereKey:@"createdAt" greaterThan:weekStart];
-        [query whereKey:@"createdAt" lessThan:tonightEnd];
+        start = [now dateByAddingTimeInterval: -518400.0];
     }
     
-
+    [query whereKey:@"createdAt" greaterThan:start];
+    [query whereKey:@"createdAt" lessThan:tonightEnd];
+    
     query.limit = 10;
 
     // fetch data asynchronously

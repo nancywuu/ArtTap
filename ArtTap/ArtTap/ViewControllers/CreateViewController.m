@@ -24,6 +24,28 @@
 
 @implementation CreateViewController
 
+#pragma mark - Lifecycle Methods
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.captionField.text = @"Add a caption...";
+    self.captionField.textColor = [UIColor lightGrayColor];
+    self.captionField.delegate = self;
+    self.didUploadImage = NO;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    if(User.currentUser.darkmode){
+        self.view.backgroundColor = UIColor.blackColor;
+        self.critText.textColor = UIColor.whiteColor;
+    } else {
+        self.view.backgroundColor = UIColor.whiteColor;
+        self.critText.textColor = UIColor.blackColor;
+    }
+}
+
+#pragma mark - Actions
+
 - (IBAction)didShare:(id)sender {
     if(self.didUploadImage){
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -56,33 +78,10 @@
     }
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    if(User.currentUser.darkmode){
-        self.view.backgroundColor = UIColor.blackColor;
-        self.critText.textColor = UIColor.whiteColor;
-    } else {
-        self.view.backgroundColor = UIColor.whiteColor;
-        self.critText.textColor = UIColor.blackColor;
-    }
-}
-
 - (IBAction)didClose:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
-    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    
-    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
-    resizeImageView.image = image;
-    
-    UIGraphicsBeginImageContext(size);
-    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
 - (IBAction)didTapVideo:(id)sender {
     UIImagePickerController *videoPicker = [[UIImagePickerController alloc] init];
     videoPicker.delegate = self; // ensure you set the delegate so when a video is chosen the right method can be called
@@ -120,13 +119,21 @@
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.captionField.text = @"Add a caption...";
-    self.captionField.textColor = [UIColor lightGrayColor];
-    self.captionField.delegate = self;
-    self.didUploadImage = NO;
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
+
+#pragma mark - Delegates
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if([textView.text isEqualToString: @"Add a caption..."]) {
@@ -135,7 +142,6 @@
     }
     [textView becomeFirstResponder];
 }
-
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
@@ -168,15 +174,5 @@
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

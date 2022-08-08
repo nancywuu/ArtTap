@@ -18,18 +18,19 @@
 
 @implementation FollowListViewController
 
+#pragma mark - Lifecycle Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    //self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.rowHeight = 100;
 }
 
+#pragma mark - Tableview
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FollowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FollowCell" forIndexPath:indexPath];
-    NSLog(@"follow user found");
     
     Follower *temp = self.userArray[indexPath.row];
     
@@ -86,9 +87,6 @@
         } else {
             profileVC.currentUser = dataToPass.follower;
         }
-        
     }
 }
-
-
 @end

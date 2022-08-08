@@ -33,6 +33,7 @@
 
 @implementation ProfileViewController
 
+#pragma mark - Lifecycle Methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,7 +51,7 @@
 
     [self fetchProfile];
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(fetchProfile) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
@@ -58,7 +59,8 @@
     [self setColors];
 }
 
-// for dark mode
+#pragma mark - Color Mode
+
 - (void) setColors {
     if(User.currentUser.darkmode == YES){
         self.backColor = UIColor.blackColor;
@@ -88,6 +90,8 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Initiators
+
 - (void) fetchProfile {
     [self checkFollow];
     [self loadFollowers];
@@ -102,30 +106,7 @@
     self.backgroundImg.file = self.currentUser.backgroundPic;
     [self.backgroundImg loadInBackground];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
-    [query includeKey:@"author"];
-    [query includeKey:@"createdAt"];
-    [query orderByDescending:(@"createdAt")];
-    PFUser *temp = self.currentUser;
-    [query whereKey:@"author" equalTo: temp];
-    query.limit = 20;
-
-    // fetch user posts
-    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
-        if (posts != nil) {
-            self.postArray = posts;
-            NSMutableArray *temp = [NSMutableArray new];
-            for(int i = 0; i < posts.count; i++){
-                Post *current = posts[i];
-                [temp addObject: current.objectId];
-            }
-            self.postIDArray = [temp mutableCopy];
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
-    [self.refreshControl endRefreshing];
+    [self fetchPosts];
 }
 
 // load arrays for following and followers
@@ -184,6 +165,8 @@
     }];
 }
 
+#pragma mark - Actions
+
 // switch to dark or light mode
 - (IBAction)selectColorMode:(id)sender {
     [User switchColorMode:User.currentUser];
@@ -234,6 +217,35 @@
 // delegate method for after editing profile, we need to refresh
 - (void) didEdit {
     [self fetchProfile];
+}
+
+#pragma mark - Tableview
+
+- (void) fetchPosts {
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query includeKey:@"author"];
+    [query includeKey:@"createdAt"];
+    [query orderByDescending:(@"createdAt")];
+    PFUser *temp = self.currentUser;
+    [query whereKey:@"author" equalTo: temp];
+    query.limit = 20;
+
+    // fetch user posts
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            self.postArray = posts;
+            NSMutableArray *temp = [NSMutableArray new];
+            for(int i = 0; i < posts.count; i++){
+                Post *current = posts[i];
+                [temp addObject: current.objectId];
+            }
+            self.postIDArray = [temp mutableCopy];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    [self.refreshControl endRefreshing];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

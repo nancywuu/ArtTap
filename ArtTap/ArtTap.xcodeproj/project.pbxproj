@@ -28,7 +28,6 @@
 		7F384BFD287CD60C003F9894 /* FollowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BFC287CD60C003F9894 /* FollowTableViewCell.m */; };
 		7F384C00287E0512003F9894 /* TrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384BFF287E0512003F9894 /* TrendingViewController.m */; };
 		7F384C03287E0703003F9894 /* TrendTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C02287E0703003F9894 /* TrendTableCell.m */; };
-		7F384C06287E0F2F003F9894 /* AnalyticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C05287E0F2F003F9894 /* AnalyticsViewController.m */; };
 		7F384C09287E19D7003F9894 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C08287E19D6003F9894 /* SearchViewController.m */; };
 		7F384C0C287E1CBC003F9894 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C0B287E1CBC003F9894 /* SearchCell.m */; };
 		7F384C0F287F3090003F9894 /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C0E287F3090003F9894 /* Notifications.m */; };
@@ -116,8 +115,6 @@
 		7F384BFF287E0512003F9894 /* TrendingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrendingViewController.m; sourceTree = "<group>"; };
 		7F384C01287E0703003F9894 /* TrendTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrendTableCell.h; sourceTree = "<group>"; };
 		7F384C02287E0703003F9894 /* TrendTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrendTableCell.m; sourceTree = "<group>"; };
-		7F384C04287E0F2F003F9894 /* AnalyticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsViewController.h; sourceTree = "<group>"; };
-		7F384C05287E0F2F003F9894 /* AnalyticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsViewController.m; sourceTree = "<group>"; };
 		7F384C07287E19D6003F9894 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		7F384C08287E19D6003F9894 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		7F384C0A287E1CBC003F9894 /* SearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
@@ -261,8 +258,6 @@
 				7F384BF9287CCDAA003F9894 /* FollowListViewController.m */,
 				7F384BE32878949F003F9894 /* EditViewController.h */,
 				7F384BE42878949F003F9894 /* EditViewController.m */,
-				7F384C04287E0F2F003F9894 /* AnalyticsViewController.h */,
-				7F384C05287E0F2F003F9894 /* AnalyticsViewController.m */,
 				7F384BFE287E0512003F9894 /* TrendingViewController.h */,
 				7F384BFF287E0512003F9894 /* TrendingViewController.m */,
 				7F384C07287E19D6003F9894 /* SearchViewController.h */,
@@ -601,7 +596,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F384BCF28764888003F9894 /* HomePhotoCell.m in Sources */,
-				7F384C06287E0F2F003F9894 /* AnalyticsViewController.m in Sources */,
 				7FDA60C728763AE7002FF556 /* ViewController.m in Sources */,
 				7FDBC96B2898719F00EE450D /* PopUpViewController.m in Sources */,
 				7F384C09287E19D7003F9894 /* SearchViewController.m in Sources */,

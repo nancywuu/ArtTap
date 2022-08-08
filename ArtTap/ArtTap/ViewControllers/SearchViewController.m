@@ -26,6 +26,8 @@
 
 @implementation SearchViewController
 
+#pragma mark - Lifecycle Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dataSource = self;
@@ -42,6 +44,8 @@
 - (void) viewWillAppear:(BOOL)animated {
     [self setColors];
 }
+
+#pragma mark - Color Mode
 
 - (void) setColors {
     if(User.currentUser.darkmode == YES){
@@ -70,6 +74,8 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Search Retrieval
+
 - (void) fetchUsers {
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
@@ -82,7 +88,6 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
     if (searchText.length != 0) {
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(User *evaluatedObject, NSDictionary *bindings) {
             return [[evaluatedObject.username lowercaseString] containsString:[searchText lowercaseString]];
@@ -92,6 +97,8 @@
 
     [self.tableView reloadData];
 }
+
+#pragma mark - Tableview Cells
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
@@ -107,7 +114,6 @@
     [followerQ includeKey:@"user"];
     [followerQ includeKey:@"follower"];
     [followerQ whereKey:@"user" equalTo: temp];
-    
     [followerQ findObjectsInBackgroundWithBlock:^(NSArray *res, NSError *error) {
         if (res != nil) {
             cell.followCount.text = [NSString stringWithFormat:@"%ld%@",(long) res.count, @" followers"];

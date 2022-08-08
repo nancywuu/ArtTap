@@ -36,11 +36,11 @@ import Parse
         self.canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.contentOffset = CGPoint.zero
-        //canvasView.contentSize = image.size
+        canvasView.contentSize = image.size
         
         underlayImage.contentMode = .scaleToFill
         underlayImage.image = image
-        //underlayImage.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        underlayImage.frame = CGRect(origin: CGPoint.zero, size: image.size)
         underlayImage.layer.borderColor = UIColor.orange.cgColor
         underlayImage.layer.borderWidth = 1.0
         
@@ -84,19 +84,6 @@ import Parse
         
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 public extension UIImage {
