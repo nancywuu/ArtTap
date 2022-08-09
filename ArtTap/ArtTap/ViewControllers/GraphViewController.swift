@@ -44,8 +44,6 @@ import Charts
         if(self.viewArray.count < hoursInMonth){
             let holder = [NSNumber](repeating: 0, count: 730 - self.viewArray.count )
             self.viewArray.insert(contentsOf: holder, at: 0)
-        } else if (self.viewArray.count > hoursInMonth){
-            // TODO: implement checked to limit a post that is older than a month
         }
         
         modifyLineChart(lineChartView: lineChartView)

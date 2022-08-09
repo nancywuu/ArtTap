@@ -387,14 +387,17 @@
              NSLog(@"Successfully updated boolean like count: %@", self.obj.likeCount);
         }
     }];
-    [Notifications notif:self.obj withAuthor:self.obj.author withType:@(2) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error){
-              NSLog(@"Error posting: %@", error.localizedDescription);
-         }
-         else{
-             NSLog(@"Successfully send like notif");
-         }
-    }];
+    
+    if(self.obj.author.objectId != User.currentUser.objectId){
+        [Notifications notif:self.obj withAuthor:self.obj.author withType:@(2) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error){
+                  NSLog(@"Error posting: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully send like notif");
+             }
+        }];
+    }
 }
 
 - (void) triggerLike {

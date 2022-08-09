@@ -78,6 +78,13 @@
     
     tempViewArr[hours] = [NSNumber numberWithInteger:[tempViewArr[hours] integerValue] + 1];
     
+    if(tempViewArr.count > 730){
+        NSRange range;
+        range.location = 0;
+        range.length = tempViewArr.count - 730;
+        [tempViewArr removeObjectsInRange:range];
+    }
+    
     temp.viewTrack = [tempViewArr copy];
     
     [temp saveInBackgroundWithBlock: completion];
