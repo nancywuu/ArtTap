@@ -113,22 +113,10 @@
     return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
 }
 
-- (void) getPostData: (NSMutableArray *)tempEngageArr withLikeArr: (NSMutableArray *)tempLikeArr withComArr: (NSMutableArray *)tempComArr
++ (void) getPostData: (PFQuery *)query withComQuery: (PFQuery *)comquery withEngageArr: (NSMutableArray *)tempEngageArr withLikeArr: (NSMutableArray *)tempLikeArr withComArr: (NSMutableArray *)tempComArr
          withCritArr: (NSMutableArray *)tempCritArr {
-    PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
-    [query includeKey:@"postID"];
-    [query includeKey:@"userID"];
-    [query includeKey:@"isEngage"];
-    [query includeKey:@"createdAt"];
-    [query whereKey:@"postID" equalTo: self.objectId];
-
-    NSArray *tempRes = [query findObjects];
     
-    PFQuery *comquery = [PFQuery queryWithClassName:@"Comment"];
-    [comquery includeKey:@"postID"];
-    [comquery includeKey:@"createdAt"];
-    [comquery whereKey:@"postID" equalTo: self.objectId];
-
+    NSArray *tempRes = [query findObjects];
     NSArray *comRes = [comquery findObjects];
     
     for(int i = 0; i < tempRes.count; i++){

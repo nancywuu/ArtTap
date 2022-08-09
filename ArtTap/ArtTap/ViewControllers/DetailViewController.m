@@ -48,9 +48,6 @@
 @end
 
 @implementation DetailViewController
-- (IBAction)segChanged:(id)sender {
-    [self fetchComments];
-}
 
 #pragma mark - Lifecycle Methods
 
@@ -261,6 +258,10 @@
     [self triggerLike];
 }
 
+- (IBAction)segChanged:(id)sender {
+    [self fetchComments];
+}
+
 - (IBAction)viewVideo:(id)sender {
     NSURL *url = [NSURL URLWithString: self.obj.speedpaint.url];
     self.player = [AVPlayer playerWithURL:url];
@@ -296,12 +297,15 @@
                         NSLog(@"Error posting: %@", error.localizedDescription);
                     }
                 }];
-                 
-                [Notifications notif:self.obj withAuthor:self.obj.author withType:typeTemp withText:self.commentField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                    if(error){
-                        NSLog(@"Error posting: %@", error.localizedDescription);
-                    }
-                }];
+                
+                if(![self.obj.author.objectId isEqualToString:User.currentUser.objectId]){
+                    [Notifications notif:self.obj withAuthor:self.obj.author withType:typeTemp withText:self.commentField.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                        if(error){
+                            NSLog(@"Error posting: %@", error.localizedDescription);
+                        }
+                    }];
+                }
+                
                 self.commentField.text = @"";
                 self.markUp = nil;
                 self.didMarkUp = NO;
@@ -387,13 +391,12 @@
              NSLog(@"Successfully updated boolean like count: %@", self.obj.likeCount);
         }
     }];
-    
-    if(self.obj.author.objectId != User.currentUser.objectId){
+
+    if(![self.obj.author.objectId isEqualToString:User.currentUser.objectId]){
         [Notifications notif:self.obj withAuthor:self.obj.author withType:@(2) withText:@"" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error posting: %@", error.localizedDescription);
-             }
-             else{
+             } else{
                  NSLog(@"Successfully send like notif");
              }
         }];
@@ -498,6 +501,8 @@
     cell.date.textColor = self.frontColor;
     if(comment.didMarkUp == NO){
         cell.markUpView.hidden = YES;
+    } else {
+        cell.markUpView.hidden = NO;
     }
     [self checkCommentLikes:cell];
     
@@ -525,6 +530,17 @@
         profileViewController.currentUser = temp;
     } else if (([segue.identifier isEqualToString:@"analytics"])){
         GraphViewController *graphVC = [segue destinationViewController];
+        PFQuery *query = [PFQuery queryWithClassName:@"Liked"];
+        [query includeKey:@"postID"];
+        [query includeKey:@"userID"];
+        [query includeKey:@"isEngage"];
+        [query includeKey:@"createdAt"];
+        [query whereKey:@"postID" equalTo: self.obj.objectId];
+
+        PFQuery *comquery = [PFQuery queryWithClassName:@"Comment"];
+        [comquery includeKey:@"postID"];
+        [comquery includeKey:@"createdAt"];
+        [comquery whereKey:@"postID" equalTo: self.obj.objectId];
 
         NSMutableArray *tempEngageArr = [NSMutableArray new];
         NSMutableArray *tempLikeArr = [NSMutableArray new];
@@ -537,7 +553,7 @@
             [tempCritArr addObject:[NSNumber numberWithInt:0]];
         }
             
-        [self.obj getPostData:tempEngageArr withLikeArr:tempLikeArr withComArr:tempComArr withCritArr:tempCritArr];
+        [Post getPostData:query withComQuery: comquery withEngageArr: tempEngageArr withLikeArr:tempLikeArr withComArr:tempComArr withCritArr:tempCritArr];
 
         graphVC.engageArray = tempEngageArr;
         graphVC.likeArray = tempLikeArr;

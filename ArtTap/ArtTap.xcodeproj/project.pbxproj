@@ -36,6 +36,7 @@
 		7F384C192880B143003F9894 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F384C182880B143003F9894 /* GraphViewController.swift */; };
 		7FA726C028763D3500119325 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA726BF28763D3500119325 /* LoginViewController.m */; };
 		7FD20B96289B5D2E0047A590 /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD20B95289B5D2E0047A590 /* DrawViewController.swift */; };
+		7FD20B9928A2D7FE0047A590 /* NavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD20B9828A2D7FE0047A590 /* NavController.m */; };
 		7FDA60C128763AE7002FF556 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C028763AE7002FF556 /* AppDelegate.m */; };
 		7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C328763AE7002FF556 /* SceneDelegate.m */; };
 		7FDA60C728763AE7002FF556 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDA60C628763AE7002FF556 /* ViewController.m */; };
@@ -130,6 +131,8 @@
 		7FA726BE28763D3500119325 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7FA726BF28763D3500119325 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7FD20B95289B5D2E0047A590 /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
+		7FD20B9728A2D7FE0047A590 /* NavController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavController.h; sourceTree = "<group>"; };
+		7FD20B9828A2D7FE0047A590 /* NavController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavController.m; sourceTree = "<group>"; };
 		7FDA60BC28763AE7002FF556 /* ArtTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FDA60BF28763AE7002FF556 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7FDA60C028763AE7002FF556 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -306,6 +309,8 @@
 				7FDA60C528763AE7002FF556 /* ViewController.h */,
 				7FDA60C628763AE7002FF556 /* ViewController.m */,
 				7FDA60C828763AE7002FF556 /* Main.storyboard */,
+				7FD20B9728A2D7FE0047A590 /* NavController.h */,
+				7FD20B9828A2D7FE0047A590 /* NavController.m */,
 				7FDA60CB28763AE8002FF556 /* Assets.xcassets */,
 				7FDA60CD28763AE8002FF556 /* LaunchScreen.storyboard */,
 				7FDBC962288F1BDE00EE450D /* GoogleService-Info.plist */,
@@ -612,6 +617,7 @@
 				7F384BEE2878FA1F003F9894 /* Comment.m in Sources */,
 				7FDA60C428763AE7002FF556 /* SceneDelegate.m in Sources */,
 				7F0C1ADE288765BC00A86EE7 /* Suggested.swift in Sources */,
+				7FD20B9928A2D7FE0047A590 /* NavController.m in Sources */,
 				7F384BD528764F35003F9894 /* User.m in Sources */,
 				7F384BDC2876AA78003F9894 /* HomeFeedLayout.m in Sources */,
 				7F384C0F287F3090003F9894 /* Notifications.m in Sources */,

@@ -99,7 +99,7 @@
         <!--Notifications-->
         <scene sceneID="yuY-GD-YO3">
             <objects>
-                <navigationController id="ky7-OG-ddU" sceneMemberID="viewController">
+                <navigationController id="ky7-OG-ddU" customClass="NavController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notifications" image="bell" catalog="system" id="I4Z-aI-Qa9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xhp-37-8zc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -240,7 +240,7 @@
         <!--Profile-->
         <scene sceneID="HgR-l0-OAa">
             <objects>
-                <navigationController id="NJc-18-8en" sceneMemberID="viewController">
+                <navigationController id="NJc-18-8en" customClass="NavController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" id="9Le-ns-0vv"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oe4-kv-yGD">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -410,6 +410,7 @@
                         <outlet property="followingButton" destination="EpK-qE-2Sg" id="dHw-GK-ok8"/>
                         <outlet property="name" destination="Xhq-Tf-Qeb" id="qye-z3-4jz"/>
                         <outlet property="profileImg" destination="kPE-Rb-9NH" id="Ohp-Vh-1Be"/>
+                        <outlet property="settingsButton" destination="TOn-a7-7Nw" id="LKs-RS-BJf"/>
                         <outlet property="smallView" destination="PuD-fP-JiX" id="vmF-1N-Tnn"/>
                         <outlet property="tableView" destination="DC4-96-HkH" id="o9R-an-UzC"/>
                         <outlet property="username" destination="aDM-3A-3k7" id="lNH-cx-tJC"/>
@@ -691,7 +692,7 @@
         <!--Home-->
         <scene sceneID="6nD-Ky-g45">
             <objects>
-                <navigationController id="jN3-Yr-SUl" sceneMemberID="viewController">
+                <navigationController id="jN3-Yr-SUl" customClass="NavController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="wb4-5F-RjE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OOa-G0-1lt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1343,10 +1344,10 @@
             </objects>
             <point key="canvasLocation" x="2498.5507246376815" y="-1372.0982142857142"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Nav Controller-->
         <scene sceneID="9dv-pD-nJi">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JwY-au-PfP" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JwY-au-PfP" customClass="NavController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Z1-Sf-YCs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -1364,7 +1365,7 @@
         <!--Trending-->
         <scene sceneID="aSH-zD-ZOD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lr2-56-2pI" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lr2-56-2pI" customClass="NavController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Trending" image="chart.line.uptrend.xyaxis" catalog="system" id="qEb-ja-S2f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yBh-Of-2re">
@@ -1654,8 +1655,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="5aD-3X-4oQ"/>
-        <segue reference="VkK-8D-d2t"/>
-        <segue reference="oxt-xD-FpW"/>
+        <segue reference="2Fc-Ot-mbV"/>
+        <segue reference="2eW-sH-TVW"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>

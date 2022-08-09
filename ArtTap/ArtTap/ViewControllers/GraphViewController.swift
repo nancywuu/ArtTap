@@ -65,8 +65,6 @@ import Charts
         self.critArrayCumulat = createCumulativeArray(givenArray: self.critArray)
         self.viewArrayCumulat = createCumulativeArray(givenArray: self.viewArray)
         
-        
-
         let engageCountVal = engageArrayCumulat[engageArrayCumulat.count - 1]
         self.engageCount.text = Int(truncating: engageCountVal) > 1 ? engageCountVal.stringValue + " users engaged" : engageCountVal.stringValue + " user engaged";
         

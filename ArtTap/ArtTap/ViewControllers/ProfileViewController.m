@@ -44,6 +44,9 @@
         self.followButton.hidden = YES;
     } else if ([self.currentUser.objectId isEqualToString:User.currentUser.objectId]){
         self.followButton.hidden = YES;
+    } else {
+        [self.settingsButton setEnabled:NO];
+        [self.settingsButton setTintColor: [UIColor clearColor]];
     }
     
     self.tableView.dataSource = self;
@@ -329,33 +332,9 @@
             [tempComArr addObject:[NSNumber numberWithInt:0]];
             [tempCritArr addObject:[NSNumber numberWithInt:0]];
         }
-            
-        for(int i = 0; i < tempRes.count; i++){
-            Liked *temp = tempRes[i];
-            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
-    
-            if(hours < 730){
-                if(temp.isEngage){
-                    tempEngageArr[hours] = [NSNumber numberWithInteger:[tempEngageArr[hours] integerValue] + 1];
-                } else {
-                    tempLikeArr[hours] = [NSNumber numberWithInteger:[tempLikeArr[hours] integerValue] + 1];
-                }
-            }
-        }
         
-        for(int i = 0; i < comRes.count; i++){
-            Comment *temp = comRes[i];
-            NSInteger hours = [[[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:temp.createdAt toDate:[NSDate date] options:0] hour];
-    
-            if((int)hours < self.hoursInMonth){
-                if(temp.critBool){
-                    tempCritArr[hours] = [NSNumber numberWithInteger:[tempCritArr[hours] integerValue] + 1];
-                } else {
-                    tempComArr[hours] = [NSNumber numberWithInteger:[tempComArr[hours] integerValue] + 1];
-                }
-            }
-        }
-
+        [Post getPostData:query withComQuery:comquery withEngageArr:tempEngageArr withLikeArr:tempLikeArr withComArr:tempComArr withCritArr:tempCritArr];
+        
         graphVC.engageArray = tempEngageArr;
         graphVC.likeArray = tempLikeArr;
         graphVC.commentArray = tempComArr;

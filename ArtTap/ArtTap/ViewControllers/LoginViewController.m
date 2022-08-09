@@ -37,7 +37,7 @@
             // optional code for what happens after the alert controller has finished presenting
         }];
     } else {
-        [self loginUser];
+        [self loginUser: self.usernameField.text withPass:self.passwordField.text];
     }
 }
 - (IBAction)didSignUp:(id)sender {
@@ -45,18 +45,16 @@
         [self presentViewController:self.alert animated:YES completion:^{
         }];
     } else {
-        [self registerUser];
+        User *newUser = [User user];
+        
+        newUser.username = self.usernameField.text;
+        newUser.name = self.usernameField.text;
+        newUser.password = self.passwordField.text;
+        [self registerUser: newUser];
     }
 }
 
-- (void)registerUser {
-    // initialize a user object
-    User *newUser = [User user];
-    
-    newUser.username = self.usernameField.text;
-    newUser.name = self.usernameField.text;
-    newUser.password = self.passwordField.text;
-
+- (void)registerUser: (User *)newUser {
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
@@ -76,9 +74,7 @@
     }];
 }
 
-- (void)loginUser {
-    NSString *username = self.usernameField.text;
-    NSString *password = self.passwordField.text;
+- (void)loginUser: (NSString *)username withPass: (NSString *)password {
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
@@ -153,15 +149,7 @@
     [tempUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
-            [PFUser logInWithUsernameInBackground:tempUser.username password:tempUser.password block:^(PFUser * user, NSError *  error) {
-                if (error != nil) {
-                    NSLog(@"User log in failed: %@", error.localizedDescription);
-                    [self loginAlert];
-                } else {
-                    // user logged in successfully
-                    [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
-                }
-            }];
+            [self loginUser:tempUser.username withPass:tempUser.password];
         } else {
             [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
         }
