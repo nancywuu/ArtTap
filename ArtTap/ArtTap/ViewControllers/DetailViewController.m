@@ -38,6 +38,8 @@
 @property UIColor *backColor;
 @property UIColor *frontColor;
 @property UIColor *secondaryColor;
+@property UIColor *customColor;
+@property UIColor *customColorDarker;
 
 @property AVPlayerViewController *playerController;
 @property AVPlayerLayer *playerLayer;
@@ -59,6 +61,8 @@
     [self refreshUser];
     [self checkEngage];
     [self setTapGestures];
+    self.customColor = [UIColor colorWithRed: 0.82 green: 0.72 blue: 0.94 alpha: 1.00];
+    self.customColorDarker = [UIColor colorWithRed: 0.64 green: 0.48 blue: 0.90 alpha: 1.00];
 
     self.didMarkUp = NO;
     self.playerController = [[AVPlayerViewController alloc] init];
@@ -204,9 +208,10 @@
     self.username.textColor = self.frontColor;
     self.caption.textColor = self.frontColor;
     self.date.textColor = self.frontColor;
-    self.segCon.backgroundColor = self.secondaryColor;
+    self.segCon.backgroundColor = self.customColor;
     self.segCon.tintColor = self.frontColor;
-    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.tintColor = self.customColorDarker;
+    self.tabBarController.tabBar.unselectedItemTintColor = self.customColor;
     self.tabBarController.tabBar.backgroundColor = self.backColor;
     self.navigationController.navigationBar.backgroundColor = self.backColor;
 
@@ -542,6 +547,13 @@
         NSData *data = [tempObj getData];
         drawVC.image = [UIImage imageWithData:data];
         drawVC.delegate = self;
+    } else if([segue.identifier isEqualToString:@"commentProfileSegue"]){
+        CommentCell *cell = sender;
+        NSIndexPath *path = [self.tableView indexPathForCell:cell];
+        Comment *currentComment = self.commentArray[path.row];
+        ProfileViewController *profileViewController = [segue destinationViewController];
+        profileViewController.isFromTimeline = YES;
+        profileViewController.currentUser = currentComment.author;
     }
 }
 

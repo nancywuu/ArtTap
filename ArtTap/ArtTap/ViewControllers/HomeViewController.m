@@ -41,6 +41,8 @@
 @property UIColor *backColor;
 @property UIColor *frontColor;
 @property UIColor *secondaryColor;
+@property UIColor *customColor;
+@property UIColor *customColorDarker;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet CHTCollectionViewWaterfallLayout *layout;
@@ -60,6 +62,8 @@
     self.isGlobal = YES;
     self.didInitSuggested = NO;
     self.showHUD = NO;
+    self.customColor = [UIColor colorWithRed: 0.82 green: 0.72 blue: 0.94 alpha: 1.00];
+    self.customColorDarker = [UIColor colorWithRed: 0.64 green: 0.48 blue: 0.90 alpha: 1.00];
     self.postArray = [[NSMutableArray alloc] init];
     self.suggestedArray = [[NSMutableArray alloc] init];
 
@@ -105,11 +109,13 @@
     
     self.view.backgroundColor = self.backColor;
     self.collectionView.backgroundColor = self.backColor;
-    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.tintColor = self.customColorDarker;
+    self.tabBarController.tabBar.unselectedItemTintColor = self.customColor;
     self.tabBarController.tabBar.backgroundColor = self.backColor;
+    self.navigationController.navigationBar.tintColor = self.customColorDarker;
     self.navigationController.navigationBar.backgroundColor = self.backColor;
 
-    self.segCon.backgroundColor = self.secondaryColor;
+    self.segCon.backgroundColor = self.customColor;
     self.segCon.tintColor = self.frontColor;
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:self.frontColor}];

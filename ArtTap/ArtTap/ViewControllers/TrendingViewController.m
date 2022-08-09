@@ -20,6 +20,8 @@
 @property UIColor *backColor;
 @property UIColor *frontColor;
 @property UIColor *secondaryColor;
+@property UIColor *customColor;
+@property UIColor *customColorDarker;
 
 @end
 
@@ -33,6 +35,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 150;
+    self.customColor = [UIColor colorWithRed: 0.82 green: 0.72 blue: 0.94 alpha: 1.00];
+    self.customColorDarker = [UIColor colorWithRed: 0.64 green: 0.48 blue: 0.90 alpha: 1.00];
     
     [self fetchPosts];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -61,12 +65,14 @@
     self.tableView.backgroundColor = self.backColor;
     self.smallView.backgroundColor = self.backColor;
     self.topTitle.textColor = self.frontColor;
-    self.segCon.backgroundColor = self.secondaryColor;
-    self.timeCon.backgroundColor = self.secondaryColor;
+    self.segCon.backgroundColor = self.customColor;
+    self.timeCon.backgroundColor = self.customColor;
     [self.tableView setSeparatorColor:self.frontColor];
     
-    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.tintColor = self.customColorDarker;
+    self.tabBarController.tabBar.unselectedItemTintColor = self.customColor;
     self.tabBarController.tabBar.backgroundColor = self.backColor;
+    self.navigationController.navigationBar.tintColor = self.customColorDarker;
     self.navigationController.navigationBar.backgroundColor = self.backColor;
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:self.frontColor}];
@@ -109,19 +115,19 @@
     [components setMinute:59];
     [components setSecond:59];
     NSDate *tonightEnd = [calendar dateFromComponents:components];
-    
-    NSDate *start;
+
     [components setHour:0];
     [components setMinute:0];
     [components setSecond:1];
     if([time isEqualToString:@"Today"]){
-        start = [calendar dateFromComponents:components];
+        NSDate *start = [calendar dateFromComponents:components];
+        [query whereKey:@"createdAt" greaterThan:start];
+        [query whereKey:@"createdAt" lessThan:tonightEnd];
     } else if([time isEqualToString:@"This Week"]){
-        start = [now dateByAddingTimeInterval: -518400.0];
+        NSDate *start = [now dateByAddingTimeInterval: -518400.0];
+        [query whereKey:@"createdAt" greaterThan:start];
+        [query whereKey:@"createdAt" lessThan:tonightEnd];
     }
-    
-    [query whereKey:@"createdAt" greaterThan:start];
-    [query whereKey:@"createdAt" lessThan:tonightEnd];
     
     query.limit = 10;
 

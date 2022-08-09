@@ -26,6 +26,8 @@
 @property UIColor *backColor;
 @property UIColor *frontColor;
 @property UIColor *secondaryColor;
+@property UIColor *customColor;
+@property UIColor *customColorDarker;
 
 @property int hoursInMonth;
 
@@ -48,6 +50,8 @@
     self.tableView.delegate = self;
     self.tableView.rowHeight = 500;
     self.hoursInMonth = 730;
+    self.customColor = [UIColor colorWithRed: 0.82 green: 0.72 blue: 0.94 alpha: 1.00];
+    self.customColorDarker = [UIColor colorWithRed: 0.64 green: 0.48 blue: 0.90 alpha: 1.00];
 
     [self fetchProfile];
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -75,8 +79,10 @@
     self.view.backgroundColor = self.backColor;
     self.tableView.backgroundColor = self.backColor;
     self.smallView.backgroundColor = self.backColor;
-    self.tabBarController.tabBar.tintColor = self.secondaryColor;
+    self.tabBarController.tabBar.tintColor = self.customColorDarker;
+    self.tabBarController.tabBar.unselectedItemTintColor = self.customColor;
     self.tabBarController.tabBar.backgroundColor = self.backColor;
+    self.navigationController.navigationBar.tintColor = self.customColorDarker;
     self.navigationController.navigationBar.backgroundColor = self.backColor;
     
     self.username.textColor = self.frontColor;
