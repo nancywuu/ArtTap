@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol CommentCellDelegate
-- (void)didLikeComment;
 - (void)didDisplayMarkUp:(NSString *)username withImage: (PFFileObject *)image;
 @end
 

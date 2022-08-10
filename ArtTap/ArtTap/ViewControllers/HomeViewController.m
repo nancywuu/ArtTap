@@ -55,9 +55,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.incre = 8;
-    self.postCount = 8;
-    self.suggestedCount = 8;
+    self.incre = 15;
+    self.postCount = 15;
+    self.suggestedCount = 15;
     self.isForYou = NO;
     self.isGlobal = YES;
     self.didInitSuggested = NO;
@@ -102,7 +102,7 @@
         self.frontColor = UIColor.whiteColor;
         self.secondaryColor = UIColor.darkGrayColor;
     } else {
-        self.backColor = UIColor.whiteColor;
+        self.backColor = [UIColor colorWithRed: 0.96 green: 0.96 blue: 0.96 alpha: 1.00];
         self.frontColor = UIColor.blackColor;
         self.secondaryColor = UIColor.lightGrayColor;
     }
@@ -176,7 +176,6 @@
 - (void) didPreview:(Post *)current {
     Post *ourPost = current;
     PopUpViewController *ourPopController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PopUpPreviewController"];
-    //ourPopController.currentPost = ourPost;
     ourPopController.chosenImage = ourPost.image;
     ourPopController.chosenUsername = ourPost.author.username;
     
@@ -252,6 +251,7 @@
     
     NSRange range;
     range.location = self.suggestedCount - self.incre;
+    
     NSArray *firstres = [sampleQuery findObjects];
     
     if((int)firstres.count >= range.location){

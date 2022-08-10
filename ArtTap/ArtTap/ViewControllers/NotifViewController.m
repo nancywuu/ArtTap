@@ -99,7 +99,7 @@
     [query whereKey:@"author" equalTo: [User currentUser]];
     [query orderByDescending:(@"createdAt")];
 
-    query.limit = 10;
+    query.limit = 20;
 
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *notifs, NSError *error) {
